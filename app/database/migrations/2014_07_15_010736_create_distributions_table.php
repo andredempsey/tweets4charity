@@ -15,13 +15,14 @@ class CreateDistributionsTable extends Migration {
 		Schema::create('distributions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_charity_join_id')->unsigned();
+			$table->integer('charity_id')->unsigned();
 			$table->integer('transaction_id')->unsigned();
-			$table->decimal('distributed_amt', 5, 2);
+			$table->decimal('distributed_amount', 5, 2);
+			$table->boolean('check_sent')->default(False);
 			$table->date('distribution_date');
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');
-			$table->foreign('user_charity_join_id')->references('id')->on('selected_charities');
+			$table->foreign('charity_id')->references('id')->on('charities');
 			$table->foreign('transaction_id')->references('id')->on('transactions');
 		});
 	}

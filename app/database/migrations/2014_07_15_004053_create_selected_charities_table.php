@@ -12,13 +12,13 @@ class CreateSelectedCharitiesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('selected_charities', function(Blueprint $table)
+		Schema::create('charities_users', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('charity_id')->unsigned();
 			$table->unique(array('user_id', 'charity_id'));
-			$table->decimal('alloted_pct', 5, 2);
+			$table->decimal('alloted_percent', 5, 2);
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');
 			$table->foreign('user_id')->references('id')->on('users');
