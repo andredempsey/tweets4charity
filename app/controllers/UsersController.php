@@ -1,6 +1,18 @@
 <?php
 class UsersController extends BaseController {
 
+
+public function showRegistration()
+        {
+            return View::make('tweetsforcharity.users_sign_up');
+        }
+public function showProfile()
+	{	
+		$users = Users::
+		$charities = Charities::all();
+		return View::make('UsersController.public_profile')->with('charities', $charities);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -20,6 +32,7 @@ class UsersController extends BaseController {
 	public function create()
 	{
 		return View::make('tweetsforcharity.user_sign_up');
+
 	}
 
 
@@ -30,6 +43,7 @@ class UsersController extends BaseController {
 	 */
 	public function store()
 	{
+
 		$messageValue = 'Successfully registered!';
 		$eMessageValue = 'There was a problem registering.';
 		$user = new User();
@@ -64,6 +78,7 @@ class UsersController extends BaseController {
 	 */
 	public function show($id)
 	{
+
 		$users = User::with('selectedcharity')->with('charity')->get();
 		$number = Post::countPosts($searchTitle);
 		$data = [
@@ -73,6 +88,7 @@ class UsersController extends BaseController {
 			// 'recentposts' => $recentposts
 		];
 	    return View::make('posts.index')->with($data);
+
 	}
 
 
@@ -84,7 +100,7 @@ class UsersController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		return make::View('users.edit');
 	}
 
 
@@ -96,7 +112,7 @@ class UsersController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		return make::View('users.update');
 	}
 
 
@@ -108,7 +124,7 @@ class UsersController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		return make::View('users.destroy');
 	}
 
 }

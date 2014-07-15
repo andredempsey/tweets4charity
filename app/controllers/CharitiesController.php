@@ -9,7 +9,7 @@ class CharitiesController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return View::make('charities.index');
 	}
 
 
@@ -20,6 +20,7 @@ class CharitiesController extends BaseController {
 	 */
 	public function create()
 	{
+
 		return View::make('tweetsforcharity.charities_sign_up');
 	}
 
@@ -61,7 +62,6 @@ class CharitiesController extends BaseController {
 			Session::flash('successMessage', 'Your charity has been set up successfully, Thank you!');
 			return Redirect::action('HomeController@showHome');
 		// }
-
 	}
 
 
