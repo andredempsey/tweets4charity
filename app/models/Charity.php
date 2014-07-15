@@ -35,7 +35,7 @@ class Charity extends BaseModel {
     // }
     public function users()
     {
-      return $this->belongsToMany('User', 'selected_charities')->withPivot('alloted_percent');;
+      return $this->belongsToMany('User', 'charities_users')->withPivot('alloted_percent');;
     }
 
 }
