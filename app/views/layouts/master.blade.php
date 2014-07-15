@@ -26,6 +26,7 @@
             padding-left: 85px;
             padding-right:85px;
         }
+        
     </style>
 </head>
 
@@ -44,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"></a>
+                <a class="navbar-brand" href="index.php">Tweets for Charity</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,8 +55,8 @@
                     </li>
                     <li class="{{ Request::is('charities_sign_up') ? 'active' : '' }}"><a href="/charities_sign_up">Charities Sign Up</a>
                     </li>
-                    <li class="{{ Request::is('user_dashboard') ? 'active' : '' }}"><a href="/user_dashboard">Dashboard</a>
-                    </li>    
+                    <!-- <li class="{{ Request::is('user_dashboard') ? 'active' : '' }}"><a href="/user_dashboard">Dashboard</a>
+                    </li>     -->
                     <li class="{{ Request::is('')  ? 'active' : ''}}"><a href=""></a>
                 </ul>
             </div>
