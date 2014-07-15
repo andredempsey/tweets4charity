@@ -9,7 +9,7 @@ class CharitiesController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		return View::make('charities.index');
 	}
 
 
@@ -20,7 +20,7 @@ class CharitiesController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('charities.create');
 	}
 
 
@@ -31,7 +31,7 @@ class CharitiesController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		return View::make('charities.store');
 	}
 
 

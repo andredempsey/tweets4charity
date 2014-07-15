@@ -3,9 +3,14 @@ class UsersController extends BaseController {
 
 public function showRegistration()
         {
-            return View::make('tweetsforchairty.users_sign_up');
+            return View::make('tweetsforcharity.users_sign_up');
         }
-
+public function showProfile()
+	{	
+		$users = Users::
+		$charities = Charities::all();
+		return View::make('UsersController.public_profile')->with('charities', $charities);
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -13,7 +18,7 @@ public function showRegistration()
 	 */
 	public function index()
 	{
-		//
+		return make::View('users.index');
 	}
 
 
@@ -24,7 +29,7 @@ public function showRegistration()
 	 */
 	public function create()
 	{
-		//
+		return make::View('users.create');
 	}
 
 
@@ -35,7 +40,7 @@ public function showRegistration()
 	 */
 	public function store()
 	{
-		//
+		return make::View('users.store');
 	}
 
 
@@ -47,7 +52,7 @@ public function showRegistration()
 	 */
 	public function show($id)
 	{
-		//
+		return make::View('users.show');
 	}
 
 
@@ -59,7 +64,7 @@ public function showRegistration()
 	 */
 	public function edit($id)
 	{
-		//
+		return make::View('users.edit');
 	}
 
 
@@ -71,7 +76,7 @@ public function showRegistration()
 	 */
 	public function update($id)
 	{
-		//
+		return make::View('users.update');
 	}
 
 
@@ -83,7 +88,7 @@ public function showRegistration()
 	 */
 	public function destroy($id)
 	{
-		//
+		return make::View('users.destroy');
 	}
 
 }
