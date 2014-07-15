@@ -8,9 +8,13 @@ public function showRegistration()
         }
 public function showProfile()
 	{	
-		$users = Users::
-		$charities = Charities::all();
-		return View::make('UsersController.public_profile')->with('charities', $charities);
+		$user = User::find(2);
+		$charities = Charity::all();
+		$data = array(
+			'user' => $user,
+			'charities' => $charities,
+		);
+		return View::make('tweetsforcharity.public_profile')->with($data);
 	}
 
 	/**
@@ -56,10 +60,10 @@ public function showProfile()
 		}
 		else
 		{
-			$user->first_name = Input::get('firstname');
-			$user->last_name = Input::get('lastname');
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
 			$user->email = Input::get('email');
-			$user->twitter_handle = Input::get('twitterhandle');
+			$user->twitter_handle = Input::get('twitter_handle');
 			$user->password = Hash::make(Input::get('password'));
 			$user->is_admin = False;
 			$user->is_active = True;
