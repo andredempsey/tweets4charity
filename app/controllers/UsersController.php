@@ -1,11 +1,6 @@
 <?php
 class UsersController extends BaseController {
 
-public function showRegistration()
-        {
-            return View::make('tweetsforchairty.users_sign_up');
-        }
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -13,18 +8,18 @@ public function showRegistration()
 	 */
 	public function index()
 	{
-		//
+		return View::make('tweetsforcharity.landingpage');
 	}
 
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new user.
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
-		//
+		return View::make('tweetsforcharity.user_sign_up');
 	}
 
 
@@ -35,7 +30,29 @@ public function showRegistration()
 	 */
 	public function store()
 	{
-		//
+		$messageValue = 'Successfully registered!';
+		$eMessageValue = 'There was a problem registering.';
+		$user = new User();
+
+		$validator = Validator::make(Input::all(), User::$user_rules);
+		if ($validator->fails()) 
+		{
+			Session::flash('errorMessage', $eMessageValue);
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+		else
+		{
+			$user->first_name = Input::get('firstname');
+			$user->last_name = Input::get('lastname');
+			$user->email = Input::get('email');
+			$user->twitter_handle = Input::get('twitterhandle');
+			$user->password = Hash::make(Input::get('password'));
+			$user->is_admin = False;
+			$user->is_active = True;
+			$user->save();		
+			Session::flash('successMessage', $messageValue);
+			return Redirect::action('UsersController@index');
+		}
 	}
 
 
@@ -47,7 +64,15 @@ public function showRegistration()
 	 */
 	public function show($id)
 	{
-		//
+		$users = User::with('selectedcharity')->with('charity')->get();
+		$number = Post::countPosts($searchTitle);
+		$data = [
+			'posts' => $posts,
+			'number'  => $number,
+			'isFiltered' => $isFiltered,
+			// 'recentposts' => $recentposts
+		];
+	    return View::make('posts.index')->with($data);
 	}
 
 
@@ -87,3 +112,4 @@ public function showRegistration()
 	}
 
 }
+

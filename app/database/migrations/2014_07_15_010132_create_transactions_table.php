@@ -17,8 +17,7 @@ class CreateTransactionsTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->string('token',150)->unique();
-			$table->decimal('trans_amt', 5, 2);
-			$table->date('trans_date');
+			$table->decimal('amount', 5, 2);
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');
 			$table->foreign('user_id')->references('id')->on('users');

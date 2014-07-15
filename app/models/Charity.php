@@ -10,10 +10,7 @@ class Charity extends BaseModel {
     // 	'body'=>'required|max:10000'
     // ];
 
-    public function user()
-{
-    return $this->belongsTo('User');
-}
+
 
     // public function renderBody()
     // {
@@ -36,4 +33,9 @@ class Charity extends BaseModel {
     // {
     //     return count(self::where('title', 'LIKE', '%' . $searchTitle . '%')->orderBy('created_at', 'desc')->get());
     // }
+    public function users()
+    {
+      return $this->belongsToMany('User', 'selected_charities')->withPivot('alloted_percent');;
+    }
+
 }

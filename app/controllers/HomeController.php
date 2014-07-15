@@ -20,6 +20,4 @@ class HomeController extends BaseController {
 		return View::make('tweetsforcharity.landingpage');
 		
 	}
-	
-
 }

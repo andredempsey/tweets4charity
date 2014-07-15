@@ -42,7 +42,7 @@ class UserTableSeeder extends Seeder {
             $user->last_name = "User_Last{$i}";
             $user->email = "User{$i}" . '@codeup.com';
             $user->password = Hash::make('password');
-            $user->amt_per_tweet = mt_rand(1,100)/100;
+            $user->amount_per_tweet = mt_rand(1,100)/100;
             $user->monthly_goal = mt_rand(100,1000);
             $user->report_frequency = mt_rand(1,30);
             $user->save();
@@ -81,16 +81,16 @@ class SelectedCharityTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('selected_charities')->delete();
+        DB::table('charities_users')->delete();
         for ($u=2;$u<=11;$u++ ) 
         {
             for ($c=1;$c<=10;$c++ ) 
             {
-                $selected_charity = new SelectedCharity();
-    	        $selected_charity->user_id = $u;
-    	        $selected_charity->charity_id = $c;
-    	        $selected_charity->alloted_pct = mt_rand(1,100);
-    	        $selected_charity->save();
+                $charities_users = new SelectedCharity();
+    	        $charities_users->user_id = $u;
+    	        $charities_users->charity_id = $c;
+    	        $charities_users->alloted_percent = mt_rand(1,100);
+    	        $charities_users->save();
             }
         }
     }
