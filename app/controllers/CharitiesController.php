@@ -1,6 +1,6 @@
 <?php
 
-class CharitiesController extends \BaseController {
+class CharitiesController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.

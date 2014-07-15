@@ -1,6 +1,10 @@
 <?php
+class UsersController extends BaseController {
 
-class UsersController extends \BaseController {
+public function showRegistration()
+        {
+            return View::make('tweetsforchairty.users_sign_up');
+        }
 
 	/**
 	 * Display a listing of the resource.
@@ -81,6 +85,5 @@ class UsersController extends \BaseController {
 	{
 		//
 	}
-
 
 }
