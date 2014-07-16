@@ -55,8 +55,8 @@
                     </li>
                     <li class="{{ Request::is('charities_sign_up') ? 'active' : '' }}"><a href="/charities_sign_up">Charities Sign Up</a>
                     </li>
-                    <!-- <li class="{{ Request::is('user_dashboard') ? 'active' : '' }}"><a href="/user_dashboard">Dashboard</a>
-                    </li>     -->
+                    <li class="{{ Request::is('login') ? 'active' : '' }}"><a href="/login">Login</a>
+                    </li>    
                     <li class="{{ Request::is('')  ? 'active' : ''}}"><a href=""></a>
                 </ul>
             </div>
