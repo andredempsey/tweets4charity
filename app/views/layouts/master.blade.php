@@ -14,7 +14,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/bootstrap-3.2.0/css/bootstrap.min.css">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="/bootstrap-3.2.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/bootstrap-3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="css" href="/bootstrap-3.2.0/css/demo.css"/>
     <link href="/bootstrap-3.2.0/css/carousel.css" rel="stylesheet">
 

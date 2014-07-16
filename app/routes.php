@@ -20,4 +20,5 @@ Route::resource('charities', 'CharitiesController');
 Route::get('/public_profile', function () {
     return View::make('tweetsforcharity.public_profile');
 });
+
 ?>
