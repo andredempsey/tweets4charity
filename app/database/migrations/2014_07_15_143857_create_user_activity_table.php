@@ -12,7 +12,7 @@ class CreateUserActivityTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_activity', function(Blueprint $table)
+		Schema::create('activities', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
@@ -31,7 +31,7 @@ class CreateUserActivityTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('user_activity', function(Blueprint $table)
+		Schema::table('activities', function(Blueprint $table)
 		{
 			//
 		});

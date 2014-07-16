@@ -28,6 +28,7 @@ class CreateCharitiesTable extends Migration {
 			$table->string('zip', 50);
 			$table->string('password', 20);
 			$table->boolean('is_active')->default(False);
+			$table->string('remember_token', 100)->nullable;
 			$table->timestamps();
 		});
 	}

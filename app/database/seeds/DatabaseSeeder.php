@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('UserTableSeeder');
 		$this->call('CharityTableSeeder');
-		$this->call('SelectedCharityTableSeeder');
+		$this->call('CharityUserTableSeeder');
 		// $this->call('TransactionTableSeeder');
 		// $this->call('DistributionTableSeeder');
 	}
@@ -77,20 +77,20 @@ class CharityTableSeeder extends Seeder {
 
 }
 
-class SelectedCharityTableSeeder extends Seeder {
+class CharityUserTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('charities_users')->delete();
+        DB::table('charity_user')->delete();
         for ($u=2;$u<=11;$u++ ) 
         {
             for ($c=1;$c<=10;$c++ ) 
             {
-                $charities_users = new SelectedCharity();
-    	        $charities_users->user_id = $u;
-    	        $charities_users->charity_id = $c;
-    	        $charities_users->alloted_percent = mt_rand(1,100);
-    	        $charities_users->save();
+                $charity_user = new CharityUser();
+    	        $charity_user->user_id = $u;
+    	        $charity_user->charity_id = $c;
+    	        $charity_user->alloted_percent = mt_rand(1,100);
+    	        $charity_user->save();
             }
         }
     }

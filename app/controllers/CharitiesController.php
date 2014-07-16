@@ -44,7 +44,7 @@ class CharitiesController extends BaseController {
 		// {	
 			$charity = new Charity();
 
-			$charity->charity_id = Auth::charity()->id;
+			// $charity->charity_id = Auth::charity()->id;
 			$charity->twitter_handle = Input::get('twitter_handle');
 			$charity->charity_name   = Input::get('charity_name');
 			$charity->tax_id         = Input::get('tax_id');
