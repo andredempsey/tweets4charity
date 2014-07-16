@@ -38,6 +38,7 @@ class UserTableSeeder extends Seeder {
         {
         	$user = new User();
         	$user->twitter_handle = "User_Twitter{$i}";
+            $user->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
             $user->first_name = "User_First{$i}";
             $user->last_name = "User_Last{$i}";
             $user->email = "User{$i}" . '@codeup.com';
@@ -60,6 +61,7 @@ class CharityTableSeeder extends Seeder {
         {
             $charity = new Charity();
 	        $charity->twitter_handle = "char_twitter{$i}";
+            $charity->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
 	        $charity->charity_name = "Charity{$i}";
 	        $charity->tax_id = "tax_id{$i}";
             $charity->first_name = "POCFirstName{$i}";

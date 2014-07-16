@@ -16,6 +16,7 @@ class CreateCharitiesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('twitter_handle', 20)->nullable;
+			$table->string('profile_picture_link', 200);
 			$table->string('charity_name', 100)->unique();
 			$table->string('tax_id', 100)->unique();
 			$table->string('first_name', 50);

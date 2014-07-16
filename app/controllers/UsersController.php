@@ -36,9 +36,7 @@ public function showProfile()
 	public function create()
 	{
 		return View::make('tweetsforcharity.user_sign_up');
-
 	}
-
 
 	/**
 	 * Store a newly created resource in storage.

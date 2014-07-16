@@ -16,10 +16,10 @@
     <!-- Optional theme -->
     <!-- <link rel="stylesheet" href="/bootstrap-3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="css" href="/bootstrap-3.2.0/css/demo.css"/>
-    <link href="/bootstrap-3.2.0/css/carousel.css" rel="stylesheet">
+    <link rel="stylesheet" href="/bootstrap-3.2.0/css/carousel.css" >
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>
+
     <style>
         body {
             padding-top: 85px;
