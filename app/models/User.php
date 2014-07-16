@@ -15,8 +15,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 
-	protected $table = 'users';
-
 	static public $user_rules = [
     	'firstname'=>'required|max:100',
     	'lastname'=>'required|max:100',
@@ -34,6 +32,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function charities()
 	{
-	    return $this->belongsToMany('Charity', 'charities_users')->withPivot('alloted_percent');
+	    return $this->belongsToMany('Charity')->withPivot('alloted_percent');
 	}
 }

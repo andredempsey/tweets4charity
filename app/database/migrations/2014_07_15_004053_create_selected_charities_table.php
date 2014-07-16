@@ -12,7 +12,7 @@ class CreateSelectedCharitiesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('charities_users', function(Blueprint $table)
+		Schema::create('charity_user', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
@@ -33,9 +33,9 @@ class CreateSelectedCharitiesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('selected_charities', function(Blueprint $table)
+		Schema::table('charity_user', function(Blueprint $table)
 		{
-			Schema::drop('selected_charities');
+			Schema::drop('charity_user');
 		});
 	}
 

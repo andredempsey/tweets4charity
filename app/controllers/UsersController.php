@@ -100,7 +100,8 @@ public function showProfile()
 	 */
 	public function edit($id)
 	{
-		return make::View('users.edit');
+		$user = User::find($id);
+		return View::make('tweetsforcharity.user_dashboard')->with('user', $user);
 	}
 
 
