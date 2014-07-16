@@ -46,23 +46,22 @@ class CharitiesController extends BaseController {
 	 */
 	public function store()
 	{
+		$messageValue = 'You have successfully registered your charity!';
+		$eMessageValue = 'There was a problem registering your charity.';
+		$charity = new Charity();
 
-		// $validator = Validator::make(Input::all(), Post::$rules);
-
-		// if ($validator->fails())
-		// {
-		// 	Session::flash('errorMessage', 'There was an error setting up your account');
-		// 	return Redirect::back()->withInput()->withErrors($validator);
-		// }
-		// else
-		// {	
-			$charity = new Charity();
-
-			// $charity->charity_id = Auth::charity()->id;
+		$validator = Validator::make(Input::all(), Charity::$charity_rules);
+		if ($validator->fails()) 
+		{
+			Session::flash('errorMessage', $eMessageValue);
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+		else
+		{
 			$charity->twitter_handle = Input::get('twitter_handle');
 			$charity->charity_name   = Input::get('charity_name');
 			$charity->tax_id         = Input::get('tax_id');
-			$charity->password       = Input::get('password');
+			$charity->password       = Hash::make(Input::get('password'));
 			$charity->first_name     = Input::get('first_name');
 			$charity->last_name      = Input::get('last_name');
 			$charity->email          = Input::get('email');
@@ -71,14 +70,15 @@ class CharitiesController extends BaseController {
 			$charity->city           = Input::get('city');
 			$charity->state          = Input::get('state');
 			$charity->zip            = Input::get('zip');
+			$charity->is_active      = True;
 			$charity->save();
 
-			Session::flash('successMessage', 'Your charity has been set up successfully, Thank you!');
+			// show msg if charity has been added w/ no errors
+			Session::flash('successMessage', $messageValue);
 			return Redirect::action('HomeController@showHome');
-		// }
+		
+		}
 	}
-
-
 	/**
 	 * Display the specified resource.
 	 *
@@ -111,18 +111,17 @@ class CharitiesController extends BaseController {
 	 */
 	public function update($id)
 	{
-		// $charity = Post::findOrFail($id);
-		
-		// $validator = Validator::make(Input::all(), Post::$rules);
+		$charity = Post::findOrFail($id);
+		$validator = Validator::make(Input::all(), Post::$rules);
 
-		// if ($validator->fails())
-		// {
-		// 	// show an error msg if
-		// 	Session::flash('errorMessage', 'Sorry, there was an error editing your charity');
-		// 	return Redirect::back()->withInput()->withErrors($validator);
-		// }
-		// else
-		// {	
+		if ($validator->fails())
+		{
+			// show an error msg if
+			Session::flash('errorMessage', 'Sorry, there was an error editing your charity');
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+		else
+		{	
 			
 			$charity->twitter_handle = Input::get('twitter_handle');
 			$charity->charity_name   = Input::get('charity_name');
@@ -141,7 +140,7 @@ class CharitiesController extends BaseController {
 			// show success msg 
 			Session::flash('successMessage', 'Your charity information has bee update, Thank You!');
 			return Redirect::action('HomeController@showHome');
-		// }
+		}
 	}		
 
 		

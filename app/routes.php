@@ -22,6 +22,7 @@ Route::resource('/charities_sign_up', 'CharitiesController@create');
 Route::get('/public_profile', 'UsersController@showProfile');
 Route::get('/users_sign_up', 'UsersController@create');
 
+
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
 Route::get('/logout', 'HomeController@logout');
@@ -34,8 +35,9 @@ Route::get('test', function () {
     $newHeight = 0;
     $newWidth = 0;
 
-    $inputFile = public_path() . '/uploads/kitten.jpg';
-    $outputFile = public_path() . '/uploads/kitten-small.jpg';
+
+    $inputFile = public_path() . '/uploads/ct.jpg';
+    $outputFile = public_path() . '/uploads/ct-small.jpg';
 
     // load the image to be manipulated
     $image = new Imagick($inputFile);
