@@ -6,6 +6,7 @@ class Charity extends BaseModel {
 
     public function users()
     {
+
       return $this->belongsToMany('User')->withPivot('alloted_percent');
     }
 

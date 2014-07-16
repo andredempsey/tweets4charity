@@ -10,6 +10,4 @@ class CharityUser extends BaseModel {
 	 *
 	 * @var array
 	 */
-
-
 }
