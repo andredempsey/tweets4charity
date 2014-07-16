@@ -10,16 +10,16 @@
 			<div class="basic-login">
 				{{Form::open(array('action'=>'UsersController@store', 'class' => 'form-signin', 'role' => 'form'))}}
 					<div class="form-group">
-						{{Form::label('firstname', 'First Name', array('class' => 'icon-user'))}}
-						{{Form::text('firstname', null, array('class' => 'form-control'))}}
+						{{Form::label('first_name', 'First Name', array('class' => 'icon-user'))}}
+						{{Form::text('first_name', null, array('class' => 'form-control'))}}
 					</div>
 					<div class="form-group">
-						{{Form::label('lastname', 'Last Name', array('class' => 'icon-user'))}}
-						{{Form::text('lastname', null, array('class' => 'form-control'))}}
+						{{Form::label('last_name', 'Last Name', array('class' => 'icon-user'))}}
+						{{Form::text('last_name', null, array('class' => 'form-control'))}}
 					</div>
 					<div class="form-group">
-						{{Form::label('twitterhandle', 'Twitter Handle', array('class' => 'icon-user'))}}
-						{{Form::text('twitterhandle', null, array('class' => 'form-control'))}}
+						{{Form::label('twitter_handle', 'Twitter Handle', array('class' => 'icon-user'))}}
+						{{Form::text('twitter_handle', null, array('class' => 'form-control'))}}
 					</div>
 					<div class="form-group">
 						{{Form::label('email', 'Email', array('class' => 'icon-user'))}}

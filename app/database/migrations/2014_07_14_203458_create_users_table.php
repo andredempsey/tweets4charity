@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('twitter_handle', 20)->unique();
+			$table->string('profile_picture_link', 200);
 			$table->string('first_name', 50);
 			$table->string('last_name', 50);
 			$table->string('email', 50);
