@@ -37,6 +37,11 @@
 	   	{{ $errors->first('password', '<span class="help-block">:message</span>') }}<br>
 	</div>
 	<div>
+	    {{ Form::label('password2', 'Re-enter password') }}
+	    {{ Form::text('password2', Input::old('password2')) }}
+	   	{{ $errors->first('password2', '<span class="help-block">:message</span>') }}<br>
+	</div>
+	<div>
 	    {{ Form::label('first_name', 'Contact person first name') }}
 	    {{ Form::text('first_name', Input::old('first_name')) }}
 	   	{{ $errors->first('first_name', '<span class="help-block">:message</span>') }}<br>
