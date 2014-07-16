@@ -22,9 +22,10 @@ public function showProfile()
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function showDashboard()
 	{
-		return View::make('tweetsforcharity.landingpage');
+		
+		return View::make('tweetsforcharity.user_dashboard');
 	}
 
 
@@ -83,7 +84,7 @@ public function showProfile()
 	public function show($id)
 	{
 
-		$users = User::with('selectedcharity')->with('charity')->get();
+		$users = User::with('charity_user')->with('charity')->get();
 		$number = Post::countPosts($searchTitle);
 		$data = [
 			'posts' => $posts,
@@ -91,7 +92,7 @@ public function showProfile()
 			'isFiltered' => $isFiltered,
 			// 'recentposts' => $recentposts
 		];
-	    return View::make('posts.index')->with($data);
+	    return View::make('tweetsforcharity.index')->with($data);
 
 	}
 

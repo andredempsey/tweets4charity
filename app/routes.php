@@ -22,6 +22,11 @@ Route::resource('/charities_sign_up', 'CharitiesController@create');
 Route::get('/public_profile', 'UsersController@showProfile');
 Route::get('/users_sign_up', 'UsersController@create');
 
+
+Route::get('/login', 'HomeController@showLogin');
+Route::post('/login', 'HomeController@doLogin');
+Route::get('/logout', 'HomeController@logout');
+
 Route::get('test', function () {
 
     $maxHeight = 200;
@@ -29,6 +34,7 @@ Route::get('test', function () {
 
     $newHeight = 0;
     $newWidth = 0;
+
 
     $inputFile = public_path() . '/uploads/ct.jpg';
     $outputFile = public_path() . '/uploads/ct-small.jpg';

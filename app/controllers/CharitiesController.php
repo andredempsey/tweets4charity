@@ -2,14 +2,28 @@
 
 class CharitiesController extends BaseController {
 
+	// public function __construct()
+	// 	{
+	//     	// call base controller constructor
+	//     	parent::__construct();
+
+	//     	// run auth filter before all methods on this controller except index and show
+	//     	$this->beforeFilter('auth', array('except' => array('showDashboard', 'show', 'destroy')));
+
+	//   //   	// run post protect filter to make sure users can only manage their own posts
+	// 		// $this->beforeFilter('post.protect', array('only' => array('edit', 'update', 'destroy')));
+	// 	}
+		
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function showDashboard()
 	{
-		return View::make('charities.index');
+	
+		return View::make('tweetsforcharity.charity_dashboard');
 	}
 
 
