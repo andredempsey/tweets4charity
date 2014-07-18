@@ -8,8 +8,11 @@ public function __construct()
 
     	// run auth filter before all methods on this controller except index and show
     	$this->beforeFilter('auth', array('except' => array('index', 'show', 'destroy')));
-
-	
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
 
 	public function index()
 	{
