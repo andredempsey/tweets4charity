@@ -30,7 +30,7 @@
                 <img class="img-circle img-responsive" src="http://placehold.it/200x200">
                 
                 <h3>{{{ $charity->charity_name}}}
-                    <!-- <small>{{{ $selected_charities->alloted_percent</small> -->
+                    <!-- <small>{{{ $selected_charities->allotted_percent</small> -->
                 </h3>
                 <!-- <p>Charity Description</p> -->
             </div>

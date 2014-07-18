@@ -5,6 +5,9 @@
 
 @section('content')
 <div class="container">
+@foreach($errors->all() as $error)
+    <li class="danger">{{ ($error=='The password2 and password must match.')?'The passwords do not match':$error}}</li>
+@endforeach
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="basic-login">

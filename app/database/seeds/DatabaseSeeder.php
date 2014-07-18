@@ -91,7 +91,7 @@ class CharityUserTableSeeder extends Seeder {
                 $charity_user = new CharityUser();
     	        $charity_user->user_id = $u;
     	        $charity_user->charity_id = $c;
-    	        $charity_user->alloted_percent = mt_rand(1,100);
+    	        $charity_user->allotted_percent = mt_rand(1,100);
     	        $charity_user->save();
             }
         }

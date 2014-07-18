@@ -52,4 +52,20 @@ class HomeController extends BaseController {
 		Session::flash('successMessage', 'You have logged out.');
 		return Redirect::action('PostsController@index');
 	}
+
+	public function removeCharity()
+	{
+		// $id = Auth::user()->id;
+		$id = Input::get('user_id');
+		$charity_id = Input::get('charity_id');
+		$user = User::find($id)->charities->find($charity_id);
+		$charity = $user->charities;
+		dd($charity->pivot_is_active);
+		// $user->pivot_is_active=False;
+		// $user->save();
+		// $user->charities()->detach($charityId);
+		Session::flash('successMessage', 'Successfully removed Charity!');
+		return Redirect::action('UsersController@show', $user->twitter_handle);
+	}
+
 }

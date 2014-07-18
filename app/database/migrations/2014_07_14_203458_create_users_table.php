@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('first_name', 50);
 			$table->string('last_name', 50);
 			$table->string('email', 50);
-			$table->string('password', 20);
+			$table->string('password', 200);
 			$table->decimal('amount_per_tweet');
 			$table->decimal('monthly_goal');
 			$table->integer('report_frequency');
