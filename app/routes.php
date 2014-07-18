@@ -19,11 +19,10 @@ Route::get('/demo', function () {
 Route::resource('users', 'UsersController');
 
 Route::resource('charities', 'CharitiesController');
-// Route::resource('/charities_sign_up', 'CharitiesController@create');
-// Route::resources('/charities_sign_up', 'CharitiesController@update' );
 
 Route::get('/public_profile', 'UsersController@showProfile');
 Route::get('/users_sign_up', 'UsersController@create');
+Route::get('/charities_sign_up', 'CharitiesController@create');
 
 
 Route::get('/login', 'HomeController@showLogin');

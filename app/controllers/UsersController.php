@@ -30,7 +30,7 @@ public function __construct()
 	 */
 	public function create()
 	{
-		return View::make('tweetsforcharity.user_sign_up');
+		return View::make('tweetsforcharity.users_sign_up');
 
 	}
 

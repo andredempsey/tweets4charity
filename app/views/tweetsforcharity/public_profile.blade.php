@@ -25,7 +25,7 @@
         </div>
 
         <div class="row">
-            @foreach ($charities as $charity)
+            @foreach ($user->charities as $charity)
             <div class="col-md-4 col-sm-6">
                 <img class="img-circle img-responsive" src="http://placehold.it/200x200">
                 
