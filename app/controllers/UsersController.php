@@ -1,22 +1,21 @@
 <?php
 class UsersController extends BaseController {
 
-public function showProfile()
-	{	
-		$user = User::find(2);
-		$charities = Charity::all();
-		$data = array(
-			'user' => $user,
-			'charities' => $charities,
-		);
-		return View::make('tweetsforcharity.public_profile')->with($data);
-	}
 
+public function __construct()
+	{
+    	// call base controller constructor
+    	parent::__construct();
+
+    	// run auth filter before all methods on this controller except index and show
+    	$this->beforeFilter('auth', array('except' => array('index', 'show', 'destroy')));
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
+
 	public function index()
 	{
 		
@@ -32,7 +31,9 @@ public function showProfile()
 	public function create()
 	{
 		return View::make('tweetsforcharity.user_sign_up');
+
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -77,9 +78,8 @@ public function showProfile()
 	 */
 	public function show($twitter_handle)
 	{
-
 		$user = User::findByTwitterHandle($twitter_handle);
-		return View::make('tweetsforcharity.user_dashboard')->with('user', $user);
+		return View::make('tweetsforcharity.public_profile')->with('user', $user);;
 	}
 
 
@@ -91,6 +91,7 @@ public function showProfile()
 	 */
 	public function edit($twitter_handle)
 	{
+
 		$user = User::findByTwitterHandle($twitter_handle);
 		return View::make('tweetsforcharity.user_dashboard')->with('user', $user);
 	}

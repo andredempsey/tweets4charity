@@ -16,6 +16,7 @@
 {{ Form::model($user, array('action' => array('UsersController@update', $user->twitter_handle), 'method' => 'PUT')) }}
 <div class="row"><img src='{{$user->profile_picture_link}}' alt="profile picture" style="width:100px"class='img-circle img-responsive'></div>
 <div class="row"><table class="table table-hover table-striped table-responsive">
+
 	<tr>
 		<th>Twitter Handle</th>
 		<th>{{Form::label('first_name','First Name')}}</th>

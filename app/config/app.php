@@ -121,7 +121,12 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+<<<<<<< HEAD
 	    'Thujohn\Twitter\TwitterServiceProvider',
+=======
+		'Thujohn\Twitter\TwitterServiceProvider'
+
+>>>>>>> master
 	),
 
 	/*
@@ -185,10 +190,12 @@ return array(
 		'SoftDeletingTrait' => 'Illuminate\Database\Eloquent\SoftDeletingTrait',
 		'SSH'             => 'Illuminate\Support\Facades\SSH',
 		'Str'             => 'Illuminate\Support\Str',
+		'Twitter' => 'Thujohn\Twitter\TwitterFacade',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Twitter'         => 'Thujohn\Twitter\TwitterFacade',
+		'Twitter' 		  => 'Thujohn\Twitter\TwitterFacade'
+
 	),
 
 );

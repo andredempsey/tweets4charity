@@ -18,6 +18,11 @@ class HomeController extends BaseController {
 	public function showHome()
 	{
 		return View::make('tweetsforcharity.landingpage');
+
+	// 	$tweets = Twitter::getUserTimeline(array('screen_name' => 'pourcraftbeer', 'count' => 20, 'format' => 'array'));
+	// 	var_dump($tweets);
+	// 	exit();
+	// 	//return View::make('tweetsforcharity.landingpage');
 		
 	}
 
@@ -26,20 +31,20 @@ class HomeController extends BaseController {
 	}
 
 	public function doLogin() {
-		$email = Input::get('email');
+		$twitter_handle = Input::get('twitter_handle');
 		$password = Input::get('password');
 		// $charity_name = Input::get('charity_name');
 
-		if (Auth::attempt(array('email' => $email, 'password' => $password), Input::has('remember')))
+		if (Auth::attempt(array('twitter_handle' => $twitter_handle, 'password' => $password)))
 		{
     		Session::flash('successMessage', 'You have logged in successfully.');
-    		return Redirect::intended(action('UsersController@showDashboard'));
+    		return Redirect::intended(action('UsersController@edit'));
 		}
-		else if (Auth::attempt(array('charity_name' => $charity_name, 'email' => $email, 'password' => $password), Input::has('remember')))
-		{
-			Session::flash('successMessage', 'You have logged in successfully.');
-    		return Redirect::intended(action('CharitiesController@showDashboard'));
-		}
+		// else if (Auth::attempt(array('' => $charity_name, 'email' => $email, 'password' => $password), Input::has('remember')))
+		// {
+		// 	Session::flash('successMessage', 'You have logged in successfully.');
+  //   		return Redirect::intended(action('CharitiesController@show'));
+		// }
 		else
 		{
     		Session::flash('errorMessage', 'Email or password was not found.');
@@ -50,7 +55,7 @@ class HomeController extends BaseController {
 	public function logout() {
 		Auth::logout();
 		Session::flash('successMessage', 'You have logged out.');
-		return Redirect::action('PostsController@index');
+		return Redirect::action('HomeController@showHome');
 	}
 
 	public function removeCharity()

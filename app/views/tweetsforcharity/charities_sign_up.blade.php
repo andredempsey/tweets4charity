@@ -5,88 +5,87 @@
 
 @section('content')
 
-<div>
-<!-- if charity would like to edit the user information  -->
-<!-- nneed to chage some of the variables -->
-	@if (isset($charity))
-	    <h1>Edit Charity</h1>
-	    {{ Form::model($charity, array('action' => array('CharitiesController@update', $charity->id), 'method' => 'PUT')) }}
-    @else
-	    <h1>Create a New Charity</h1>
-	    {{ Form::open(array('action'=>'CharitiesController@store')) }}
-	@endif
-
-	<div>
-	    {{ Form::label('twitter_handle', 'Twitter handle') }}
-	    {{ Form::text('twitter_handle', Input::old('twitter_handle')) }}
-	   	{{ $errors->first('twitter_handle', '<span class="help-block">:message</span>') }}<br>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-5">
+			<div class="basic-login">
+				{{Form::open(array('action'=>'CharitiesController@store', 'class' => 'form-signin', 'role' => 'form')) }}
+					<div class="form-group">
+					    {{ Form::label('twitter_handle', 'Twitter Handle or User Name', array('class' => 'icon-user')) }}
+					    {{ Form::text('twitter_handle', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('twitter_handle', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('charity_name', 'Charity Name', array('class' => 'icon-user')) }}
+					    {{ Form::text('charity_name', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('charity_name', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('tax_id', 'Tax ID #', array('class' => 'icon-user')) }}
+					    {{ Form::text('tax_id', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('tax_id', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('password', 'Password', array('class' => 'icon-user')) }}
+					    {{ Form::text('password', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('password', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('password2', 'Re-enter Password', array('class' => 'icon-user')) }}
+					    {{ Form::text('password2', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('password2', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('first_name', 'Contact person First Name', array('class' => 'icon-user')) }}
+					    {{ Form::text('first_name', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('first_name', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('last_name', 'Contact person Last Name', array('class' => 'icon-user')) }}
+					    {{ Form::text('last_name', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('last_name', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('email', 'Email Address', array('class' => 'icon-user')) }}
+					    {{ Form::text('email', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('email', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('phone', 'Phone Number', array('class' => 'icon-user')) }}
+					    {{ Form::text('phone', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('phone', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('street', 'Street Address', array('class' => 'icon-user')) }}
+					    {{ Form::text('street', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('street', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('city', 'City', array('class' => 'icon-user')) }}
+					    {{ Form::text('city', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('city', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('state', 'State', array('class' => 'icon-user')) }}
+					    {{ Form::text('state', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('state', '<span class="help-block">:message</span>') }}<br>
+					</div>
+					<div class="form-group">
+					    {{ Form::label('zip', 'Zip', array('class' => 'icon-user')) }}
+					    {{ Form::text('zip', null, array('class' => 'form-control')) }}
+					   	{{ $errors->first('zip', '<span class="help-block">:message</span>') }}<br>
+					</div class="form-group">
+					<div>
+				 	{{Form::Submit('Register charity', array('class' => 'btn pull-right')) }}
+					</div>
+					<div class="clearfix">
+					{{ Form::close() }}
+					</div>
+			</div>
+		</div>
 	</div>
-	<div>
-	    {{ Form::label('charity_name', 'Charity name') }}
-	    {{ Form::text('charity_name', Input::old('charity_name')) }}
-	   	{{ $errors->first('charity_name', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('tax_id', 'Tax ID #') }}
-	    {{ Form::text('tax_id', Input::old('tax_id')) }}
-	   	{{ $errors->first('tax_id', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('password', 'Password') }}
-	    {{ Form::text('password', Input::old('password')) }}
-	   	{{ $errors->first('password', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('password2', 'Re-enter password') }}
-	    {{ Form::text('password2', Input::old('password2')) }}
-	   	{{ $errors->first('password2', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('first_name', 'Contact person first name') }}
-	    {{ Form::text('first_name', Input::old('first_name')) }}
-	   	{{ $errors->first('first_name', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('last_name', 'Contact person last name') }}
-	    {{ Form::text('last_name', Input::old('last_name')) }}
-	   	{{ $errors->first('last_name', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('email', 'Email address') }}
-	    {{ Form::text('email', Input::old('email')) }}
-	   	{{ $errors->first('email', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('phone', 'Phone number') }}
-	    {{ Form::text('phone', Input::old('phone')) }}
-	   	{{ $errors->first('phone', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('street', 'Street address') }}
-	    {{ Form::text('street', Input::old('street')) }}
-	   	{{ $errors->first('street', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('city', 'City') }}
-	    {{ Form::text('city', Input::old('city')) }}
-	   	{{ $errors->first('city', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('state', 'State') }}
-	    {{ Form::text('state', Input::old('state')) }}
-	   	{{ $errors->first('state', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	<div>
-	    {{ Form::label('zip', 'Zip') }}
-	    {{ Form::text('zip', Input::old('zip')) }}
-	   	{{ $errors->first('zip', '<span class="help-block">:message</span>') }}<br>
-	</div>
-	
- 	{{ Form::submit('Submit New Post') }}
-
-</div>
-
-	{{ Form::close() }}
+</div>				
 @stop
 
 @section('bottomscript')
+@stop

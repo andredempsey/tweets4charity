@@ -1,0 +1,65 @@
+@extends('layouts.master')
+
+@section('topscript')
+
+<script src="/bootstrap-3.2.0/js/bootstrap-slider.js"></script>
+
+@stop
+
+@section('content')
+{{ Form::model($charity, array('action' => array('CharitiesController@update', $charity->id), 'method' => 'PUT')) }}
+<table class="table table-hover table-striped table-responsive">
+	<tr>
+		<th>{{Form::label('twitter_handle','Twitter Handle')}}</th>
+		<th>{{Form::label('charity_name','Charity Name')}}</th>
+		<th>{{Form::label('tax_id','Tax ID')}}</th>
+		<th>{{Form::label('Email','Email')}}</th>
+		<th>{{Form::label('phone','Phone Number')}}</th>
+		<th>{{Form::label('street','Street Address')}}</th>
+		<th>{{Form::label('city','City')}}</th>
+		<th>{{Form::label('state','State')}}</th>
+		<th>{{Form::label('zip','Zip')}}</th>
+
+		<th>Action</th>
+	</tr>
+	<tr>
+		<td>{{'twitter_handle', $twitter_handle }}</td>
+		<td>{{'charity_name', $charity_name, array('class' => 'form-control')}}</td>
+		<td>{{'tax_id', $tax_id, array('class' => 'form-control')}}</td>
+		<td>{{'email', $email, array('class' => 'form-control')}}</td>
+		<td>{{'phone', $phone, array('class' => 'form-control text-center')}}</td>
+		<td>{{'street', $street, array('class' => 'form-control text-center')}}</td>
+		<td>{{'city', $city, array('class' => 'form-control text-center')}}</td>
+		<td>{{'state', $state, array('class' => 'form-control text-center')}}</td>
+		<td>{{'zip', $zip, array('class' => 'form-control text-center')}}</td>
+
+		<td>{{Form::Submit('Update', array('class' => 'btn btn-default form-group', 'id' => 'submit'))}}</td>
+	</tr>
+</table>
+	{{Form::close()}}
+
+<!-- name and logo of the charity that is logged in  -->
+<div class="col-md-4 col-sm-6">
+	<h2>{{$charity->charity_name}}</h2>	
+        <img class="img-circle img-responsive" src="{{$charity->profile_picture_link}}" alt="{{$charity->charity_name}}">
+</div>
+
+<h3>Number of Donators to Charity</h3>
+<table class="table table-hover table-striped table-responsive">
+<tr>
+	<th>Number of users donating goes here</th>
+	<th>what other information would the charity need to know</th>
+</tr>       
+
+
+
+"#number of twitter users donating to your charity"
+
+"Donation history as of the previous month"
+
+"edit link to update charity "
+
+
+@stop
+
+@section('bottomscript')

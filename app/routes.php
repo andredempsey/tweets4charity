@@ -12,12 +12,15 @@
 */
 
 Route::get('/', 'HomeController@showHome');
+Route::get('/demo', function () {
+    return View::make('tweetsforcharity.demo');
+});
 
 Route::resource('users', 'UsersController');
 
 Route::resource('charities', 'CharitiesController');
-Route::resource('/charities_sign_up', 'CharitiesController@create');
-
+// Route::resource('/charities_sign_up', 'CharitiesController@create');
+// Route::resources('/charities_sign_up', 'CharitiesController@update' );
 
 Route::get('/public_profile', 'UsersController@showProfile');
 Route::get('/users_sign_up', 'UsersController@create');

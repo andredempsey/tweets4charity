@@ -20,7 +20,7 @@ class CharitiesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function showDashboard()
+	public function index()
 	{
 	
 		return View::make('tweetsforcharity.charity_dashboard');
@@ -87,10 +87,25 @@ class CharitiesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$charity = Charity::find($id);
+		$charities = Charity::all();
+		$data = array(
+			'charity'        => $charity,
+			'charities'      => $charities,
+			'twitter_handle' => $charity->twitter_handle,
+			'charity_name' 	 => $charity->charity_name,
+	        'tax_id'         => $charity->tax_id,
+	        'email'          => $charity->email,
+	        'phone'          => $charity->phone,
+	        'street'         => $charity->street,
+	        'city'           => $charity->city,
+	        'state'          => $charity->state,
+	        'zip'            => $charity->zip
+		);
+		return View::make('tweetsforcharity.charity_dashboard')->with($data);
 	}
 
-
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -99,7 +114,8 @@ class CharitiesController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		// $charity = Charity::find($id);
+		// return View::make('tweetsforcharity.charity_dashboard')->with($charity);
 	}
 
 
@@ -111,37 +127,40 @@ class CharitiesController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$charity = Post::findOrFail($id);
-		$validator = Validator::make(Input::all(), Post::$rules);
+		// 
+	}
+	// {
+	// 	$charity = Post::findOrFail($id);
+	// 	$validator = Validator::make(Input::all(), Post::$rules);
 
-		if ($validator->fails())
-		{
-			// show an error msg if
-			Session::flash('errorMessage', 'Sorry, there was an error editing your charity');
-			return Redirect::back()->withInput()->withErrors($validator);
-		}
-		else
-		{	
+	// 	if ($validator->fails())
+	// 	{
+	// 		// show an error msg if
+	// 		Session::flash('errorMessage', 'Sorry, there was an error editing your charity');
+	// 		return Redirect::back()->withInput()->withErrors($validator);
+	// 	}
+	// 	else
+	// 	{	
 			
-			$charity->twitter_handle = Input::get('twitter_handle');
-			$charity->charity_name   = Input::get('charity_name');
-			$charity->tax_id         = Input::get('tax_id');
-			$charity->password       = Input::get('password');
-			$charity->first_name     = Input::get('first_name');
-			$charity->last_name      = Input::get('last_name');
-			$charity->email          = Input::get('email');
-			$charity->phone          = Input::get('phone');
-			$charity->street         = Input::get('street');
-			$charity->city           = Input::get('city');
-			$charity->state          = Input::get('state');
-			$charity->zip            = Input::get('zip');
-			$charity->save();
+	// 		$charity->twitter_handle = Input::get('twitter_handle');
+	// 		$charity->charity_name   = Input::get('charity_name');
+	// 		$charity->tax_id         = Input::get('tax_id');
+	// 		$charity->password       = Input::get('password');
+	// 		$charity->first_name     = Input::get('first_name');
+	// 		$charity->last_name      = Input::get('last_name');
+	// 		$charity->email          = Input::get('email');
+	// 		$charity->phone          = Input::get('phone');
+	// 		$charity->street         = Input::get('street');
+	// 		$charity->city           = Input::get('city');
+	// 		$charity->state          = Input::get('state');
+	// 		$charity->zip            = Input::get('zip');
+	// 		$charity->save();
 			
-			// show success msg 
-			Session::flash('successMessage', 'Your charity information has bee update, Thank You!');
-			return Redirect::action('HomeController@showHome');
-		}
-	}		
+	// 		// show success msg 
+	// 		Session::flash('successMessage', 'Your charity information has bee update, Thank You!');
+	// 		return Redirect::action('HomeController@showHome');
+	// 	}
+	// }		
 
 		
 
