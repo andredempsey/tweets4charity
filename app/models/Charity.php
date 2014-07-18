@@ -16,6 +16,7 @@ class Charity extends BaseModel implements UserInterface, RemindableInterface {
         
         'charity_name'   =>'required|max:100',
         'tax_id'         =>'required|max:100',
+        'twitter_handle'=>'required|max:15',
         'password'       =>'required|min:6',
         'password2'      =>'same:password',
         'first_name'     =>'required|max:100',
@@ -25,6 +26,7 @@ class Charity extends BaseModel implements UserInterface, RemindableInterface {
         'city'           =>'required',
         'state'          =>'required',
         'zip'            =>'required',
+        'tax_pdf'        =>'required'
     ];
     // public function users()
     // {

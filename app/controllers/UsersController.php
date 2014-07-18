@@ -22,7 +22,7 @@ public function showProfile()
 	 *
 	 * @return Response
 	 */
-	public function showDashboard()
+	public function index()
 	{
 		
 		return View::make('tweetsforcharity.user_dashboard');
