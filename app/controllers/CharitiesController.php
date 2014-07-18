@@ -174,6 +174,5 @@ class CharitiesController extends BaseController {
 	{
 		//
 	}
-
-
+	
 }

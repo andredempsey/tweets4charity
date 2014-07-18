@@ -28,10 +28,10 @@ class Charity extends BaseModel implements UserInterface, RemindableInterface {
         'zip'            =>'required',
         'tax_pdf'        =>'required'
     ];
-    // public function users()
-    // {
+    public function users()
+    {
 
-    //   return $this->belongsToMany('User')->withPivot('alloted_percent');
-    // }
+      return $this->belongsToMany('User')->withPivot('allotted_percent', 'is_active');
+    }
 
 }

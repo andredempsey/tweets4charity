@@ -33,7 +33,7 @@ class CreateUserActivityTable extends Migration {
 	{
 		Schema::table('activities', function(Blueprint $table)
 		{
-			//
+			Schema::drop('activities');
 		});
 	}
 

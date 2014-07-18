@@ -30,6 +30,8 @@ Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
 Route::get('/logout', 'HomeController@logout');
 
+Route::get('/drop_charity', 'HomeController@removeCharity');
+
 Route::get('test', function () {
 
     $maxHeight = 200;

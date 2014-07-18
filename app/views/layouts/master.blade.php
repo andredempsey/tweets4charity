@@ -9,8 +9,7 @@
 
     <title>Tweets for Charity</title>
 
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/bootstrap-3.2.0/js/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/bootstrap-3.2.0/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -68,10 +67,19 @@
 
     <body>
         @yield('topscript')
+        @if (Session::has('successMessage'))
+            <div class="alert alert-success fade_message">{{{ Session::get('successMessage') }}}</div>
+        @endif
+        @if (Session::has('errorMessage'))
+            <div class="alert alert-danger fade_message">{{{ Session::get('errorMessage') }}}</div>
+        @endif
 
         @yield('content')
 
         @yield('bottomscript')
-
+<script>
+    //script to make error or success message disappear after a couple seconds
+    $('.fade_message').delay(2000).fadeOut(1000);
+</script>
     </body>
 </html>

@@ -121,8 +121,12 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+<<<<<<< HEAD
+	    'Thujohn\Twitter\TwitterServiceProvider',
+=======
 		'Thujohn\Twitter\TwitterServiceProvider'
 
+>>>>>>> master
 	),
 
 	/*

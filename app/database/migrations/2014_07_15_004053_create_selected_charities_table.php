@@ -14,15 +14,16 @@ class CreateSelectedCharitiesTable extends Migration {
 	{
 		Schema::create('charity_user', function(Blueprint $table)
 		{
-			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('charity_id')->unsigned();
 			$table->unique(array('user_id', 'charity_id'));
-			$table->decimal('alloted_percent', 5, 2);
+			$table->decimal('allotted_percent', 5, 2);
+			$table->boolean('is_active')->default(True);
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->foreign('charity_id')->references('id')->on('charities');
+			$table->primary(array('user_id', 'charity_id'));
 		});
 	}
 
