@@ -20,7 +20,7 @@ class CharitiesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function showDashboard()
+	public function index()
 	{
 	
 		return View::make('tweetsforcharity.charity_dashboard');

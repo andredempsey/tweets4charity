@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="/bootstrap-3.2.0/css/bootstrap.min.css">
     <!-- Optional theme -->
     <!-- <link rel="stylesheet" href="/bootstrap-3.2.0/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" type="css" href="/bootstrap-3.2.0/css/demo.css"/>
-    <link rel="stylesheet" href="/bootstrap-3.2.0/css/carousel.css" >
+    <!-- <link rel="stylesheet" type="css" href="/bootstrap-3.2.0/css/demo.css"/>
+    <link rel="stylesheet" href="/bootstrap-3.2.0/css/carousel.css" > -->
 
     <!-- Latest compiled and minified JavaScript -->
 
@@ -55,9 +55,11 @@
                     </li>
                     <li class="{{ Request::is('charities_sign_up') ? 'active' : '' }}"><a href="/charities_sign_up">Charities Sign Up</a>
                     </li>
-                    <li class="{{ Request::is('login') ? 'active' : '' }}"><a href="/login">Login</a>
-                    </li>    
-                    <li class="{{ Request::is('')  ? 'active' : ''}}"><a href=""></a>
+                    @if (Auth::check())
+                        <li class-"right"><a href="{{ action('HomeController@logout') }}">Logout</a></li>
+                    @else
+                        <li class="right"><a href="{{ action('HomeController@showLogin') }}">Login</a></li>
+                    @endif    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

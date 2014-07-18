@@ -7,7 +7,8 @@
 @stop
 
 @section('content')
-{{ Form::model($user, array('action' => array('UsersController@update', $user->id), 'method' => 'PUT')) }}
+
+{{ Form::model($user, array('action' => array('UsersController@edit', $user->twitter_handle), 'method' => 'PUT')) }}
 <table class="table table-hover table-striped table-responsive">
 	<tr>
 		<th>{{Form::label('twitter_handle','Twitter Handle')}}</th>

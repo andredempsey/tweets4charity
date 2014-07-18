@@ -12,6 +12,9 @@
 */
 
 Route::get('/', 'HomeController@showHome');
+Route::get('/demo', function () {
+    return View::make('tweetsforcharity.demo');
+});
 
 Route::resource('users', 'UsersController');
 

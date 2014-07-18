@@ -1,27 +1,19 @@
 <?php
 class UsersController extends BaseController {
 
+public function __construct()
+	{
+    	// call base controller constructor
+    	parent::__construct();
 
-public function showRegistration()
-        {
-            return View::make('tweetsforcharity.users_sign_up');
-        }
-public function showProfile()
-	{	
-		$user = User::find(2);
-		$charities = Charity::all();
-		$data = array(
-			'user' => $user,
-			'charities' => $charities,
-		);
-		return View::make('tweetsforcharity.public_profile')->with($data);
-	}
-
+    	// run auth filter before all methods on this controller except index and show
+    	$this->beforeFilter('auth', array('except' => array('index', 'show', 'destroy')));
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
+
 	public function index()
 	{
 		
@@ -37,7 +29,9 @@ public function showProfile()
 	public function create()
 	{
 		return View::make('tweetsforcharity.user_sign_up');
+
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -79,18 +73,15 @@ public function showProfile()
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($twitter_handle)
 	{
-
-		$users = User::with('charity_user')->with('charity')->get();
-		$number = Post::countPosts($searchTitle);
-		$data = [
-			'posts' => $posts,
-			'number'  => $number,
-			'isFiltered' => $isFiltered,
-			// 'recentposts' => $recentposts
-		];
-	    return View::make('tweetsforcharity.index')->with($data);
+		$user = User::find($twitter_handle);
+		$charities = Charity::all();
+		$data = array(
+			'user' => $user,
+			'charities' => $charities,
+		);
+		return View::make('tweetsforcharity.public_profile')->with($data);
 
 	}
 
@@ -101,9 +92,9 @@ public function showProfile()
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($twitter_handle)
 	{
-		$user = User::find($id);
+		$user = User::find($twitter_handle);
 		return View::make('tweetsforcharity.user_dashboard')->with('user', $user);
 	}
 
