@@ -50,6 +50,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse pull-right">
                 <ul class="nav navbar-nav">
+
                     <li class="{{ Request::is('users_sign_up') ? 'active' : '' }}"><a href="/users_sign_up">Donor Sign Up</a>
                     </li>
                     <li class="{{ Request::is('charities_sign_up') ? 'active' : '' }}"><a href="/charities_sign_up">Charities Sign Up</a>
