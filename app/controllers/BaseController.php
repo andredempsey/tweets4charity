@@ -13,7 +13,6 @@ class BaseController extends Controller {
 	 *
 	 * @return void
 	 */
-
 	/**
 	 * Setup the layout used by the controller.
 	 *

@@ -121,7 +121,6 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-	    'Thujohn\Twitter\TwitterServiceProvider',
 		'Thujohn\Twitter\TwitterServiceProvider'
 	),
 
