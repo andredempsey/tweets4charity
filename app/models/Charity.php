@@ -26,7 +26,8 @@ class Charity extends BaseModel implements UserInterface, RemindableInterface {
         'city'           =>'required',
         'state'          =>'required',
         'zip'            =>'required',
-        'tax_pdf'        =>'required'
+        //NRS -7/19/14 - commented out b/c form doesn't have a field for uploading pdf and for testing/debug purposes it'd be hard to upload a pdf everytime we want to test or seed
+        //'tax_pdf'        =>'required'
     ];
     public function users()
     {

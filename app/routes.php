@@ -19,7 +19,11 @@ Route::get('/demo', function () {
 Route::resource('users', 'UsersController');
 
 Route::resource('charities', 'CharitiesController');
-Route::resource('/charities_sign_up', 'CharitiesController@create');
+
+Route::get('/shuffle', function() {
+    return View::make('tweetsforcharity.shuffle_landing');
+});
+// Route::resource('/charities_sign_up', 'CharitiesController@create');
 
 
 Route::get('/public_profile', 'UsersController@showProfile');
@@ -30,6 +34,7 @@ Route::get('/charities_sign_up', 'CharitiesController@create');
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
 Route::get('/logout', 'HomeController@logout');
+route::get('/thankyou', 'HomeController@showThankYou');
 
 Route::get('/drop_charity', 'HomeController@removeCharity');
 

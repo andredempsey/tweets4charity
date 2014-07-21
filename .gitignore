@@ -7,3 +7,4 @@ composer.lock
 .DS_Store
 Thumbs.db
 /app/config/packages/thujohn/twitter/config.php
+/app/config/packages/abodeo/laravel-stripe/stripe.php
