@@ -48,8 +48,7 @@ class CharitiesController extends BaseController {
 	{
 		$messageValue = 'You have successfully registered your charity!';
 		$eMessageValue = 'There was a problem registering your charity.';
-		$charity = new Charity();
-
+		
 		$validator = Validator::make(Input::all(), Charity::$charity_rules);
 		if ($validator->fails()) 
 		{
@@ -58,6 +57,13 @@ class CharitiesController extends BaseController {
 		}
 		else
 		{
+			$charity = new Charity();
+
+			if  (Input::hasFile('image') && Input::file('image')->isValid()) 
+			{
+				$post->addUploadedImage(Input::file('image'));
+			}
+			
 			$charity->twitter_handle = Input::get('twitter_handle');
 			$charity->charity_name   = Input::get('charity_name');
 			$charity->tax_id         = Input::get('tax_id');
@@ -112,12 +118,11 @@ class CharitiesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($charity_name)
 	{
-		// $charity = Charity::find($id);
-		// return View::make('tweetsforcharity.charity_dashboard')->with($charity);
+		 $charity = Charity::findByCharityName($charity_name);
+		 return View::make('tweetsforcharity.charity_dashboard')->with('charity', $charity);
 	}
-
 
 	/**
 	 * Update the specified resource in storage.
