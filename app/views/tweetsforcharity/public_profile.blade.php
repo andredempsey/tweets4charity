@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('topscript')
-<link href="/bootstrap-3.2.0/css/round-about.css" rel="stylesheet">
+<!-- <link href="/bootstrap-3.2.0/css/round-about.css" rel="stylesheet"> -->
 @stop
 
 @section('content')
@@ -9,17 +9,25 @@
 
         <div class="row">
 
+            <div class="col-lg-4 col-sm-6">
+                <a href="https://twitter.com/{{{ $user->twitter_handle }}}"><img class="img-circle" src="{{{ $profile_image }}}" height="200" width="200"></a><!-- <a href="http://www.twitter.com/210AxS"><i class="icon-twitter"></i></a> -->
+                <!-- </h1> -->
+            </div>    
             <div class="col-md-12">
                 <h1 class="page-header">{{{ $user->twitter_handle }}} <a href="http://www.twitter.com/{{{ $user->twitter_handle }}}"><i class="icon-twitter"></i></a>
-                    <small>Charities {{{ $user->twitter_handle }}} donates to: </small>
+                    <small>Charities {{{ $name }}} donates to: </small>
                 </h1>
                 <!-- <p>This is a great place to start off with a short and sweet description of your company, organization, or whatever purpose your website is serving. Keep it friendly, engaging, but short enough to where you won't lose your reader!</p>
                 <p>If you need a bit more space to describe what is going on, we recommend putting a picture in this section. Use the
                     <code>pull-right</code>class on the image to make it look good!</p> -->
             </div>
-
+            
+            <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+                data-key="@stripeKey"
+                data-amount="5000" data-description="One year's subscription"></script>
+            
             <div class="col-md-12">
-                <h2 class="page-header">Charities</h2>
+            <h2 class="page-header">Charities</h2>
             </div>
 
         </div>

@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"thujohn/twitter": "1.1.*"
+		"thujohn/twitter": "1.1.*",
+		"abodeo/laravel-stripe": "dev-master",
+		"stripe/stripe-php": "1.16.*"
 	},
 	"autoload": {
 		"classmap": [

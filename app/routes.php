@@ -18,8 +18,11 @@ Route::get('/demo', function () {
 
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
+
+// Route::resource('/charities_sign_up', 'CharitiesController@create');
+
 Route::resource('donors', 'DonorsController');
-Route::resource('/charities_sign_up', 'CharitiesController@create');
+//Route::resource('/charities_sign_up', 'CharitiesController@create');
 Route::get('/public_profile', 'UsersController@showProfile');
 
 /*these belong to the resource controllers and should not be in the route because the resource route already calls them
@@ -32,6 +35,7 @@ Route::get('/public_profile', 'UsersController@showProfile');
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
 Route::get('/logout', 'HomeController@logout');
+route::get('/thankyou', 'HomeController@showThankYou');
 
 /*
 |

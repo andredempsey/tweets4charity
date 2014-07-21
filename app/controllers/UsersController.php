@@ -7,8 +7,9 @@ public function __construct()
     	// call base controller constructor
     	parent::__construct();
 
-    	// run auth filter before all methods on this controller except index and show
-    	// $this->beforeFilter('auth', array('except' => array('index', 'show', 'destroy')));
+    	//NRS- changed 7/19/14
+    	// run auth filter before all methods on this controller except create and show
+    	$this->beforeFilter('auth', array('except' => array('create', 'show')));
 	}
 	/**
 	 * Display a listing of the resource.
@@ -46,7 +47,10 @@ public function __construct()
 		$messageValue = 'Successfully registered!';
 		$eMessageValue = 'There was a problem registering.';
 		$user = new User();
-		$id = 0;
+
+		//NRS - 07/20/14 - trying to add tweet count to Activities table; possible new controller needed?
+		//$activity = new Activity();
+
 		$validator = Validator::make(Input::all(), User::$user_rules);
 		if ($validator->fails()) 
 		{
@@ -55,17 +59,32 @@ public function __construct()
 		}
 		else
 		{
-			$user->first_name = Input::get('first_name');
-			$user->last_name = Input::get('last_name');
-			$user->email = Input::get('email');
-			$user->twitter_handle = Input::get('twitter_handle');
-			$user->password = Hash::make(Input::get('password'));
-			$user->is_admin = False;
-			$user->is_active = True;
-			$user->save();		
-			$i = DB::getPdo()->lastInsertId();
-			Session::flash('successMessage', $messageValue);
-			return Redirect::action('UsersController@show', $user->twitter_handle);
+			//NRS - added 7/19/14
+			// use twitter api to check user's twitter account exists
+			// if it does, get the user picture, assign it to user object
+			// else (it failed), redirect back with error
+			if($tweets['error']){
+				Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
+				return Redirect::back()->withInput()->withInput;
+			} else { 
+				$tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
+				$profile_image = ($tweets[0]['user']['profile_image_url']);
+				$tweet_count = ($tweets[0]['user']['statuses_count']);
+				$user->profile_picture_link = $profile_image;
+				$user->first_name = Input::get('first_name');
+				$user->last_name = Input::get('last_name');
+				$user->email = Input::get('email');
+				$user->twitter_handle = Input::get('twitter_handle');
+				$user->password = Hash::make(Input::get('password'));
+				$user->is_admin = False;
+				$user->is_active = True;
+				//$activity->tweet_count = $tweet_count;
+				$user->save();
+				$activity->save();		
+
+				Session::flash('successMessage', $messageValue);
+				return Redirect::action('UsersController@show', $user->twitter_handle);
+			}
 		}
 	}
 
@@ -78,8 +97,22 @@ public function __construct()
 	 */
 	public function show($twitter_handle)
 	{
+		//NRS - added 7/19/14
 		$user = User::findByTwitterHandle($twitter_handle);
-		return View::make('tweetsforcharity.public_profile')->with('user', $user);;
+		$tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
+		$name = ($tweets[0]['user']['name']);
+		$statuses_count = ($tweets[0]['user']['statuses_count']);
+		$profile_image = ($tweets[0]['user']['profile_image_url']);
+		$data = [
+			'user' => $user,
+			'tweets' => $tweets,
+			'name' => $name,
+			'statuses_count' => $statuses_count,
+			'profile_image' => $profile_image
+		];
+		// var_dump($data);
+
+		return View::make('tweetsforcharity.public_profile')->with($data);
 	}
 
 
@@ -106,7 +139,6 @@ public function __construct()
 		];
 		// dd($data);
 		return View::make('tweetsforcharity.user_dashboard')->with($data);
-		// return View::make('tweetsforcharity.user_dashboard')->with('user', $user);
 	}
 
 
