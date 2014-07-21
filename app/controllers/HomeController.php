@@ -62,7 +62,6 @@ class HomeController extends BaseController {
 		// }
 		else
 		{
-
     		Session::flash('errorMessage', 'Twitter handle or password was not found.');
     		return Redirect::action('HomeController@showLogin')->withInput();
 		}
