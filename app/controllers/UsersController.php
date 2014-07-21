@@ -126,8 +126,19 @@ public function __construct()
 	{
 
 		$user = User::findByTwitterHandle($twitter_handle);
-		dd($twitter_handle);
-		return View::make('tweetsforcharity.user_dashboard')->with('user', $user);
+		$alreadySelectedCharities = [];
+		foreach ($user->donor->charities as $charity)
+		{
+			$alreadySelectedCharities[]=$charity->id;	
+		}
+
+		$charities = Charity::whereNotIn('id', $alreadySelectedCharities)->paginate(3);
+		$data = [
+		'user' => $user,
+		'charities' => $charities
+		];
+		// dd($data);
+		return View::make('tweetsforcharity.user_dashboard')->with($data);
 	}
 
 
@@ -172,13 +183,14 @@ public function __construct()
 		}
 		else
 		{
-			$user->first_name = Input::get('first_name');
-			$user->last_name = Input::get('last_name');
+			$user->donor->first_name = Input::get('first_name');
+			$user->donor->last_name = Input::get('last_name');
 			$user->email = Input::get('email');
-			$user->amount_per_tweet = Input::get('amount_per_tweet');
-			$user->report_frequency = Input::get('report_frequency');
-			$user->monthly_goal = Input::get('monthly_goal');
-			$user->save();	
+			$user->donor->amount_per_tweet = Input::get('amount_per_tweet');
+			$user->donor->report_frequency = Input::get('report_frequency');
+			$user->donor->monthly_goal = Input::get('monthly_goal');
+			$user->save();
+			$user->donor->save();	
 
 			if(Input::hasFile('image') && Input::file('image')->isValid())
 			{
@@ -187,7 +199,7 @@ public function __construct()
 			}
 
 			Session::flash('successMessage', $messageValue);
-			return Redirect::action('UsersController@show', $user->twitter_handle);
+			return Redirect::action('UsersController@edit', $user->twitter_handle);
 		}
 	}
 
@@ -202,5 +214,7 @@ public function __construct()
 	{
 		return make::View('users.destroy');
 	}
+
+	
 }
 

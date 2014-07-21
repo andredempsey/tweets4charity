@@ -12,10 +12,12 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('UserTableSeeder');
+        $this->call('DonorTableSeeder');
 		$this->call('CharityTableSeeder');
-		$this->call('CharityUserTableSeeder');
-		// $this->call('TransactionTableSeeder');
-		// $this->call('DistributionTableSeeder');
+		$this->call('CharityDonorTableSeeder');
+		$this->call('TransactionTableSeeder');
+		$this->call('DistributionTableSeeder');
+        $this->call('ActivityTableSeeder');
 	}
 }
 
@@ -27,74 +29,150 @@ class UserTableSeeder extends Seeder {
         
             $user = new User();
             $user->twitter_handle = "Admin";
-            $user->first_name = "AdminFirst";
-            $user->last_name = "AdminLast";
             $user->email = "admin" . '@codeup.com';
             $user->password = Hash::make('adminpassword');
-            $user->is_admin = True;
+            $user->role_id = 'admin';
+            $user->is_active = True;
             $user->save();
 
-        for ($i=1;$i<=10;$i++)
+        for ($i=1;$i<=5;$i++)
         {
         	$user = new User();
-        	$user->twitter_handle = "User_Twitter{$i}";
+        	$user->twitter_handle = "@donor{$i}";
             $user->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
-            $user->first_name = "User_First{$i}";
-            $user->last_name = "User_Last{$i}";
-            $user->email = "User{$i}" . '@codeup.com';
+            $user->email = "donor{$i}" . '@codeup.com';
             $user->password = Hash::make('password');
-            $user->amount_per_tweet = mt_rand(1,100)/100;
-            $user->monthly_goal = mt_rand(100,1000);
-            $user->report_frequency = mt_rand(1,30);
+            $user->role_id = 'donor';
+            $user->is_active = True;
+            $user->save();
+        }
+        for ($i=1;$i<=5;$i++)
+        {
+            $user = new User();
+            $user->twitter_handle = "@charity{$i}";
+            $user->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
+            $user->email = "charity{$i}" . '@codeup.com';
+            $user->password = Hash::make('password');
+            $user->role_id = 'charity';
+            $user->is_active = True;
             $user->save();
         }
     }
-
 }
+
+class DonorTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('donors')->delete();
+
+        for ($i=1;$i<=5;$i++)
+        {
+            $donor = new Donor();
+            $donor->user_id = $i;
+            $donor->first_name = "Donor_First{$i}";
+            $donor->last_name = "Donor_Last{$i}";
+            $donor->amount_per_tweet = mt_rand(1,100)/100;
+            $donor->monthly_goal = mt_rand(100,1000);
+            $donor->report_frequency = mt_rand(1,30);
+            $donor->save();
+        }
+    }
+}
+
 
 class CharityTableSeeder extends Seeder {
 
     public function run()
     {
         DB::table('charities')->delete();
-        for ($i=1;$i<=10;$i++ ) 
+        for ($i=1;$i<=5;$i++ ) 
         {
             $charity = new Charity();
-	        $charity->twitter_handle = "char_twitter{$i}";
-            $charity->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
+            $charity->user_id = $i;
 	        $charity->charity_name = "Charity{$i}";
-	        $charity->tax_id = "tax_id{$i}";
-            $charity->first_name = "POCFirstName{$i}";
-            $charity->last_name = "POCLasttName{$i}";
-            $charity->email = "User{$i}" . '@charity.com';
-            $charity->phone = "char_phone{$i}";
-            $charity->street = "char_street{$i}";
-            $charity->city = "char_city{$i}";
-            $charity->state = "char_state{$i}";
-            $charity->zip = $i*1000;
-            $charity->password = Hash::make('password');
+	        $charity->tax_id = Hash::make('taxid');
+            $charity->first_name = "Charity{$i}";
+            $charity->last_name = "Charity{$i}";
+            $charity->phone = "123-456-7890";
+            $charity->street = "Some Street";
+            $charity->city = "Anywhere";
+            $charity->state = "TX";
+            $charity->zip = "78111";
 	        $charity->save();
         }
     }
-
 }
 
-class CharityUserTableSeeder extends Seeder {
+class CharityDonorTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('charity_user')->delete();
-        for ($u=2;$u<=11;$u++ ) 
+        DB::table('charity_donor')->delete();
+        for ($d=1;$d<=5;$d++) 
         {
-            for ($c=1;$c<=10;$c++ ) 
+            for ($c=1;$c<=5;$c++) 
             {
-                $charity_user = new CharityUser();
-    	        $charity_user->user_id = $u;
-    	        $charity_user->charity_id = $c;
-    	        $charity_user->allotted_percent = mt_rand(1,100);
-    	        $charity_user->save();
+                $charity_donor = new CharityDonor();
+    	        $charity_donor->donor_id = $d;
+    	        $charity_donor->charity_id = $c;
+    	        $charity_donor->allotted_percent = mt_rand(1,100);
+    	        $charity_donor->save();
             }
         }
     }
-
 }
+
+class TransactionTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('transactions')->delete();
+        for ($d=1;$d<=5;$d++) 
+        {
+            $transaction = new Transaction();
+            $transaction->donor_id = $d;
+            $transaction->token = Hash::make('stripe');
+            $transaction->amount = mt_rand(50,500);
+            $transaction->save();
+
+        }
+    }
+}
+
+class DistributionTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('distributions')->delete();
+        for ($d=1;$d<=25;$d++) 
+        {
+            for ($c=1;$c<=5;$c++) 
+            {
+                $distribution = new Distribution();
+                $distribution->charity_id = $c;
+                $distribution->transaction_id = mt_rand(1,5);
+                $distribution->amount = 0;
+                $distribution->check_sent = False;
+                $distribution->save();
+            }
+        }
+    }
+}
+
+class ActivityTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('activities')->delete();
+        for ($a=1;$a<=25;$a++) 
+        {
+            $activity = new Activity();
+            $activity->donor_id = mt_rand(1,5);
+            $activity->period = 'June';
+            $activity->tweet_count = mt_rand(20,500);
+            $activity->save();
+        }
+    }
+}
+

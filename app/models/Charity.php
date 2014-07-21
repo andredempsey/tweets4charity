@@ -1,19 +1,15 @@
 <?php
-
 use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Charity extends BaseModel implements UserInterface, RemindableInterface {
+class Charity extends BaseModel {
 
     use UserTrait, RemindableTrait;
 
 	//The db table this model relates to
     protected $table = 'charities';
 
-    static public $charity_rules = [
-        
+    // static public $charity_rules = [
         'charity_name'   =>'required|max:100',
         'tax_id'         =>'required|max:100',
         'twitter_handle'=>'required|max:15',
@@ -30,9 +26,24 @@ class Charity extends BaseModel implements UserInterface, RemindableInterface {
         //'tax_pdf'        =>'required'
     ];
     public function users()
-    {
+    //     'charity_name'   =>'required|max:100',
+    //     'tax_id'         =>'required|max:100',
+    //     'first_name'     =>'required|max:100',
+    //     'last_name'      =>'required|max:100',
+    //     'street'         =>'required',
+    //     'city'           =>'required',
+    //     'state'          =>'required',
+    //     'zip'            =>'required'
+    //     // 'tax_pdf'        =>'required'
+    // ];
+    public function donors()
 
-      return $this->belongsToMany('User')->withPivot('allotted_percent', 'is_active');
+    {
+        return $this->belongsToMany('Donor')->withPivot('allotted_percent');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 }

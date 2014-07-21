@@ -62,6 +62,7 @@ class HomeController extends BaseController {
 		// }
 		else
 		{
+
     		Session::flash('errorMessage', 'Twitter handle or password was not found.');
     		return Redirect::action('HomeController@showLogin')->withInput();
 		}
@@ -77,15 +78,18 @@ class HomeController extends BaseController {
 	{
 		// $id = Auth::user()->id;
 		$id = Input::get('user_id');
-		$charity_id = Input::get('charity_id');
-		$user = User::find($id)->charities->find($charity_id);
-		$charity = $user->charities;
-		dd($charity->pivot_is_active);
-		// $user->pivot_is_active=False;
-		// $user->save();
-		// $user->charities()->detach($charityId);
-		Session::flash('successMessage', 'Successfully removed Charity!');
-		return Redirect::action('UsersController@show', $user->twitter_handle);
+		$user = User::find($id);
+		$user->donor->charities()->detach(Input::get('charity_id'));
+		Session::flash('errorMessage', 'Successfully removed Charity!');
+		return Redirect::action('UsersController@edit', $user->twitter_handle);
 	}
-
+	public function addCharity()
+	{
+		// $id = Auth::user()->id;
+		$id = Input::get('attach_to_user_id');
+		$user = User::find($id);
+		$user->donor->charities()->attach(Input::get('charity_id'));
+		Session::flash('successMessage', 'Successfully added Charity!');
+		return Redirect::action('UsersController@edit', $user->twitter_handle);
+	}
 }

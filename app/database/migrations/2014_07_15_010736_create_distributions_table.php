@@ -17,9 +17,9 @@ class CreateDistributionsTable extends Migration {
 			$table->increments('id');
 			$table->integer('charity_id')->unsigned();
 			$table->integer('transaction_id')->unsigned();
-			$table->decimal('distributed_amount', 5, 2);
+			$table->decimal('amount', 5, 2);
 			$table->boolean('check_sent')->default(False);
-			$table->date('distribution_date');
+			$table->date('distributed_on');
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');
 			$table->foreign('charity_id')->references('id')->on('charities');
