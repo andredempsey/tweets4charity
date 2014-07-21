@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionsTable extends Migration {
+class CreateActivitiesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateTransactionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('transactions', function(Blueprint $table)
+		Schema::create('activities', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('donor_id')->unsigned();
-			$table->string('token',150)->unique();
-			$table->decimal('amount', 5, 2);
+			$table->string('period');
+			$table->integer('tweet_count');
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');
 			
@@ -31,9 +31,9 @@ class CreateTransactionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('transactions', function(Blueprint $table)
+		Schema::table('activities', function(Blueprint $table)
 		{
-			Schema::drop('transactions');
+			Schema::drop('activities');
 		});
 	}
 

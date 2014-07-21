@@ -17,21 +17,31 @@ Route::get('/demo', function () {
 });
 
 Route::resource('users', 'UsersController');
-
 Route::resource('charities', 'CharitiesController');
+Route::resource('donors', 'DonorsController');
 Route::resource('/charities_sign_up', 'CharitiesController@create');
-
-
 Route::get('/public_profile', 'UsersController@showProfile');
-Route::get('/users_sign_up', 'UsersController@create');
-Route::get('/charities_sign_up', 'CharitiesController@create');
 
+/*these belong to the resource controllers and should not be in the route because the resource route already calls them
+|
+| Route::get('/users_sign_up', 'UsersController@create');
+| Route::get('/charities_sign_up', 'CharitiesController@create');
+|
+*/
 
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
 Route::get('/logout', 'HomeController@logout');
 
+/*
+|
+| Replace these controllers with Ajax controllers in the future to avoid page redirects and refreshes on the 
+| user dashboard
+|
+*/
 Route::get('/drop_charity', 'HomeController@removeCharity');
+Route::get('/add_charity', 'HomeController@addCharity');
+
 
 Route::get('test', function () {
 

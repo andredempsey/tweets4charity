@@ -17,15 +17,10 @@ class CreateUsersTable extends Migration {
 			$table->increments('id');
 			$table->string('twitter_handle', 20)->unique();
 			$table->string('profile_picture_link', 200);
-			$table->string('first_name', 50);
-			$table->string('last_name', 50);
 			$table->string('email', 50);
 			$table->string('password', 200);
-			$table->decimal('amount_per_tweet');
-			$table->decimal('monthly_goal');
-			$table->integer('report_frequency');
-			$table->boolean('is_admin')->default(False);
-			$table->boolean('is_active')->default(True);
+			$table->enum('role_id', array('admin', 'donor', 'charity'));
+			$table->boolean('is_active')->default(False);
 			$table->string('remember_token', 100)->nullable;
 			$table->timestamps();
 		});

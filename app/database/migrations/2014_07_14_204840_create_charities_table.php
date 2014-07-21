@@ -15,22 +15,18 @@ class CreateCharitiesTable extends Migration {
 		Schema::create('charities', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('twitter_handle', 20)->unique();
-			$table->string('profile_picture_link', 200);
+			$table->integer('user_id')->unsigned()->unique();
 			$table->string('charity_name', 100);
-			$table->string('tax_id', 100)->unique();
+			$table->string('tax_id', 100)->nullable;
 			$table->string('tax_pdf', 250)->nullable;
 			$table->string('first_name', 50);
 			$table->string('last_name', 50);
-			$table->string('email', 50);
 			$table->string('phone', 20);
 			$table->string('street', 50);
 			$table->string('city', 50);
 			$table->string('state', 10);
 			$table->string('zip', 50);
-			$table->string('password', 20);
-			$table->boolean('is_active')->default(False);
-			$table->string('remember_token', 100)->nullable;
+			$table->foreign('user_id')->references('id')->on('users');
 			$table->timestamps();
 		});
 	}
