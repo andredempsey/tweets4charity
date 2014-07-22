@@ -73,7 +73,7 @@
         @if (Session::has('errorMessage'))
             <div class="alert alert-danger fade_message">{{{ Session::get('errorMessage') }}}</div>
         @endif
-        
+        @yield('topscript')
         @yield('content')
         
         @yield('content2')
@@ -96,5 +96,6 @@
             //script to make error or success message disappear after a couple seconds
             $('.fade_message').delay(2000).fadeOut(1000);
         </script>
+        @yield('bottomscript')
     </body>
 </html>

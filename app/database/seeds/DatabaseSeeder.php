@@ -30,7 +30,6 @@ class UserTableSeeder extends Seeder {
             $user = new User();
             $user->twitter_handle = "Admin";
             $user->email = "admin" . '@codeup.com';
-            $user->password = Hash::make('adminpassword');
             $user->role_id = 'admin';
             $user->is_active = True;
             $user->save();
@@ -43,7 +42,6 @@ class UserTableSeeder extends Seeder {
             $user->first_name = "Donor_First{$i}";
             $user->last_name = "Donor_Last{$i}";
             $user->email = "donor{$i}" . '@codeup.com';
-            $user->password = Hash::make('password');
             $user->role_id = 'donor';
             $user->is_active = True;
             $user->save();
@@ -56,7 +54,6 @@ class UserTableSeeder extends Seeder {
             $user->first_name = "Charity{$i}";
             $user->last_name = "Charity{$i}";
             $user->email = "charity{$i}" . '@codeup.com';
-            $user->password = Hash::make('password');
             $user->role_id = 'charity';
             $user->is_active = True;
             $user->save();
