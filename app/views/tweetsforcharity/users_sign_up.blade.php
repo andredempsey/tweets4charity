@@ -5,7 +5,7 @@
 
 @section('content')
 
-<div>
+<div class="container">
 <!-- if charity would like to edit the user information  -->
 <!-- nneed to chage some of the variables -->
    
@@ -15,11 +15,7 @@
     <div>
         {{  $user->twitter_handle }}<br>
     </div>
-    <div>
-        {{ Form::label('password', 'Create New Password') }}
-        {{ Form::text('password', Input::old('password')) }}
-        {{ $errors->first('password', '<span class="help-block">:message</span>') }}<br>
-    </div>
+    
     <div>
         {{ Form::label('first_name', 'First Name') }}
         {{ Form::text('first_name', Input::old('first_name')) }}

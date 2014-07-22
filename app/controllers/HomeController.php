@@ -21,33 +21,37 @@ class HomeController extends BaseController {
 		
 	}
 
+	public function twitter_redirect() {
+		return View::make('tweetsforcharity.twitter_redirect');
+	}
+
 	public function registration($twitter_handle)
 	{
+		//$twitter_handle = parse_url($url,)
 
-		$validator = Validator::make(Input::all(), User::$user_update_rules);
+		// $validator = Validator::make(Input::all());
 
-		$user = User::findByTwitterHandle($user->twitter_handle);
-		if ($validator->fails()) 
-		{
+		$user = User::findByTwitterHandle($twitter_handle);
+		// if ($validator->fails()) 
+		// {
 
-			Session::flash('errorMessage', $eMessageValue);
-			return Redirect::back()->withInput()->withErrors($validator);
-		}
-		else
-		{
+		// 	Session::flash('errorMessage', $eMessageValue);
+		// 	return Redirect::back()->withInput()->withErrors($validator);
+		// }
+		// else
+		// {
 			$user->first_name = Input::get('first_name');
 			$user->last_name = Input::get('last_name');
-			$user->email = Input::get('email');
-			$user->password = Hash::make(Input::get('password'));
-	
+			$user->email = Input::get('email');	
+			$user->role_id = 3;
 			$user->save();
 			$data = [
 				'user'=>$user
 			];
 
-			Session::flash('successMessage', $messageValue);
+			// Session::flash('successMessage', $messageValue);
 			return Redirect::action('UsersController@edit')->with($data);
-		}
+		// }
 	}
 
 
@@ -61,23 +65,23 @@ class HomeController extends BaseController {
 		return View::make('login');
 	}
 
-	public function doLogin() {
-		$twitter_handle = Input::get('twitter_handle');
-		$password = Input::get('password');
-		//$charity_name = Input::get('charity_name');
-		// dd($twitter_handle);
+	// public function doLogin() {
+	// 	$twitter_handle = Input::get('twitter_handle');
+	// 	$password = Input::get('password');
+	// 	//$charity_name = Input::get('charity_name');
+	// 	// dd($twitter_handle);
 		
-		if (Auth::attempt(array('twitter_handle' => $twitter_handle, 'password' => $password)))
-		{
-    		Session::flash('successMessage', 'You have logged in successfully.');
-    		return Redirect::intended(action('UsersController@show', $twitter_handle));
-		}
-		else
-		{
-    		Session::flash('errorMessage', 'Twitter handle or password was not found.');
-    		return Redirect::action('HomeController@showLogin')->withInput();
-		}
-	}
+	// 	if (Auth::attempt(array('twitter_handle' => $twitter_handle, 'password' => $password)))
+	// 	{
+ //    		Session::flash('successMessage', 'You have logged in successfully.');
+ //    		return Redirect::intended(action('UsersController@show', $twitter_handle));
+	// 	}
+	// 	else
+	// 	{
+ //    		Session::flash('errorMessage', 'Twitter handle or password was not found.');
+ //    		return Redirect::action('HomeController@showLogin')->withInput();
+	// 	}
+	// }
 	//NRS - refactored 7/20/14 - changed to redirect to show thank you page when logging out
 	public function logout() {
 		Auth::logout();
@@ -101,6 +105,6 @@ class HomeController extends BaseController {
 		$user = User::find($id);
 		$user->donor->charities()->attach(Input::get('charity_id'));
 		Session::flash('successMessage', 'Successfully added Charity!');
-		return Redirect::action('UsersController@edit', $user->twitter_handle);
+		return Redirect::action('UsersController@edit', $user->twitterId);
 	}
 }
