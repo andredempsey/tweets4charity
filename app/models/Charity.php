@@ -9,7 +9,9 @@ class Charity extends BaseModel {
 	//The db table this model relates to
     protected $table = 'charities';
 
+
     static public $charity_rules = [
+
         'charity_name'   =>'required|max:100',
         'tax_id'         =>'required|max:100',
         'twitter_handle'=>'required|max:15',

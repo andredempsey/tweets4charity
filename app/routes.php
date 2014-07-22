@@ -27,8 +27,10 @@ Route::get('/public_profile', 'UsersController@showProfile');
 
 //these belong to the resource controllers and should not be in the route because the resource route already calls them
 
+
  Route::get('/users_sign_up', 'UsersController@create');
  Route::get('/charities_sign_up', 'CharitiesController@create');
+
 
 
 Route::get('/login', 'HomeController@showLogin');

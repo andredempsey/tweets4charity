@@ -11,7 +11,6 @@ public function __construct()
     	// run auth filter before all methods on this controller except create and show
     	$this->beforeFilter('auth', array('except' => array('create', 'show', 'store')));
 
-
 	}
 	/**
 	 * Display a listing of the resource.

@@ -17,8 +17,10 @@
             </div>    
             <div class="col-md-12">
                 <h1 class="page-header">{{{ $user->twitter_handle }}} <a href="http://www.twitter.com/{{{ $user->twitter_handle }}}"><i class="icon-twitter"></i></a>
+
                     <h3>{{{$statuses_count}}}</h3>
                     <small>Charities {{{ $name }}} donates to: </small>
+
                 </h1>
                 <!-- <p>This is a great place to start off with a short and sweet description of your company, organization, or whatever purpose your website is serving. Keep it friendly, engaging, but short enough to where you won't lose your reader!</p>
                 <p>If you need a bit more space to describe what is going on, we recommend putting a picture in this section. Use the
