@@ -17,6 +17,7 @@
 <!-- end error display section -->
 
 <!-- Donor information that can be edited by user -->
+<div class="container">
 {{ Form::model($user, array('action' => array('UsersController@update', $user->twitter_handle), 'method' => 'PUT')) }}
 <div class="row">
 	<div class="col-md-1 col-sm-1">
@@ -171,6 +172,7 @@
 	</table>
 </div><!-- end of row -->
 
+>>>>>>> master
 </div>
 @stop
 

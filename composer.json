@@ -7,7 +7,7 @@
 		"laravel/framework": "4.2.*",
 		"thujohn/twitter": "1.1.*",
 		"abodeo/laravel-stripe": "dev-master",
-		"stripe/stripe-php": "1.16.*"
+		"philo/laravel-twitter": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
@@ -35,5 +35,5 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "dev"
 }
