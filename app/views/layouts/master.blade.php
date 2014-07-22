@@ -50,8 +50,8 @@
                                                             <ul class="nav navbar-nav">
                                                                 <!-- NRS- refactored 7/19/14 - made check for if logged in show log out button, if not logged in show register and log in -->
                                                                 @if (Auth::check())
-                                                                    <li class="right"><a href="{{ action('UsersController@edit', $user->twitter_handle) }}">Edit</a></li>
-
+                                                                    <li class="right">
+                                                                        <!-- <a href="{{ action('UsersController@edit', $user->twitter_handle) }}">Edit</a></li> -->
                                                                     <li class-"right"><a href="{{ action('HomeController@logout') }}">Logout</a></li>
                                                                 @else
                                                                     <li class="{{ Request::is('users_sign_up') ? 'active' : '' }}"><a href="/users_sign_up">Donor Sign Up</a>
@@ -77,12 +77,10 @@
         @if (Session::has('errorMessage'))
             <div class="alert alert-danger fade_message">{{{ Session::get('errorMessage') }}}</div>
         @endif
-
         
         @yield('content')
         
         @yield('content2')
-
 
 
     <!-- Core JavaScript Files -->
