@@ -30,9 +30,7 @@ public function __construct()
 	 *
 	 * @return User Sign Up Form
 	 */
-	public function twitter_redirect() {
-		return View::make('tweetsforcharity.twitter_redirect');
-	}
+	
 
 	public function create()
 	{
@@ -52,6 +50,7 @@ public function __construct()
     	$user->oauth_token = $accessToken['oauth_token'];
     	$user->oauth_token_secret = $accessToken['oauth_token_secret'];
     	$user->user_id = $accessToken['user_id'];
+    	$user->role_id = 2;
     	$user->save();
     	
 
@@ -253,9 +252,9 @@ public function __construct()
 			$user->save();
 
 			//update fields in donors table
-			$user->donor->amount_per_tweet = Input::get('amount_per_tweet');
-			$user->donor->report_frequency = Input::get('report_frequency');
-			$user->donor->monthly_goal = Input::get('monthly_goal');
+			// $user->donor->amount_per_tweet = Input::get('amount_per_tweet');
+			// $user->donor->report_frequency = Input::get('report_frequency');
+			// $user->donor->monthly_goal = Input::get('monthly_goal');
 
 			//save changes to donors table
 			$user->donor->save();
@@ -271,7 +270,7 @@ public function __construct()
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($twitter_handle)
 	{
 		return make::View('users.destroy');
 	}

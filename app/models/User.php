@@ -13,22 +13,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     protected $table = 'users';
 
 
-	static public $user_rules = [
-    	'first_name'=>'required|max:100',
-    	'last_name'=>'required|max:100',
-    	'email'=>'required|email',
-    	'twitter_handle'=>'required|max:15',
-    	'password'=>'required|min:6'
-    ];
+	// static public $user_rules = [
+ //    	'first_name'=>'required|max:100',
+ //    	'last_name'=>'required|max:100',
+ //    	'email'=>'required|email',
+ //    	'twitter_handle'=>'required|max:15',
+ //    	'password'=>'required|min:6'
+ //    ];
 
-    static public $user_update_rules = [
-    	'first_name'=>'required|max:100',
-    	'last_name'=>'required|max:100',
-    	'email'=>'required|email',
-    	'amount_per_tweet'=>'required|numeric|min:0',
-    	'report_frequency'=>'required|numeric|integer:7',
-    	'monthly_goal'=>'required|numeric|min:0'
-    ];
+ //    static public $user_update_rules = [
+ //    	'first_name'=>'required|max:100',
+ //    	'last_name'=>'required|max:100',
+ //    	'email'=>'required|email',
+ //    	'amount_per_tweet'=>'required|numeric|min:0',
+ //    	'report_frequency'=>'required|numeric|integer:7',
+ //    	'monthly_goal'=>'required|numeric|min:0'
+ //    ];
 
     const ROLE_ADMIN = 1;
     const ROLE_UNINITIALIZED = 2;

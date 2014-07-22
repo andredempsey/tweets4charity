@@ -54,11 +54,7 @@
                                                                         <!-- <a href="{{ action('UsersController@edit', $user->twitter_handle) }}">Edit</a></li> -->
                                                                     <li class-"right"><a href="{{ action('HomeController@logout') }}">Logout</a></li>
                                                                 @else
-                                                                    <li class="{{ Request::is('twitter_redirect') ? 'active' : '' }}"><a href="/twitter_redirect">Donor Sign Up</a>
-                                                                    </li>
-                                                                    <li class="{{ Request::is('charities_sign_up') ? 'active' : '' }}"><a href="/charities_sign_up">Charities Sign Up</a>
-                                                                    </li>
-                                                                    <li class="right"><a href="{{ action('HomeController@showLogin') }}">Login</a></li>
+                                                                    <li class="right"><a href="/twitter_redirect">Login/Sign up</a></li>
                                                                 @endif    
                                                            </ul>
                                                         </div>
