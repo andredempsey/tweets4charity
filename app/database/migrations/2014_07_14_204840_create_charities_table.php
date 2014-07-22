@@ -19,8 +19,6 @@ class CreateCharitiesTable extends Migration {
 			$table->string('charity_name', 100);
 			$table->string('tax_id', 100)->nullable;
 			$table->string('tax_pdf', 250)->nullable;
-			$table->string('first_name', 50);
-			$table->string('last_name', 50);
 			$table->string('phone', 20);
 			$table->string('street', 50);
 			$table->string('city', 50);

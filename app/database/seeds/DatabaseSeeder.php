@@ -40,6 +40,8 @@ class UserTableSeeder extends Seeder {
         	$user = new User();
         	$user->twitter_handle = "donor{$i}";
             $user->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
+            $user->first_name = "Donor_First{$i}";
+            $user->last_name = "Donor_Last{$i}";
             $user->email = "donor{$i}" . '@codeup.com';
             $user->password = Hash::make('password');
             $user->role_id = 'donor';
@@ -51,6 +53,8 @@ class UserTableSeeder extends Seeder {
             $user = new User();
             $user->twitter_handle = "charity{$i}";
             $user->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
+            $user->first_name = "Charity{$i}";
+            $user->last_name = "Charity{$i}";
             $user->email = "charity{$i}" . '@codeup.com';
             $user->password = Hash::make('password');
             $user->role_id = 'charity';
@@ -70,8 +74,6 @@ class DonorTableSeeder extends Seeder {
         {
             $donor = new Donor();
             $donor->user_id = $i;
-            $donor->first_name = "Donor_First{$i}";
-            $donor->last_name = "Donor_Last{$i}";
             $donor->amount_per_tweet = mt_rand(1,100)/100;
             $donor->monthly_goal = mt_rand(100,1000);
             $donor->report_frequency = mt_rand(1,30);
@@ -89,11 +91,9 @@ class CharityTableSeeder extends Seeder {
         for ($i=1;$i<=5;$i++ ) 
         {
             $charity = new Charity();
-            $charity->user_id = $i;
+            $charity->user_id = $i+6;
 	        $charity->charity_name = "Charity{$i}";
 	        $charity->tax_id = Hash::make('taxid');
-            $charity->first_name = "Charity{$i}";
-            $charity->last_name = "Charity{$i}";
             $charity->phone = "123-456-7890";
             $charity->street = "Some Street";
             $charity->city = "Anywhere";
@@ -145,7 +145,7 @@ class DistributionTableSeeder extends Seeder {
     public function run()
     {
         DB::table('distributions')->delete();
-        for ($d=1;$d<=25;$d++) 
+        for ($d=1;$d<=5;$d++) 
         {
             for ($c=1;$c<=5;$c++) 
             {
@@ -165,7 +165,7 @@ class ActivityTableSeeder extends Seeder {
     public function run()
     {
         DB::table('activities')->delete();
-        for ($a=1;$a<=25;$a++) 
+        for ($a=1;$a<=5;$a++) 
         {
             $activity = new Activity();
             $activity->donor_id = mt_rand(1,5);
