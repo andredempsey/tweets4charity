@@ -8,13 +8,9 @@
 <div>
 <!-- if charity would like to edit the user information  -->
 <!-- nneed to chage some of the variables -->
-    @if (isset($user))
-        <h1>Edit your account</h1>
-        {{ Form::model($user, array('action' => array('UsersController@update', $user->id), 'method' => 'PUT')) }}
-    @else
-        <h1>New User Registration</h1>
-        {{ Form::open(array('action'=>'UsersController@store')) }}
-    @endif
+
+    <h1>New User Registration</h1>
+    {{Form::open(array('action'=>'UsersController@store', 'class' => 'form-signin', 'role' => 'form'))}}
 
     <div>
         {{ Form::label('twitter_handle', 'Twitter handle') }}
@@ -42,7 +38,7 @@
         {{ $errors->first('email', '<span class="help-block">:message</span>') }}<br>
     </div>
     
-    {{ Form::submit('Submit New Post') }}
+   {{Form::Submit('Register', array('class' => 'btn pull-right'))}}
 
 </div>
 

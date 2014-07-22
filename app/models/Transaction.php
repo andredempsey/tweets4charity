@@ -12,9 +12,9 @@ class Transaction extends Eloquent {
 	 */
 
 
-	public function users()
+	public function donor()
 	{
-	    return $this->belongsTo('User');
+	    return $this->belongsTo('Donor');
 	}
 
 	public function distributions()

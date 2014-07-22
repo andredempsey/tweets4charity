@@ -15,7 +15,12 @@ class CreateUsersTable extends Migration {
 		Schema::create('users', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('first_name', 20);
+			$table->string('last_name', 20);
 			$table->string('twitter_handle', 20)->unique();
+			$table->string('oauth_token', 100);
+			$table->string('oauth_token_secret', 100);
+			$table->string('user_id', 50);
 			$table->string('profile_picture_link', 200);
 			$table->string('email', 50);
 			$table->string('password', 200);

@@ -25,12 +25,11 @@ Route::resource('donors', 'DonorsController');
 //Route::resource('/charities_sign_up', 'CharitiesController@create');
 Route::get('/public_profile', 'UsersController@showProfile');
 
-/*these belong to the resource controllers and should not be in the route because the resource route already calls them
-|
-| Route::get('/users_sign_up', 'UsersController@create');
-| Route::get('/charities_sign_up', 'CharitiesController@create');
-|
-*/
+//these belong to the resource controllers and should not be in the route because the resource route already calls them
+
+ Route::get('/users_sign_up', 'UsersController@create');
+ Route::get('/charities_sign_up', 'CharitiesController@create');
+
 
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
@@ -99,6 +98,25 @@ Route::get('test', function () {
     $image->destroy();
 
     return 'Done';
+
+});
+
+Route::post('updateCharity', function () {
+    dd(formValues);
+    $twitter_handle = Input::get('twitter_handle');
+    $user = User::findByTwitterHandle($twitter_handle);
+    $id = Input::get('charity_id');
+    $name = Input::get('alloted_percent');
+
+    $error = false;
+    $message = "Successfully processed id: $id with name: $name.";
+
+    $result = array(
+        'error' => $error,
+        'message' => $message,
+    );
+
+    return Response::json($result);
 
 });
 
