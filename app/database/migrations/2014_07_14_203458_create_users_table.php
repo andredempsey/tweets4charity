@@ -23,10 +23,8 @@ class CreateUsersTable extends Migration {
 			$table->string('user_id', 50);
 			$table->string('profile_picture_link', 200);
 			$table->string('email', 50);
-			$table->string('password', 200);
 			$table->integer('role_id');
 			$table->boolean('is_active')->default(False);
-			$table->string('remember_token', 100)->nullable;
 			$table->timestamps();
 		});
 	}

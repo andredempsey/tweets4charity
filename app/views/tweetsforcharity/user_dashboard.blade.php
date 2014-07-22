@@ -9,7 +9,6 @@
 @stop
 
 @section('content')
-<div class="container-fluid">
 <!-- checking/displaying errors based on validation rules in User model -->
 @foreach($errors->all() as $error)
 <li>{{$error}}</li>
@@ -28,6 +27,7 @@
 	</div>
 	
 </div>
+
 <div class="row">
 	<table class="table table-hover table-striped table-responsive">
 	<tr>
@@ -89,7 +89,7 @@
 						<!--  
 						{{Form::text('slider', $charity->pivot->allotted_percent, array('class' => "span2 sliderValue", 'data-slider-max' => "100"))}} --> 
 
-			{{Form::close()}}
+				{{Form::close()}}
 
 						<form class="ajax-update">
 						{{Form::hidden('charity_id', $charity->id)}}
@@ -182,7 +182,6 @@
 	</table>
 </div><!-- end of row -->
 
->>>>>>> master
 </div>
 @stop
 
@@ -191,37 +190,6 @@
 
 <script>
 
-$('#ajax-add').on('submit', function (e) {
-    e.preventDefault();
-    var formValues = $(this).serialize();
-    console.log(formValues);
-
-    $.ajax({
-        url: "/ajax",
-        type: "POST",
-        data: formValues,
-        dataType: "json",
-        success: function (data) {
-            $('#ajax-message').html(data.message);
-        }
-    });
-});
-
-$('#ajax-delete').on('submit', function (e) {
-    e.preventDefault();
-    var formValues = $(this).serialize();
-    console.log(formValues);
-
-    $.ajax({
-        url: "/ajax",
-        type: "POST",
-        data: formValues,
-        dataType: "json",
-        success: function (data) {
-            $('#ajax-message').html(data.message);
-        }
-    });
-});
 
 $('.ajax-update').on('submit', function (e) {
     e.preventDefault();
