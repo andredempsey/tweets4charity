@@ -11,6 +11,12 @@
 			<div class="basic-login">
 				{{Form::open(array('action'=>'CharitiesController@store', 'class' => 'form-signin', 'role' => 'form')) }}
 					<div class="form-group">
+					    {{ Form::label('role_id', 'Role NUMBER', array('class' => 'icon-user')) }}
+					    {{ Form::text('role_id', null, array('class' => 'role_id')) }}
+					   	<!-- {{ $errors->first('twitter_handle', '<span class="help-block">:message</span>') }}<br> -->
+					</div>
+
+					<div class="form-group">
 					    {{ Form::label('twitter_handle', 'Twitter Handle or User Name', array('class' => 'icon-user')) }}
 					    {{ Form::text('twitter_handle', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('twitter_handle', '<span class="help-block">:message</span>') }}<br> -->
