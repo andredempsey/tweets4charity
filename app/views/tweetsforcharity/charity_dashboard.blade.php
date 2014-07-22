@@ -14,6 +14,8 @@
 		<th>Charity Name</th>
 		<th>Tax ID</th>
 		<th>Email</th>
+		<th>First Name</th>
+		<th>Last Name</th>
 		<th>Phone Number</th>
 		<th>Street Address</th>
 		<th>City</th>
@@ -26,6 +28,8 @@
 		<td>{{Form::text('charity_name', $charity->charity_name, array('class' => 'form-control'))}}</td>
 		<td>{{Form::text('tax_id', $charity->tax_id, array('class' => 'form-control'))}}</td>
 		<td>{{Form::text('email', $user->email, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('first_name', $user->first_name, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('last_name', $user->last_name, array('class' => 'form-control'))}}</td>
 		<td>{{Form::text('phone', $charity->phone, array('class' => 'form-control'))}}</td>
 		<td>{{Form::text('street', $charity->street, array('class' => 'form-control'))}}</td>
 		<td>{{Form::text('city', $charity->city, array('class' => 'form-control'))}}</td>
