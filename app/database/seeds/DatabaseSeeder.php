@@ -38,7 +38,7 @@ class UserTableSeeder extends Seeder {
         for ($i=1;$i<=5;$i++)
         {
         	$user = new User();
-        	$user->twitter_handle = "@donor{$i}";
+        	$user->twitter_handle = "donor{$i}";
             $user->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
             $user->email = "donor{$i}" . '@codeup.com';
             $user->password = Hash::make('password');
@@ -49,7 +49,7 @@ class UserTableSeeder extends Seeder {
         for ($i=1;$i<=5;$i++)
         {
             $user = new User();
-            $user->twitter_handle = "@charity{$i}";
+            $user->twitter_handle = "charity{$i}";
             $user->profile_picture_link = "https://pbs.twimg.com/profile_images/2284174758/v65oai7fxn47qv9nectx_400x400.png";
             $user->email = "charity{$i}" . '@codeup.com';
             $user->password = Hash::make('password');

@@ -18,21 +18,42 @@ class HomeController extends BaseController {
 	public function showHome()
 	{
 		return View::make('tweetsforcharity.landingpage');
-
-		//NRS- added 7/18/14 - testing code for Twitter API
-		// $tweets = Twitter::getUserTimeline(array('screen_name' => 'jonbrobinson', 'count' => 20, 'format' => 'array'));
-		// var_dump($tweets);
-		// var_dump($tweets[0]['user']['name']);
-		// var_dump($tweets[0]['user']['statuses_count']);
-		// var_dump($tweets[0]['user']['profile_image_url']);
-		// exit();
-		// return View::make('tweetsforcharity.landingpage');
 		
 	}
 
+	public function registration($twitter_handle)
+	{
+
+		$validator = Validator::make(Input::all(), User::$user_update_rules);
+
+		$user = User::findByTwitterHandle($user->twitter_handle);
+		if ($validator->fails()) 
+		{
+
+			Session::flash('errorMessage', $eMessageValue);
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+		else
+		{
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
+			$user->email = Input::get('email');
+			$user->password = Hash::make(Input::get('password'));
+	
+			$user->save();
+			$data = [
+				'user'=>$user
+			];
+
+			Session::flash('successMessage', $messageValue);
+			return Redirect::action('UsersController@edit')->with($data);
+		}
+	}
+
+
 	//NRS - added 7/20/14 - added showThankYou controller to show the user a thank you message when logging out
 	public function showThankYou() {
-		// dd("testing logout");
+
 		return View::make('tweetsforcharity.users_exit_page');
 	}
 
@@ -41,25 +62,14 @@ class HomeController extends BaseController {
 	}
 
 	public function doLogin() {
-		// if (Input::has('twitter_handle')) {
-		// 	// authenticate with twitter
-		// } elseif (Input::has('charity_name')) {
-		// 	// authenticate with charity_name
-		// }
 		$twitter_handle = Input::get('twitter_handle');
 		$password = Input::get('password');
-		//$charity_name = Input::get('charity_name');
-
+		
 		if (Auth::attempt(array('twitter_handle' => $twitter_handle, 'password' => $password)))
 		{
     		Session::flash('successMessage', 'You have logged in successfully.');
     		return Redirect::intended(action('UsersController@show', $twitter_handle));
 		}
-		// else if (Auth::attempt(array('' => $charity_name, 'email' => $email, 'password' => $password), Input::has('remember')))
-		// {
-		// 	Session::flash('successMessage', 'You have logged in successfully.');
-  //   		return Redirect::intended(action('CharitiesController@show'));
-		// }
 		else
 		{
     		Session::flash('errorMessage', 'Twitter handle or password was not found.');

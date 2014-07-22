@@ -9,7 +9,7 @@ class Charity extends BaseModel {
 	//The db table this model relates to
     protected $table = 'charities';
 
-    // static public $charity_rules = [
+    static public $charity_rules = [
         'charity_name'   =>'required|max:100',
         'tax_id'         =>'required|max:100',
         'twitter_handle'=>'required|max:15',
@@ -25,7 +25,7 @@ class Charity extends BaseModel {
         //NRS -7/19/14 - commented out b/c form doesn't have a field for uploading pdf and for testing/debug purposes it'd be hard to upload a pdf everytime we want to test or seed
         //'tax_pdf'        =>'required'
     ];
-    public function users()
+    // public function users()
     //     'charity_name'   =>'required|max:100',
     //     'tax_id'         =>'required|max:100',
     //     'first_name'     =>'required|max:100',

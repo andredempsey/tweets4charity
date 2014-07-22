@@ -16,6 +16,20 @@ Route::get('/demo', function () {
     return View::make('tweetsforcharity.demo');
 });
 
+Route::get('/users_sign_up', 'UsersController@twitter_redirect');
+
+Route::get('/twitter-redirect', function(){
+    // Reqest tokens
+    $tokens = PhiloTwitter::oAuthRequestToken();
+
+    // Redirect to twitter
+    PhiloTwitter::oAuthAuthenticate(array_get($tokens, 'oauth_token'));
+    exit;
+});
+
+Route::get('/callback', 'UsersController@create'); 
+route::put('/registration', 'HomeController@registration');
+
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
 
@@ -25,12 +39,9 @@ Route::resource('donors', 'DonorsController');
 //Route::resource('/charities_sign_up', 'CharitiesController@create');
 Route::get('/public_profile', 'UsersController@showProfile');
 
-/*these belong to the resource controllers and should not be in the route because the resource route already calls them
-|
-| Route::get('/users_sign_up', 'UsersController@create');
-| Route::get('/charities_sign_up', 'CharitiesController@create');
-|
-*/
+//Route::get('/users_sign_up', 'UsersController@create');
+Route::get('/charities_sign_up', 'CharitiesController@create');
+
 
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');

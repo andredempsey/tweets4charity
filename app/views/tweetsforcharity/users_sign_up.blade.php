@@ -8,18 +8,12 @@
 <div>
 <!-- if charity would like to edit the user information  -->
 <!-- nneed to chage some of the variables -->
-    @if (isset($user))
-        <h1>Edit your account</h1>
-        {{ Form::model($user, array('action' => array('UsersController@update', $user->id), 'method' => 'PUT')) }}
-    @else
+   
         <h1>New User Registration</h1>
-        {{ Form::open(array('action'=>'UsersController@store')) }}
-    @endif
+        {{ Form::model($user, array('action' => array('HomeController@registration', $user->twitter_handle), 'method' => 'PUT')) }}
 
     <div>
-        {{ Form::label('twitter_handle', 'Twitter handle') }}
-        {{ Form::text('twitter_handle', Input::old('twitter_handle')) }}
-        {{ $errors->first('twitter_handle', '<span class="help-block">:message</span>') }}<br>
+        {{  $user->twitter_handle }}<br>
     </div>
     <div>
         {{ Form::label('password', 'Create New Password') }}
