@@ -26,9 +26,9 @@ public function __construct()
 
 
 	/**
-	 * Show the form for creating a new user.
+	 * Show the User Sign Up Form.
 	 *
-	 * @return Response
+	 * @return User Sign Up Form
 	 */
 	public function twitter_redirect() {
 		return View::make('tweetsforcharity.twitter_redirect');
@@ -61,7 +61,7 @@ public function __construct()
 
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a new user in the users and donors tables.
 	 *
 	 * @return Response
 	 */
@@ -177,22 +177,28 @@ public function __construct()
 
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the User Dashboard form for editing Donor information.
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param  int  $twitter_handle
+	 * @return show User Dashboard with data
 	 */
 	public function edit($twitter_handle)
 	{
+		
+		//find record in user table using the twitter handle
 		$user = User::findByTwitterHandle($twitter_handle);
+
 		$alreadySelectedCharities = [];
 		
+		//extract charities which belong to Donor
 		foreach ($user->donor->charities as $charity)
 		{
 			$alreadySelectedCharities[]=$charity->id;	
 		}
 
 		$charities = Charity::whereNotIn('id', $alreadySelectedCharities)->paginate(3);
+
+		//prepare data for passing to user dashboard view
 		$data = [
 		'user' => $user,
 		'charities' => $charities
@@ -202,57 +208,62 @@ public function __construct()
 
 
 	/**
-	 * Update the specified resource in storage.
+	 * Trigger when user clicks 'Update' on User Dashboard View
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 *
+	 * @param  int  $twitter_handle
+	 * @return redirect to Edit controller
 	 */
 	public function update($twitter_handle)
 	{
 
+		//find record in user table using the twitter handle
 		$user = User::findByTwitterHandle($twitter_handle);
 
+		//initialize the error messages
 		$messageValue = 'User information was successfully updated!';
 		$eMessageValue = 'There was a problem updating your user information.';
 
+		//check if user is logged in AND (authorized OR admin role)
+		if(!(Auth::check() && (Auth::user()->twitter_handle == $user->twitter_handle || Auth::user()->role_id == 'admin')))
+		{
+			Session::flash('errorMessage', 'Insufficient privileges.');
+			return Redirect::action('UsersController@show', $user->twitter_handle);
+		}
 
-		// if(!(Auth::check() && (Auth::user()->id == $user->twitter_handle || Auth::user()->is_admin)))
-		// {
-		// 	Session::flash('errorMessage', 'Insufficient privileges.');
-		// 	return Redirect::action('UsersController@edit', $user->twitter_handle);
-		// }
-
+		//validate the updates meet the rules defined in the UsersController - $user_update_rules
 		$validator = Validator::make(Input::all(), User::$user_update_rules);
 
 
 		if ($validator->fails()) 
+		//redirect back to page with sticky values
 		{
-
 			Session::flash('errorMessage', $eMessageValue);
 			return Redirect::back()->withInput()->withErrors($validator);
 		}
 		else
+		//allow changes to database
 		{
+			//update fields in users table
 			$user->email = Input::get('email');
-			$user->donor->first_name = Input::get('first_name');
-			$user->donor->last_name = Input::get('last_name');
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
+
+			//save changes to users table
+			$user->save();
+
+			//update fields in donors table
 			$user->donor->amount_per_tweet = Input::get('amount_per_tweet');
 			$user->donor->report_frequency = Input::get('report_frequency');
 			$user->donor->monthly_goal = Input::get('monthly_goal');
-			$user->save();
-			// $user->donor->save();	
 
-			// if(Input::hasFile('image') && Input::file('image')->isValid())
-			// {
-			// 	$user->addUploadedImage(Input::file('image'));
-			// 	$user->save();
-			// }
+			//save changes to donors table
+			$user->donor->save();
 
 			Session::flash('successMessage', $messageValue);
 			return Redirect::action('UsersController@edit', $user->twitter_handle);
 		}
 	}
-
 
 	/**
 	 * Remove the specified resource from storage.

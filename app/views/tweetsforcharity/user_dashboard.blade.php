@@ -24,7 +24,7 @@
 	    <a href="https://twitter.com/{{{ $user->twitter_handle }}}"><img class="img-circle" src="{{{ $user->profile_picture_link }}}" height="100" width="100"></a>
 	</div>   
     <div class="col-md-2 col-sm-2">
-	    <h2>{{{Auth::user()->twitter_handle}}}</h2>
+	    <h2>@{{{Auth::user()->twitter_handle}}}</h2>
 	</div>
 	
 </div>
@@ -40,8 +40,8 @@
 		<th>Action</th>
 	</tr>
 	<tr>
-		<td>{{Form::text('first_name', $user->donor->first_name, array('class' => 'form-control'))}}</td>
-		<td>{{Form::text('last_name', $user->donor->last_name, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('first_name', $user->first_name, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('last_name', $user->last_name, array('class' => 'form-control'))}}</td>
 		<td>{{Form::text('email', $user->email, array('class' => 'form-control'))}}</td>
 		<td>{{Form::text('amount_per_tweet', $user->donor->amount_per_tweet, array('class' => 'form-control text-center'))}}</td>
 		<td>{{Form::text('report_frequency', $user->donor->report_frequency, array('class' => 'form-control text-center'))}}</td>
@@ -60,6 +60,7 @@
 		<!-- Sidebar -->
 		<div class="col-sm-2">
 			<h4>Available Charities</h4>
+			<form action=""></form>
 			{{ Form::model($user->donor->charities, array('action' => array('HomeController@addCharity'), 'method' => 'GET')) }}
 		    @foreach ($charities as $charity)
 			    <div>{{link_to_action('HomeController@addCharity', 'Add', array('attach_to_user_id' => $user->id, 'charity_id' => $charity->id))}}<img src="{{$charity->user->profile_picture_link}}" style="height:50px">{{$charity->charity_name}}</div>
@@ -74,7 +75,7 @@
 			<h4>Selected Charities</h4>
 			@foreach ($user->donor->charities as $charity)
 			{{ Form::model($user->donor->charities, array('action' => array('HomeController@removeCharity'), 'method' => 'GET')) }}
-				{{Form::hidden('charity_id', $charity->id)}}
+				
 				{{Form::hidden('user_id', $user->id)}}
 				<div class="row">
 					<div class="col-md-1 col-sm-1">	
@@ -85,7 +86,17 @@
 					</div>
 
 					<div class="col-md-5 col-sm-2">
-						{{Form::text('slider', $charity->pivot->allotted_percent, array('class' => "span2 sliderValue", 'data-slider-max' => "100"))}}  
+						<!--  
+						{{Form::text('slider', $charity->pivot->allotted_percent, array('class' => "span2 sliderValue", 'data-slider-max' => "100"))}} --> 
+
+			{{Form::close()}}
+
+						<form class="ajax-update">
+						{{Form::hidden('charity_id', $charity->id)}}
+						<input type="text" value = {{$charity->pivot->allotted_percent}} name="alloted_percent"><br>
+						<input type="submit">
+						</form>
+						
 					</div>
 					<!-- <div class="col-md-1 col-sm-1">
 						{{Form::text('allotted_percent', $charity->pivot->allotted_percent)}}
@@ -94,7 +105,6 @@
 					{{Form::submit('Remove', array('class' => 'btn btn-danger form-group btnRemove', 'id' => 'remove'))}}
 					</div>
 				</div>
-			{{Form::close()}}
 			@endforeach
 		</div>	<!-- end charities section -->
 	</div>  <!-- end grid col-md-12 -->
@@ -213,13 +223,13 @@ $('#ajax-delete').on('submit', function (e) {
     });
 });
 
-$('#ajax-update').on('submit', function (e) {
+$('.ajax-update').on('submit', function (e) {
     e.preventDefault();
     var formValues = $(this).serialize();
     console.log(formValues);
 
     $.ajax({
-        url: "/ajax",
+        url: "/updateCharity",
         type: "POST",
         data: formValues,
         dataType: "json",
