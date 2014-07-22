@@ -29,6 +29,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     	'report_frequency'=>'required|numeric|integer:7',
     	'monthly_goal'=>'required|numeric|min:0'
     ];
+
+    const ROLE_ADMIN = 1;
+    const ROLE_UNINITIALIZED = 2;
+    const ROLE_DONOR = 3;
+    const ROLE_CHARITY = 4;
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -90,5 +96,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $user = self::where('twitter_handle', $twitter_handle)->first();
         return ($user == null) ? App::abort(404) : $user;
 
+    }
+
+    public static function findByTwitterId($twitterId)
+    {
+        return self::where('user_id', $twitterId)->first();
     }
 }

@@ -13,7 +13,13 @@
 
 App::before(function($request)
 {
-	//
+	if (Auth::check() && 
+		Auth::user()->role_id == User::ROLE_UNINITIALIZED && 
+		!Request::is('more-info-required') && 
+		!Request::is('logout'))
+	{
+		return Redirect::to('more-info-required');
+	}
 });
 
 
