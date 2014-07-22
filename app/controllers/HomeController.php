@@ -64,6 +64,8 @@ class HomeController extends BaseController {
 	public function doLogin() {
 		$twitter_handle = Input::get('twitter_handle');
 		$password = Input::get('password');
+		//$charity_name = Input::get('charity_name');
+		// dd($twitter_handle);
 		
 		if (Auth::attempt(array('twitter_handle' => $twitter_handle, 'password' => $password)))
 		{

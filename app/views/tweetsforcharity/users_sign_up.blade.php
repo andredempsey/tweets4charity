@@ -36,7 +36,7 @@
         {{ $errors->first('email', '<span class="help-block">:message</span>') }}<br>
     </div>
     
-    {{ Form::submit('Submit New Post') }}
+   {{Form::Submit('Register', array('class' => 'btn pull-right'))}}
 
 </div>
 

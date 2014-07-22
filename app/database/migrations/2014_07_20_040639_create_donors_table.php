@@ -16,8 +16,6 @@ class CreateDonorsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->unique();
-			$table->string('first_name', 50);
-			$table->string('last_name', 50);
 			$table->decimal('amount_per_tweet');
 			$table->decimal('monthly_goal');
 			$table->integer('report_frequency');

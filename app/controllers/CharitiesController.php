@@ -2,19 +2,15 @@
 
 class CharitiesController extends BaseController {
 
-	// public function __construct()
-	// 	{
-	//     	// call base controller constructor
-	//     	parent::__construct();
+	public function __construct()
+	{
+    	// call base controller constructor
+    	parent::__construct();
 
-	//     	// run auth filter before all methods on this controller except index and show
-	//     	$this->beforeFilter('auth', array('except' => array('showDashboard', 'show', 'destroy')));
-
-	//   //   	// run post protect filter to make sure users can only manage their own posts
-	// 		// $this->beforeFilter('post.protect', array('only' => array('edit', 'update', 'destroy')));
-	// 	}
-		
-
+    	//NRS- changed 7/19/14
+    	// run auth filter before all methods on this controller except create and show
+    	$this->beforeFilter('auth', array('except' => array('create', 'show', 'store')));
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -46,10 +42,13 @@ class CharitiesController extends BaseController {
 	 */
 	public function store()
 	{
+		$charity = new Charity();
+		$user = new User();
+
 		$messageValue = 'You have successfully registered your charity!';
 		$eMessageValue = 'There was a problem registering your charity.';
 		
-		$validator = Validator::make(Input::all(), Charity::$charity_rules);
+		$validator = Validator::make(Input::all(), User::$user_rules);
 		if ($validator->fails()) 
 		{
 			Session::flash('errorMessage', $eMessageValue);
@@ -57,57 +56,50 @@ class CharitiesController extends BaseController {
 		}
 		else
 		{
-			$charity = new Charity();
-
-			if  (Input::hasFile('image') && Input::file('image')->isValid()) 
-			{
-				$post->addUploadedImage(Input::file('image'));
-			}
 			
-			$charity->twitter_handle = Input::get('twitter_handle');
+			// if($tweets['error']){
+			// 	Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
+			// 	return Redirect::back()->withInput()->withInput;
+			// } else { 
+			// $tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
+			// $profile_image = ($tweets[0]['user']['profile_image_url']);
+			// $tweet_count = ($tweets[0]['user']['statuses_count']);
+			// $user->profile_picture_link = $profile_image;
+			$user->twitter_handle    = Input::get('twitter_handle');
+			$user->email             = Input::get('email');
+			$user->password          = Hash::make(Input::get('password'));
+			$user->role_id           = 'charity';
+			$user->is_active         = False;
+			$user->save();
+			$charity->user_id        = $user->id;
 			$charity->charity_name   = Input::get('charity_name');
 			$charity->tax_id         = Input::get('tax_id');
-			$charity->password       = Hash::make(Input::get('password'));
+			//need to add tax pdf here
 			$charity->first_name     = Input::get('first_name');
 			$charity->last_name      = Input::get('last_name');
-			$charity->email          = Input::get('email');
 			$charity->phone          = Input::get('phone');
 			$charity->street         = Input::get('street');
 			$charity->city           = Input::get('city');
 			$charity->state          = Input::get('state');
 			$charity->zip            = Input::get('zip');
-			$charity->is_active      = True;
 			$charity->save();
-
 			// show msg if charity has been added w/ no errors
 			Session::flash('successMessage', $messageValue);
-			return Redirect::action('HomeController@showHome');
+			return Redirect::action('CharitiesController@show');
 		
 		}
-	}
+	// }
 	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($twitter_handle)
 	{
-		$charity = Charity::find($id);
-		$charities = Charity::all();
+		$user = User::find($twitter_handle);
 		$data = array(
-			'charity'        => $charity,
-			'charities'      => $charities,
-			'twitter_handle' => $charity->twitter_handle,
-			'charity_name' 	 => $charity->charity_name,
-	        'tax_id'         => $charity->tax_id,
-	        'email'          => $charity->email,
-	        'phone'          => $charity->phone,
-	        'street'         => $charity->street,
-	        'city'           => $charity->city,
-	        'state'          => $charity->state,
-	        'zip'            => $charity->zip
-		);
+			'user' => $user);
 		return View::make('tweetsforcharity.charity_dashboard')->with($data);
 	}
 

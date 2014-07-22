@@ -18,8 +18,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     	'last_name'=>'required|max:100',
     	'email'=>'required|email',
     	'twitter_handle'=>'required|max:15',
-    	'password'=>'required|min:6',
-    	'password2'=>'same:password'
+    	'password'=>'required|min:6'
     ];
 
     static public $user_update_rules = [
@@ -86,19 +85,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    return $this->hasMany('Activity');
 	}
 
-	public function addUploadedImage ($image)
-	{
-		$systemPath = public_path() . '/' . $this->imgDir . '/';	
-		$imageName = $this->id . '-' . $image->getClientOriginalName();
-		$image->move($systemPath, $imageName);
-		$this->profile_picture_link = '/' . $this->imgDir . '/' . $imageName;
-	}
-
-	// public function setTwitterHandleAttribute($value)
- //    {
- //        $value = str_replace(' ', '-', trim($value));
- //        $this->attributes['twitter_handle'] = strtolower($value);
- //    }
     public static function findByTwitterHandle($twitter_handle)
     {
         $user = self::where('twitter_handle', $twitter_handle)->first();
