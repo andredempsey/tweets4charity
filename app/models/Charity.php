@@ -9,7 +9,6 @@ class Charity extends BaseModel {
 	//The db table this model relates to
     protected $table = 'charities';
 
-
     // static public $charity_rules = [
 
         // 'charity_name'   =>'required|max:100',
@@ -38,6 +37,7 @@ class Charity extends BaseModel {
     //     'zip'            =>'required'
     //     // 'tax_pdf'        =>'required'
     // ];
+
     
     public function donors()
 
@@ -53,5 +53,6 @@ class Charity extends BaseModel {
     public function distributions()
     {
       return $this->belongsToMany('Transaction', 'distributions')->withPivot('amount', 'created_at', 'check_sent');
+
     }
 }
