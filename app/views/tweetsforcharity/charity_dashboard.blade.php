@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+{{ Form::model($user, array('action' => array('CharitiesController@update', $user->twitter_handle), 'method' => 'PUT')) }}
 <table class="table table-striped table-responsive">
 	<tr>
 		<th>Twitter Handle</th>
@@ -22,22 +23,22 @@
 	</tr>
 	<tr>
 		<td>{{ $user->twitter_handle }}</td>
-		<td>{{ $user->charity->charity_name }}</td>
-		<td>{{ $user->charity->tax_id }}</td>
-		<td>{{ $user->email }}</td>
-		<td>{{ $user->charity->phone }}</td>
-		<td>{{ $user->charity->street }}</td>
-		<td>{{ $user->charity->city }}</td>
-		<td>{{ $user->charity->state }}</td>
-		<td>{{ $user->charity->zip }}</td>
-		<td><button type="button" class="btn btn-default btn-xs">Edit</button></td>
+		<td>{{Form::text('charity_name', $charity->charity_name, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('tax_id', $charity->tax_id, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('email', $user->email, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('phone', $charity->phone, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('street', $charity->street, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('city', $charity->city, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('state', $charity->state, array('class' => 'form-control'))}}</td>
+		<td>{{Form::text('zip', $charity->zip, array('class' => 'form-control'))}}</td>
+		<td>{{Form::Submit('Update', array('class' => 'btn btn-default form-group', 'id' => 'submit'))}}</td>
 	</tr>
 </table>
-
+{{Form::close()}}
 <!-- name and logo of the charity that is logged in  -->
 <div class="col-md-4 text-center v-center">    
-	<h2>{{$user->charity->charity_name}}</h2>	
-        <img class="img-circle img-responsive" src="{{$user->profile_picture_link}}" alt="{{$user->charity->charity_name}}">
+	<h2>{{$charity->charity_name}}</h2>	
+        <img class="img-circle img-responsive" src="{{$user->profile_picture_link}}" alt="{{$charity->charity_name}}">
 </div>
 
 <div class="col-md-8 text-center v-center">
