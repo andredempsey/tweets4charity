@@ -15,7 +15,7 @@
             </div>    
             <div class="col-md-12">
                 <h1 class="page-header">{{{ $user->twitter_handle }}} <a href="http://www.twitter.com/{{{ $user->twitter_handle }}}"><i class="icon-twitter"></i></a>
-                    <small>Charities {{{ $name }}} donates to: </small>
+                    <small>Charities {{{ $name }}} donates to: {{{ $statuses_count }}} </small>
                 </h1>
                 <!-- <p>This is a great place to start off with a short and sweet description of your company, organization, or whatever purpose your website is serving. Keep it friendly, engaging, but short enough to where you won't lose your reader!</p>
                 <p>If you need a bit more space to describe what is going on, we recommend putting a picture in this section. Use the
@@ -33,7 +33,7 @@
         </div>
 
         <div class="row">
-            @foreach ($user->charities as $charity)
+            @foreach ($user->donor->charities as $charity)
             <div class="col-md-4 col-sm-6">
                 <img class="img-circle img-responsive" src="http://placehold.it/200x200">
                 

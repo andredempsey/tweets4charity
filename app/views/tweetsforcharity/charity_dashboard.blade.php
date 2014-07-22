@@ -21,23 +21,23 @@
 		<th>Edit Charity</th>
 	</tr>
 	<tr>
-		<td>{{ $twitter_handle }}</td>
-		<td>{{ $charity_name }}</td>
-		<td>{{ $tax_id }}</td>
-		<td>{{ $email }}</td>
-		<td>{{ $phone }}</td>
-		<td>{{ $street }}</td>
-		<td>{{ $city }}</td>
-		<td>{{ $state }}</td>
-		<td>{{ $zip }}</td>
+		<td>{{ $user->twitter_handle }}</td>
+		<td>{{ $user->charity->charity_name }}</td>
+		<td>{{ $user->charity->tax_id }}</td>
+		<td>{{ $user->email }}</td>
+		<td>{{ $user->charity->phone }}</td>
+		<td>{{ $user->charity->street }}</td>
+		<td>{{ $user->charity->city }}</td>
+		<td>{{ $user->charity->state }}</td>
+		<td>{{ $user->charity->zip }}</td>
 		<td><button type="button" class="btn btn-default btn-xs">Edit</button></td>
 	</tr>
 </table>
 
 <!-- name and logo of the charity that is logged in  -->
 <div class="col-md-4 text-center v-center">    
-	<h2>{{$charity->charity_name}}</h2>	
-        <img class="img-circle img-responsive" src="{{$charity->profile_picture_link}}" alt="{{$charity->charity_name}}">
+	<h2>{{$user->charity->charity_name}}</h2>	
+        <img class="img-circle img-responsive" src="{{$user->profile_picture_link}}" alt="{{$user->charity->charity_name}}">
 </div>
 
 <div class="col-md-8 text-center v-center">

@@ -9,7 +9,7 @@ public function __construct()
 
     	//NRS- changed 7/19/14
     	// run auth filter before all methods on this controller except create and show
-    	$this->beforeFilter('auth', array('except' => array('create', 'show')));
+    	$this->beforeFilter('auth', array('except' => array('create', 'show', 'store')));
 	}
 	/**
 	 * Display a listing of the resource.
