@@ -17,10 +17,11 @@
 				<div  id="area-3" class="area">
 
 			        <h1>Donor Registration</h1>
-			        {{ Form::model($user, array('action' => array('UsersController@store', $user->twitter_handle), 'method' => 'PUT')) }}
+			        {{ Form::open(array('action' => array('HomeController@doRegistration'), 'method' => 'POST')) }}
 
 				    <div>
 				        {{ $user->twitter_handle }}<br>
+				        {{ Form::hidden('role_id', User::ROLE_DONOR) }}
 				    </div>
 				    
 				    <div>
@@ -43,14 +44,17 @@
 				   	{{ Form::close() }}
 
 				</div>
-
-
-				    <!-- <input type="text" value="123123" id="id1">
-				    <input type="text" value="123123" id="id2">
-				    <input type="text" value="123123" id="id3"> -->
 				
 				<div id="area-4"  class="area">
-					{{Form::model($user, array('action'=> array('CharitiesController@store', $user->twitter_handle), 'method' => 'PUT'))  }}
+
+					<h1>Charity Registration</h1>
+					{{Form::open(array('action'=> array('HomeController@doRegistration'), 'files' => true, 'method' => 'POST'))  }}
+
+				    <div>
+				        {{ $user->twitter_handle }}<br>
+				        {{ Form::hidden('role_id', User::ROLE_CHARITY) }}
+				    </div>
+
 					<div class="form-group">
 					    {{ Form::label('charity_name', 'Charity Name', array('class' => 'icon-user')) }}
 					    {{ Form::text('charity_name', null, array('class' => 'form-control')) }}

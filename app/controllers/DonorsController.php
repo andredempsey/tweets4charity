@@ -2,87 +2,20 @@
 
 class DonorsController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+	public function removeCharity()
 	{
-		//
+		$user = Auth::user();
+		$user->donor->charities()->detach(Input::get('charity_id'));
+		Session::flash('errorMessage', 'Successfully removed Charity!');
+		return Redirect::action('UsersController@edit', $user->twitter_handle);
 	}
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
+	public function addCharity()
 	{
-		//
+		$user = Auth::user();
+		$user->donor->charities()->attach(Input::get('charity_id'));
+		Session::flash('successMessage', 'Successfully added Charity!');
+		return Redirect::action('UsersController@edit', $user->twitterId);
 	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($twitter_handle)
-	{
-		
-	}
-
-
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 
 }

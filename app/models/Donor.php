@@ -1,14 +1,14 @@
 <?php
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\Reminders\RemindableTrait;
 
 class Donor extends Eloquent {
 
-
-	use UserTrait, RemindableTrait;
-
-	//The db table this model relates to
     protected $table = 'donors';
+
+    public static $rules = array(
+    	// 	'first_name'=>'required|max:100',
+    // 	'last_name'=>'required|max:100',
+    // 	// 'email'=>'required|email',
+    );
 
 
     // static public $user_update_rules = [
@@ -19,48 +19,49 @@ class Donor extends Eloquent {
     // 	'report_frequency'=>'required|numeric|integer:7',
     // 	'monthly_goal'=>'required|numeric|min:0'
     // ];
+    
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
 
-	public function user()
 	/**
 	* allows retrieval of user information from the Donor model
 	* syntax $donor->user
 	* 
 	 */
+	public function user()
 	{
 	    return $this->belongsTo('User');
 	}
 
-	public function charities()
 	/**
 	* allows retrieval of charity information and join table values from the Donor model
 	* syntax $donor->charities
 	* 
 	 */
+	public function charities()
 	{
 	    return $this->belongsToMany('Charity')->withPivot('allotted_percent');
 	}
 
-	public function activities()
 	/**
 	* allows retrieval of charity information and join table values from the Donor model
 	* syntax $donor->charities
 	* 
 	 */
+	public function activities()
 	{
 	    return $this->hasMany('Activity');
 	}
 
-	public function transactions()
 	/**
 	* allows retrieval of transaction information using the Donor model
 	* syntax $donor->transactions
 	* 
 	*/
+	public function transactions()
 	{
 	    return $this->hasMany('Transaction');
 	}
