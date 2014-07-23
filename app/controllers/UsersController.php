@@ -277,9 +277,9 @@ public function __construct()
 			$user->save();
 
 			//update fields in donors table
-			// $user->donor->amount_per_tweet = Input::get('amount_per_tweet');
-			// $user->donor->report_frequency = Input::get('report_frequency');
-			// $user->donor->monthly_goal = Input::get('monthly_goal');
+			$user->donor->amount_per_tweet = Input::get('amount_per_tweet');
+			$user->donor->report_frequency = Input::get('report_frequency');
+			$user->donor->monthly_goal = Input::get('monthly_goal');
 
 			//save changes to donors table
 			$user->donor->save();
