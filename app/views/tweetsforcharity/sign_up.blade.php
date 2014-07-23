@@ -9,27 +9,52 @@
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="basic-login">
-				{{Form::open(array('action'=>'CharitiesController@store', 'class' => 'form-signin', 'role' => 'form')) }}
-					<div class="form-group">
-					    {{ Form::label('role_id', 'Role NUMBER', array('class' => 'icon-user')) }}
-					    {{ Form::text('role_id', null, array('class' => 'role_id')) }}
-					   	<!-- {{ $errors->first('twitter_handle', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
 
-					<div class="form-group">
-					    {{ Form::label('twitter_handle', 'Twitter Handle or User Name', array('class' => 'icon-user')) }}
-					    {{ Form::text('twitter_handle', null, array('class' => 'form-control')) }}
-					   	<!-- {{ $errors->first('twitter_handle', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
+				<input type="radio" name="group1" value="3">Donor<br>
+				<input type="radio" name="group1" value="4">Charity<br>
+
+				
+				<div  id="area-3" class="area">
+
+			        <h1>Donor Registration</h1>
+			        {{ Form::model($user, array('action' => array('UsersController@store', $user->twitter_handle), 'method' => 'PUT')) }}
+
+				    <div>
+				        {{ $user->twitter_handle }}<br>
+				    </div>
+				    
+				    <div>
+				        {{ Form::label('first_name', 'First Name') }}
+				        {{ Form::text('first_name', Input::old('first_name')) }}
+				        {{ $errors->first('first_name', '<span class="help-block">:message</span>') }}<br>
+				    </div>
+				    <div>
+				        {{ Form::label('last_name', 'Last Name') }}
+				        {{ Form::text('last_name', Input::old('last_name')) }}
+				        {{ $errors->first('last_name', '<span class="help-block">:message</span>') }}<br>
+				    </div>
+				    <div>
+				        {{ Form::label('email', 'Email') }}
+				        {{ Form::text('email', Input::old('email')) }}
+				        {{ $errors->first('email', '<span class="help-block">:message</span>') }}<br>
+				    </div>
+				    
+				   	{{ Form::Submit('Register', array('class' => 'btn pull-right'))}}
+				   	{{ Form::close() }}
+
+				</div>
+
+
+				    <!-- <input type="text" value="123123" id="id1">
+				    <input type="text" value="123123" id="id2">
+				    <input type="text" value="123123" id="id3"> -->
+				
+				<div id="area-4"  class="area">
+					{{Form::model($user, array('action'=> array('CharitiesController@store', $user->twitter_handle), 'method' => 'PUT'))  }}
 					<div class="form-group">
 					    {{ Form::label('charity_name', 'Charity Name', array('class' => 'icon-user')) }}
 					    {{ Form::text('charity_name', null, array('class' => 'form-control')) }}
 					   	{{ $errors->first('charity_name', '<span class="help-block">:message</span>') }}<br>
-					</div>
-					<div class="form-group">
-					    {{ Form::label('tax_id', 'Tax ID #', array('class' => 'icon-user')) }}
-					    {{ Form::text('tax_id', null, array('class' => 'form-control')) }}
-					   	<!-- {{ $errors->first('tax_id', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
 					    {{ Form::label('first_name', 'Contact person First Name', array('class' => 'icon-user')) }}
@@ -71,29 +96,24 @@
 					    {{ Form::text('zip', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('zip', '<span class="help-block">:message</span>') }}<br> -->
 					</div class="form-group">
+					<div class="form-group">
+					    {{ Form::label('tax_id', 'Tax ID #', array('class' => 'icon-user')) }}
+					    {{ Form::text('tax_id', null, array('class' => 'form-control')) }}
+					   	<!-- {{ $errors->first('tax_id', '<span class="help-block">:message</span>') }}<br> -->
+					</div>
 					<div>
 						{{ Form::label ('image', 'Tax ID upload') }}
     					{{ Form::file('image') }}
     					<br>
 					</div>
-					<div class="form-group">
-					    {{ Form::label('password', 'Password (min 6 chars)', array('class' => 'icon-lock')) }}
-					    <br>
-					    {{ Form::password('password', null, array('class' => 'form-control')) }}
-					   	<!-- {{ $errors->first('password', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('password2', 'Re-enter Password', array('class' => 'icon-lock')) }}
-					    <br>
-					    {{ Form::password('password2', null, array('class' => 'form-control')) }}
-					   	<!-- {{ $errors->first('password2', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
 					<div>
 				 	{{Form::Submit('Register Charity', array('class' => 'btn pull-right')) }}
 					</div>
 					<div class="clearfix">
-					{{ Form::close() }}
+						{{ Form::close() }}
 					</div>
+
+				</div>
 			</div>
 		</div>
 	</div>
@@ -101,4 +121,16 @@
 @stop
 
 @section('bottomscript')
+
+<script>
+	$(function(){
+	   $("div.area").hide();
+	    $("input[type=radio]").click(function(){        
+	      var val=$(this).val();
+	      $(".area").hide();    
+	      $("#area-"+val).show();        
+	    });      
+	});
+</script>
+
 @stop
