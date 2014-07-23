@@ -1,9 +1,6 @@
 /*--------------------------------------------------------------------------
 	General Style
 --------------------------------------------------------------------------*/
-body {
-  background: url(/img/page-background.png);
-}
 .section {
   padding: 30px 0;
   -webkit-transform: translateZ(0);
@@ -20,6 +17,10 @@ body {
 .section .container:first-child h3 {
   margin-top: 0;
   font-weight: 700;
+}
+.container{
+  margin-right: auto;
+  margin-left: auto;
 }
 .input-micro {
   width: 50px;
@@ -2694,4 +2695,74 @@ span.color-red {
   border-radius: 10px;
   margin: 0 0 0 10px;
   background: #fff;
+}
+
+/*************************************
+ * generic styling for ALS elements
+ ************************************/
+
+.als-container {
+  position: relative;
+  width: 100%;
+  margin: 0px auto;
+  z-index: 0;
+}
+
+.als-viewport {
+  position: relative;
+  overflow: hidden;
+  margin: 0px auto;
+}
+
+.als-wrapper {
+  position: relative;
+  list-style: none;
+  color: gray;
+}
+
+.als-item {
+  position: relative;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  float: left;
+}
+
+.als-prev, .als-next {
+  position: absolute;
+  cursor: pointer;
+  clear: both;
+}
+/*************************************
+ * specific styling for #pickList
+ ************************************/
+
+#pickList {
+  margin: 40px auto;
+}
+
+#pickList .als-item {
+  margin: 0px 5px;
+  padding: 4px 0px;
+  min-height: 120px;
+  min-width: 100px;
+  text-align: center;
+}
+
+#pickList .als-item img {
+  display: block;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+#pickList .als-prev, #pickList .als-next {
+  top: 40px;
+}
+
+#pickList .als-prev {
+  left: 200px;
+}
+
+#pickList .als-next {
+  right: 200px;
 }
