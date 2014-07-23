@@ -21,50 +21,50 @@
 //     exit;
 // });
 
-// // Redirect back from Twitter to http://site.com/twitter-auth
-// Route::get('callback', function(){
+// Redirect back from Twitter to http://site.com/twitter-auth
+Route::get('callback', function(){
 
-//     // Oauth token
-//     $token = Input::get('oauth_token');
+    // Oauth token
+    $token = Input::get('oauth_token');
 
-//     // Verifier token
-//     $verifier = Input::get('oauth_verifier');
+    // Verifier token
+    $verifier = Input::get('oauth_verifier');
 
-//     // Request access token
-//     $accessToken = Twitter::oAuthAccessToken($token, $verifier);
+    // Request access token
+    $accessToken = Twitter::oAuthAccessToken($token, $verifier);
 
-//     $twitterId = $accessToken['user_id'];
-//     $twitterUsername = $accessToken['screen_name'];
-//     $twitterToken = $accessToken['oauth_token'];
-//     $twitterTokenSecret = $accessToken['oauth_token_secret'];
+    $twitterId = $accessToken['user_id'];
+    $twitterUsername = $accessToken['screen_name'];
+    $twitterToken = $accessToken['oauth_token'];
+    $twitterTokenSecret = $accessToken['oauth_token_secret'];
 
-//     // is this an existing user?
-//     $user = User::findByTwitterId($twitterId);
+    // is this an existing user?
+    $user = User::findByTwitterId($twitterId);
 
-//     if ($user)
-//     {
-//         // existing user
-//         $user->twitter_handle = $twitterUsername;
-//         $user->oauth_token = $twitterToken;
-//         $user->oauth_token_secret = $twitterTokenSecret;
-//         $user->save();
-//     }
-//     else
-//     {
-//         // this is a new user, create them in the db
-//         $user = new User();
-//         $user->role_id = User::ROLE_UNINITIALIZED;
-//         $user->user_id = $twitterId;
-//         $user->twitter_handle = $twitterUsername;
-//         $user->oauth_token = $twitterToken;
-//         $user->oauth_token_secret = $twitterTokenSecret;
-//         $user->save();
-//     }
+    if ($user)
+    {
+        // existing user
+        $user->twitter_handle = $twitterUsername;
+        $user->oauth_token = $twitterToken;
+        $user->oauth_token_secret = $twitterTokenSecret;
+        $user->save();
+    }
+    else
+    {
+        // this is a new user, create them in the db
+        $user = new User();
+        $user->role_id = User::ROLE_UNINITIALIZED;
+        $user->user_id = $twitterId;
+        $user->twitter_handle = $twitterUsername;
+        $user->oauth_token = $twitterToken;
+        $user->oauth_token_secret = $twitterTokenSecret;
+        $user->save();
+    }
 
-//     Auth::loginUsingId($user->id);
+    Auth::loginUsingId($user->id);
 
-//     return Redirect::to('/'); // todo go to user dashboard based on role
-// });
+    return Redirect::to('/'); // todo go to user dashboard based on role
+});
 
 
 // Route::get('more-info-required', function(){
@@ -82,8 +82,6 @@ Route::get('/demo', function () {
     return View::make('tweetsforcharity.demo');
 });
 
-// Route::get('/users_sign_up', 'UsersController@twitter_redirect');
-
 Route::get('/twitter-redirect', function(){
     // Reqest tokens
     $tokens = PhiloTwitter::oAuthRequestToken();
@@ -93,18 +91,13 @@ Route::get('/twitter-redirect', function(){
 });
 
 Route::get('/twitter_redirect', 'HomeController@twitter_redirect');
-Route::get('/callback', 'UsersController@create');
 
-//Route::get('/callback', 'UsersController@create'); 
 route::put('/registration/{twitter_handle}', 'HomeController@registration');
 
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
 
-// Route::resource('/charities_sign_up', 'CharitiesController@create');
-
 Route::resource('donors', 'DonorsController');
-//Route::resource('/charities_sign_up', 'CharitiesController@create');
 Route::get('/public_profile', 'UsersController@showProfile');
 
 
@@ -119,9 +112,7 @@ Route::get('/users_sign_up', 'UsersController@create');
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
 Route::get('/logout', 'HomeController@logout');
-route::get('/thankyou', function() {
-    return View::make('tweetsforcharity.users_exit_page');
-});
+route::get('/thankyou', 'HomeController@showThankYou');
 
 /*
 |
