@@ -87,20 +87,23 @@ Route::get('/demo', function () {
 Route::get('/twitter-redirect', function(){
     // Reqest tokens
     $tokens = PhiloTwitter::oAuthRequestToken();
-
     // Redirect to twitter
     PhiloTwitter::oAuthAuthenticate(array_get($tokens, 'oauth_token'));
     exit;
 });
 
 Route::get('/twitter_redirect', 'HomeController@twitter_redirect');
-Route::get('/callback', 'UsersController@create');
+//Route::get('/callback', 'HomeController@registration');
 
-//Route::get('/callback', 'UsersController@create'); 
+Route::get('/callback', 'UsersController@create'); 
 route::put('/registration/{twitter_handle}', 'HomeController@registration');
 
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
+
+Route::get('/sign_up', function() {
+    return View::make('tweetsforcharity.sign_up');
+});
 
 // Route::resource('/charities_sign_up', 'CharitiesController@create');
 

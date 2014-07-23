@@ -96,6 +96,7 @@
             //script to make error or success message disappear after a couple seconds
             $('.fade_message').delay(2000).fadeOut(1000);
         </script>
+        
         @yield('bottomscript')
     </body>
 </html>

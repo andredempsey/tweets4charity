@@ -31,27 +31,48 @@ class HomeController extends BaseController {
 
 		// $validator = Validator::make(Input::all());
 
-		$user = User::findByTwitterHandle($twitter_handle);
-		// if ($validator->fails()) 
-		// {
+		$token = Input::get('oauth_token');
 
-		// 	Session::flash('errorMessage', $eMessageValue);
-		// 	return Redirect::back()->withInput()->withErrors($validator);
-		// }
-		// else
-		// {
-			$user->first_name = Input::get('first_name');
-			$user->last_name = Input::get('last_name');
-			$user->email = Input::get('email');	
-			$user->role_id = 3;
-			$user->save();
-			$data = [
-				'user'=>$user
-			];
+    	//Verifier/secret token
+    	$verifier = Input::get('oauth_verifier');
 
-			// Session::flash('successMessage', $messageValue);
-			return Redirect::action('UsersController@edit')->with($data);
-		// }
+    	//Request access token
+    	$accessToken = PhiloTwitter::oAuthAccessToken($token, $verifier);
+    	
+		$user = new User;
+		$twitter_handle = $accessToken['screen_name'];
+    
+		$user->twitter_handle = $twitter_handle;
+    	$user->oauth_token = $accessToken['oauth_token'];
+    	$user->oauth_token_secret = $accessToken['oauth_token_secret'];
+    	$user->user_id = $accessToken['user_id'];
+    	$user->role_id = 2;
+    	$user->save();
+
+		return View::make('tweetsforcharity.sign_up')->with($twitter_handle);
+
+
+		// $user = User::findByTwitterHandle($twitter_handle);
+		// // if ($validator->fails()) 
+		// // {
+
+		// // 	Session::flash('errorMessage', $eMessageValue);
+		// // 	return Redirect::back()->withInput()->withErrors($validator);
+		// // }
+		// // else
+		// // {
+		// 	$user->first_name = Input::get('first_name');
+		// 	$user->last_name = Input::get('last_name');
+		// 	$user->email = Input::get('email');	
+		// 	$user->role_id = 3;
+		// 	$user->save();
+		// 	$data = [
+		// 		'user'=>$user
+		// 	];
+
+		// 	// Session::flash('successMessage', $messageValue);
+		// 	return Redirect::action('UsersController@edit')->with($data);
+		// // }
 	}
 
 

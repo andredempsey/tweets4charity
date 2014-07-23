@@ -124,6 +124,7 @@ return array(
 		'Thujohn\Twitter\TwitterServiceProvider',
 		'Abodeo\LaravelStripe\LaravelStripeServiceProvider',
 		'Philo\Twitter\TwitterServiceProvider',
+		'Way\Generators\GeneratorsServiceProvider'
 	),
 
 	/*

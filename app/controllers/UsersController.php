@@ -34,7 +34,7 @@ public function __construct()
 
 	public function create()
 	{
-		// Oauth token
+		// Oauth tokends
     	$token = Input::get('oauth_token');
 
     	//Verifier/secret token
@@ -54,7 +54,7 @@ public function __construct()
     	$user->save();
     	
 
-		return View::make('tweetsforcharity.users_sign_up')->with('user', $user);
+		return View::make('tweetsforcharity.sign_up')->with('user', $user);
 
 	}
 
@@ -66,24 +66,49 @@ public function __construct()
 	 */
 	public function store($twitter_handle)
 	{
-		$messageValue = 'Successfully registered!';
-		$eMessageValue = 'There was a problem registering.';
+		// $messageValue = 'Successfully registered!';
+		// $eMessageValue = 'There was a problem registering.';
 
-		$user = findByTwitterHandle($twitter_handle) ;
+		$user = findByTwitterHandle($twitter_handle);
 
 		// $user = new User();
-		$donor = new Donor();
+		// $donor = new Donor();
+		//$twitter_handle = parse_url($url,)
+
+		// $validator = Validator::make(Input::all());
+
+		
+		// if ($validator->fails()) 
+		// {
+
+		// 	Session::flash('errorMessage', $eMessageValue);
+		// 	return Redirect::back()->withInput()->withErrors($validator);
+		// }
+		// else
+		// {
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
+			$user->email = Input::get('email');	
+			$user->role_id = 3;
+			$user->save();
+			$data = [
+				'user'=>$user
+			];
+
+			// Session::flash('successMessage', $messageValue);
+			return Redirect::action('UsersController@edit')->with($data);
+		// }
 
 
 		//NRS - 07/20/14 - trying to add tweet count to Activities table; possible new controller needed?
 		//$activity = new Activity();
 
-		$validator = Validator::make(Input::all(), User::$user_rules);
-		if ($validator->fails()) 
-		{
-			Session::flash('errorMessage', $eMessageValue);
-			return Redirect::back()->withInput()->withErrors($validator);
-		}
+		// $validator = Validator::make(Input::all(), User::$user_rules);
+		// if ($validator->fails()) 
+		// {
+		// 	Session::flash('errorMessage', $eMessageValue);
+		// 	return Redirect::back()->withInput()->withErrors($validator);
+		// }
 		// else
 		// {
 			//NRS - added 7/19/14
@@ -95,55 +120,55 @@ public function __construct()
 			// 	dd($tweets);
 			// 	Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
 			// 	return Redirect::back()->withInput()->withInput;
-			else { 
-				$user->first_name = Input::get('first_name');
-				$user->last_name = Input::get('last_name');
-				$user->email = Input::get('email');
-				//$user->twitter_handle = Input::get('twitter_handle');
-				$user->password = Hash::make(Input::get('password'));
-				//$user->profile_picture_link = $profile_image;
-				// $tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
-				// $profile_image = ($tweets[0]['user']['profile_image_url']);
-				// $tweet_count = ($tweets[0]['user']['statuses_count']);
-				//$user->tokens = 
-				$user->role_id = 'donor';
-				$user->is_active = True;
-				//dd($user);
-				// $activity->tweet_count = $tweet_count;
-				$user->save();
-				//$activity->save();		
+			// else { 
+			// 	$user->first_name = Input::get('first_name');
+			// 	$user->last_name = Input::get('last_name');
+			// 	$user->email = Input::get('email');
+			// 	//$user->twitter_handle = Input::get('twitter_handle');
+			// 	$user->password = Hash::make(Input::get('password'));
+			// 	//$user->profile_picture_link = $profile_image;
+			// 	// $tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
+			// 	// $profile_image = ($tweets[0]['user']['profile_image_url']);
+			// 	// $tweet_count = ($tweets[0]['user']['statuses_count']);
+			// 	//$user->tokens = 
+			// 	$user->role_id = 'donor';
+			// 	$user->is_active = True;
+			// 	//dd($user);
+			// 	// $activity->tweet_count = $tweet_count;
+			// 	$user->save();
+			// 	//$activity->save();		
 
-				$twitter_handle = Input::get('twitter_handle');
+			// 	$twitter_handle = Input::get('twitter_handle');
 				
-				// $tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
-				// if($tweets['error']){
-				// 	Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
-				// 	return Redirect::back()->withInput()->withInput;
-				// } else { 
-				// 	$profile_image = ($tweets[0]['user']['profile_image_url']);
-				// 	$tweet_count = ($tweets[0]['user']['statuses_count']);
-				// 	$user->profile_picture_link = $profile_image;
-				$user->twitter_handle = Input::get('twitter_handle');
-				$user->email = Input::get('email');
-				$user->password = Hash::make(Input::get('password'));
-				$user->role_id = 'Donor';
-				$user->is_active = True;
-				$user->save();
-				// $donor->user_id = $user->id;
-				// $donor->first_name = Input::get('first_name');
-				// $donor->last_name = Input::get('last_name');
-				// $donor->amount_per_tweet = 0;
-				// $donor->monthly_goal = 0;
-				// $donor->report_frequency = 30;
+			// 	// $tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
+			// 	// if($tweets['error']){
+			// 	// 	Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
+			// 	// 	return Redirect::back()->withInput()->withInput;
+			// 	// } else { 
+			// 	// 	$profile_image = ($tweets[0]['user']['profile_image_url']);
+			// 	// 	$tweet_count = ($tweets[0]['user']['statuses_count']);
+			// 	// 	$user->profile_picture_link = $profile_image;
+			// 	$user->twitter_handle = Input::get('twitter_handle');
+			// 	$user->email = Input::get('email');
+			// 	$user->password = Hash::make(Input::get('password'));
+			// 	$user->role_id = 'Donor';
+			// 	$user->is_active = True;
+			// 	$user->save();
+			// 	// $donor->user_id = $user->id;
+			// 	// $donor->first_name = Input::get('first_name');
+			// 	// $donor->last_name = Input::get('last_name');
+			// 	// $donor->amount_per_tweet = 0;
+			// 	// $donor->monthly_goal = 0;
+			// 	// $donor->report_frequency = 30;
 				
-				// $donor->save();
-				//$activity->tweet_count = $tweet_count;
+			// 	// $donor->save();
+			// 	//$activity->tweet_count = $tweet_count;
 
-				// $activity->save();
+			// 	// $activity->save();
 
-				Session::flash('successMessage', $messageValue);
-				return Redirect::action('UsersController@showHome');
-			}
+			// 	Session::flash('successMessage', $messageValue);
+			// 	return Redirect::action('UsersController@showHome');
+			// }
 		}
 	
 	public function oauth() {	
