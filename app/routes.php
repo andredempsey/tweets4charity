@@ -87,7 +87,6 @@ Route::get('/demo', function () {
 Route::get('/twitter-redirect', function(){
     // Reqest tokens
     $tokens = PhiloTwitter::oAuthRequestToken();
-
     // Redirect to twitter
     PhiloTwitter::oAuthAuthenticate(array_get($tokens, 'oauth_token'));
     exit;
