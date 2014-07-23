@@ -40,22 +40,23 @@ class CharitiesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($twitter_handle)
 	{
 		$charity = new Charity();
-		$user = new User();
+		//$user = new User();
+		$user = findByTwitterHandle($twitter_handle);
 
-		$messageValue = 'You have successfully registered your charity!';
-		$eMessageValue = 'There was a problem registering your charity.';
+		// $messageValue = 'You have successfully registered your charity!';
+		// $eMessageValue = 'There was a problem registering your charity.';
 		
-		$validator = Validator::make(Input::all(), User::$user_rules);
-		if ($validator->fails()) 
-		{
-			Session::flash('errorMessage', $eMessageValue);
-			return Redirect::back()->withInput()->withErrors($validator);
-		}
-		else
-		{
+		// $validator = Validator::make(Input::all(), User::$user_rules);
+		// if ($validator->fails()) 
+		// {
+		// 	Session::flash('errorMessage', $eMessageValue);
+		// 	return Redirect::back()->withInput()->withErrors($validator);
+		// }
+		// else
+		// {
 			
 			// if($tweets['error']){
 			// 	Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
@@ -66,17 +67,16 @@ class CharitiesController extends BaseController {
 			// $tweet_count = ($tweets[0]['user']['statuses_count']);
 			// $user->profile_picture_link = $profile_image;
 			$user->twitter_handle    = Input::get('twitter_handle');
+			$charity->first_name     = Input::get('first_name');
+			$charity->last_name      = Input::get('last_name');
 			$user->email             = Input::get('email');
-			$user->password          = Hash::make(Input::get('password'));
-			$user->role_id           = 'charity';
+			$user->role_id           = 4;
 			$user->is_active         = False;
 			$user->save();
 			$charity->user_id        = $user->id;
 			$charity->charity_name   = Input::get('charity_name');
 			$charity->tax_id         = Input::get('tax_id');
 			//need to add tax pdf here
-			$charity->first_name     = Input::get('first_name');
-			$charity->last_name      = Input::get('last_name');
 			$charity->phone          = Input::get('phone');
 			$charity->street         = Input::get('street');
 			$charity->city           = Input::get('city');
@@ -84,8 +84,8 @@ class CharitiesController extends BaseController {
 			$charity->zip            = Input::get('zip');
 			$charity->save();
 			// show msg if charity has been added w/ no errors
-			Session::flash('successMessage', $messageValue);
-			return Redirect::action('CharitiesController@show');
+			// Session::flash('successMessage', $messageValue);
+			return Redirect::action('CharitiesController@show')->with($twitter_handle);
 		
 		}
 	}
@@ -95,6 +95,7 @@ class CharitiesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+	
 	public function show($twitter_handle)
 	{
 		$charity = Charity::findByTwitterHandle($twitter_handle);

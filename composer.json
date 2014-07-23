@@ -7,7 +7,8 @@
 		"laravel/framework": "4.2.*",
 		"thujohn/twitter": "1.1.*",
 		"abodeo/laravel-stripe": "dev-master",
-		"philo/laravel-twitter": "dev-master"
+		"philo/laravel-twitter": "dev-master",
+		"way/generators": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
