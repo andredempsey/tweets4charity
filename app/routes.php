@@ -21,7 +21,7 @@
 //     exit;
 // });
 
-// // Redirect back from Twitter to http://site.com/twitter-auth
+// Redirect back from Twitter to http://site.com/twitter-auth
 // Route::get('callback', function(){
 
 //     // Oauth token
@@ -82,8 +82,6 @@ Route::get('/demo', function () {
     return View::make('tweetsforcharity.demo');
 });
 
-// Route::get('/users_sign_up', 'UsersController@twitter_redirect');
-
 Route::get('/twitter-redirect', function(){
     // Reqest tokens
     $tokens = PhiloTwitter::oAuthRequestToken();
@@ -93,13 +91,18 @@ Route::get('/twitter-redirect', function(){
 });
 
 Route::get('/twitter_redirect', 'HomeController@twitter_redirect');
+
 //Route::get('/callback', 'HomeController@registration');
 
 Route::get('/callback', 'UsersController@create'); 
+
+
+
 route::put('/registration/{twitter_handle}', 'HomeController@registration');
 
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
+
 
 Route::get('/sign_up', function() {
     return View::make('tweetsforcharity.sign_up');
@@ -108,7 +111,6 @@ Route::get('/sign_up', function() {
 // Route::resource('/charities_sign_up', 'CharitiesController@create');
 
 Route::resource('donors', 'DonorsController');
-//Route::resource('/charities_sign_up', 'CharitiesController@create');
 Route::get('/public_profile', 'UsersController@showProfile');
 
 
@@ -123,9 +125,7 @@ Route::get('/users_sign_up', 'UsersController@create');
 Route::get('/login', 'HomeController@showLogin');
 Route::post('/login', 'HomeController@doLogin');
 Route::get('/logout', 'HomeController@logout');
-route::get('/thankyou', function() {
-    return View::make('tweetsforcharity.users_exit_page');
-});
+route::get('/thankyou', 'HomeController@showThankYou');
 
 /*
 |
