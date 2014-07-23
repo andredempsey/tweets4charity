@@ -74,7 +74,7 @@
 				</div>
 				<div class="col-md-1 col-sm-1"> <input type="submit"></div>
 				<div class="col-md-1 col-sm-1"> 
-					{{link_to_action('HomeController@addCharity', 'Remove', array('attach_to_user_id' => $user->id, 'charity_id' => $charity->id))}}
+					{{link_to_action('DonorsController@removeCharity', 'Remove', array('charity_id' => $charity->id))}}
 				</div>
 			</form>
 			<!--end Ajax Form -->
@@ -87,45 +87,13 @@
 		<div class="col-md-12 center-text">
 		<h4>Available Charities</h4>
 		<!-- <form action=""></form> -->
-		{{ Form::model($user->donor->charities, array('action' => array('HomeController@addCharity'), 'method' => 'GET')) }}
 	    @foreach ($charities as $charity)
-		    <span>{{link_to_action('HomeController@addCharity', 'Add', array('attach_to_user_id' => $user->id, 'charity_id' => $charity->id))}}<img src="{{$charity->user->profile_picture_link}}" style="height:50px">{{$charity->charity_name}}</span>
+		    <span>{{link_to_action('DonorsController@addCharity', 'Add', array('charity_id' => $charity->id))}}<img src="{{$charity->user->profile_picture_link}}" style="height:50px">{{$charity->charity_name}}</span>
 	    @endforeach
 		</div> <!-- end class="col-md-12" -->
 	</div>	<!-- end Available Charities Section -->
 	<div class="text-left">{{ $charities->links() }}</div> <!-- pagination -->
-		{{Form::close()}}
 
-
-
-
-
-
-
-
-
-
-
-	<!-- ***************HOLD FOR POSSIBLE FUTURE INTEGRATION -->
-	<!-- Any List Scroller Plug In -->
-	<!-- <div class="well well-lg">
-	{{ Form::model($user->donor->charities, array('action' => array('HomeController@addCharity'), 'method' => 'GET')) }}
-	<div class="als-container" id="pickList">
-	  <span class="als-prev"><img src="/img/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
-	  <div class="als-viewport">
-	    <ul class="als-wrapper">
-		@foreach ($charities as $charity)
-	      <li class="als-item"><img src="/img/fragola.png">Strawberry</li>
-	    @endforeach
-	    </ul>
-	  </div>
-	  <span class="als-next"><img src="/img/thin_right_arrow_333.png" alt="next" title="next" /></span>
-	</div>
-	{{Form::close()}}
-	</div> -->
-	<!-- Any List Scroller Plug In -->
-	<!-- end Available Charities Section -->
-	<!-- *******************end HOLD FOR POSSIBLE FUTURE INTEGRATION -->
 	<div class="row">
 		<h2 class="page-header">Twitter Activity</h2>
 	</div>

@@ -13,13 +13,13 @@
 
 App::before(function($request)
 {
-	// if (Auth::check() && 
-	// 	Auth::user()->role_id == User::ROLE_UNINITIALIZED && 
-	// 	!Request::is('users_sign_up') && 
-	// 	!Request::is('logout'))
-	// {
-	// 	return Redirect::to('users_sign_up');
-	// }
+	if (Auth::check() && 
+		Auth::user()->role_id == User::ROLE_UNINITIALIZED && 
+		!Request::is('registration') && 
+		!Request::is('logout'))
+	{
+		return Redirect::to('registration');
+	}
 });
 
 

@@ -52,7 +52,7 @@
                                                                     @if (Auth::check())
                                                                         <li class-"right"><a href="{{ action('HomeController@logout') }}">Logout</a></li>
                                                                     @else
-                                                                        <li class="right"><a href="/twitter_redirect">Login/Sign Up</a></li>
+                                                                        <li class="right"><a href="{{ action('HomeController@showPreLogin') }}">Login/Sign Up</a></li>
                                                                     @endif    
                                                                </ul>
                                                             </div>

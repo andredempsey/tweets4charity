@@ -15,117 +15,139 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showHome()
+	public function showLogin()
 	{
-		return View::make('tweetsforcharity.landingpage');
-		
+	    // Reqest tokens
+	    $tokens = Twitter::oAuthRequestToken();
+
+	    // Redirect to twitter
+	    Twitter::oAuthAuthenticate(array_get($tokens, 'oauth_token'));
+	    exit;
 	}
 
-	public function twitter_redirect() {
-		return View::make('tweetsforcharity.twitter_redirect');
-	}
-
-	public function registration($twitter_handle)
+	public function doLogin()
 	{
-		//$twitter_handle = parse_url($url,)
+	    // Oauth token
+	    $token = Input::get('oauth_token');
 
-		// $validator = Validator::make(Input::all());
+	    // Verifier token
+	    $verifier = Input::get('oauth_verifier');
 
-		$token = Input::get('oauth_token');
+	    // Request access token
+	    $accessToken = Twitter::oAuthAccessToken($token, $verifier);
 
-    	//Verifier/secret token
-    	$verifier = Input::get('oauth_verifier');
+	    $twitterId = $accessToken['user_id'];
+	    $twitterUsername = $accessToken['screen_name'];
+	    $twitterToken = $accessToken['oauth_token'];
+	    $twitterTokenSecret = $accessToken['oauth_token_secret'];
 
-    	//Request access token
-    	$accessToken = PhiloTwitter::oAuthAccessToken($token, $verifier);
-    	
-		$user = new User;
-		$twitter_handle = $accessToken['screen_name'];
-    
-		$user->twitter_handle = $twitter_handle;
-    	$user->oauth_token = $accessToken['oauth_token'];
-    	$user->oauth_token_secret = $accessToken['oauth_token_secret'];
-    	$user->user_id = $accessToken['user_id'];
-    	$user->role_id = 2;
-    	$user->save();
+	    // is this an existing user?
+	    $user = User::findByTwitterId($twitterId);
 
-		return View::make('tweetsforcharity.sign_up')->with($twitter_handle);
+	    if ($user)
+	    {
+	        // existing user
+	        $user->twitter_handle = $twitterUsername;
+	        $user->oauth_token = $twitterToken;
+	        $user->oauth_token_secret = $twitterTokenSecret;
+	        $user->save();
+	    }
+	    else
+	    {
+	        // this is a new user, create them in the db
+	        $user = new User();
+	        $user->role_id = User::ROLE_UNINITIALIZED;
+	        $user->user_id = $twitterId;
+	        $user->twitter_handle = $twitterUsername;
+	        $user->oauth_token = $twitterToken;
+	        $user->oauth_token_secret = $twitterTokenSecret;
+	        $user->save();
+	    }
 
+	    Auth::loginUsingId($user->id);
 
-		// $user = User::findByTwitterHandle($twitter_handle);
-		// // if ($validator->fails()) 
-		// // {
-
-		// // 	Session::flash('errorMessage', $eMessageValue);
-		// // 	return Redirect::back()->withInput()->withErrors($validator);
-		// // }
-		// // else
-		// // {
-		// 	$user->first_name = Input::get('first_name');
-		// 	$user->last_name = Input::get('last_name');
-		// 	$user->email = Input::get('email');	
-		// 	$user->role_id = 3;
-		// 	$user->save();
-		// 	$data = [
-		// 		'user'=>$user
-		// 	];
-
-		// 	// Session::flash('successMessage', $messageValue);
-		// 	return Redirect::action('UsersController@edit')->with($data);
-		// // }
+	    return Redirect::action('UsersController@show', $user->twitter_handle);
 	}
 
-
-	//NRS - added 7/20/14 - added showThankYou controller to show the user a thank you message when logging out
-	public function showThankYou() {
-
-		return View::make('tweetsforcharity.users_exit_page');
-	}
-
-	public function showLogin() {
-		return View::make('login');
-	}
-
-	// public function doLogin() {
-	// 	$twitter_handle = Input::get('twitter_handle');
-	// 	$password = Input::get('password');
-	// 	//$charity_name = Input::get('charity_name');
-	// 	// dd($twitter_handle);
-		
-	// 	if (Auth::attempt(array('twitter_handle' => $twitter_handle, 'password' => $password)))
-	// 	{
- //    		Session::flash('successMessage', 'You have logged in successfully.');
- //    		return Redirect::intended(action('UsersController@show', $twitter_handle));
-	// 	}
-	// 	else
-	// 	{
- //    		Session::flash('errorMessage', 'Twitter handle or password was not found.');
- //    		return Redirect::action('HomeController@showLogin')->withInput();
-	// 	}
-	// }
-	//NRS - refactored 7/20/14 - changed to redirect to show thank you page when logging out
-	public function logout() {
+	public function logout()
+	{
 		Auth::logout();
 		Session::flash('successMessage', 'You have logged out.');
 		return Redirect::action('HomeController@showThankYou');
 	}
 
-	public function removeCharity()
+	public function showThankYou()
 	{
-		// $id = Auth::user()->id;
-		$id = Input::get('user_id');
-		$user = User::find($id);
-		$user->donor->charities()->detach(Input::get('charity_id'));
-		Session::flash('errorMessage', 'Successfully removed Charity!');
-		return Redirect::action('UsersController@edit', $user->twitter_handle);
+		return View::make('home.thankyou');
 	}
-	public function addCharity()
+
+	public function showHome()
 	{
-		// $id = Auth::user()->id;
-		$id = Input::get('attach_to_user_id');
-		$user = User::find($id);
-		$user->donor->charities()->attach(Input::get('charity_id'));
-		Session::flash('successMessage', 'Successfully added Charity!');
-		return Redirect::action('UsersController@edit', $user->twitterId);
+		return View::make('home.index');
 	}
+
+	public function showPreLogin()
+	{
+		return View::make('home.pre-login');
+	}
+
+	public function showRegistration()
+	{
+		// make sure a user is authenticated
+		if (Auth::guest())
+		{
+			App::abort(404);
+		}
+
+		$data = array(
+			'user' => Auth::user()
+		);
+
+		return View::make('home.registration')->with($data);
+	}
+
+	public function doRegistration()
+	{
+		// make sure a user is authenticated
+		if (Auth::guest())
+		{
+			App::abort(404);
+		}
+
+		if (Input::get('role_id') == User::ROLE_DONOR)
+		{
+			// validate donor and create
+			$rules = Donor::$rules;
+
+			// if validation fails, redirect back with errors and show on page
+
+			$user = Auth::user();
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
+			$user->email = Input::get('email');
+			$user->role_id = User::ROLE_DONOR;
+			$user->is_active = true;
+			$user->save();
+
+			$donor = new Donor();
+			$donor->user_id = $user->id;
+			$donor->save();
+
+			return Redirect::action('UsersController@show', $user->twitter_handle);
+		}
+		else if (Input::get('role_id') == User::ROLE_CHARITY)
+		{
+			// validate charity and create
+			$rules = Charity::$rules;
+
+			// todo immplment as above
+		}
+		else
+		{
+			// flash a message, unknown role....
+		}
+
+		return Redirect::action('HomeController@showRegistration');
+	}
+
 }
