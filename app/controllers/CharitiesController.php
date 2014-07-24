@@ -7,22 +7,40 @@ class CharitiesController extends BaseController {
     	// call base controller constructor
     	parent::__construct();
 
-    	/
+
+    	
     	$this->beforeFilter('auth', array('except' => array('index', 'show')));
+
 	}
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	
+
+	public function index()
+
+	{
+		// $charities = DB::table('charities')->get();
+		$charities = Charity::with('user')->get();
+		$data = array(
+			'charities' => $charities
+		);
+		// $data = array(
+		// 	'charities' => $charities);
+		return View::make('charities.index')->with($data);
+		
+	}
+
 	public function show($twitter_handle)
+
 	{
 		$user = Auth::user();
 		$tweets = Twitter::statusesUserTimeline($user->user_id);
 		$name = ($tweets[0]['user']['name']);
 		$statuses_count = ($tweets[0]['user']['statuses_count']);
 		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
+
 
 		$data = [
 			'user' => $user,
@@ -32,7 +50,6 @@ class CharitiesController extends BaseController {
 
 		return View::make('users.show')->with($data);
 	}	
-
 	
 	/**
 	 * Show the form for editing the specified resource.

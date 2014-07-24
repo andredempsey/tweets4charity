@@ -24,6 +24,7 @@
 </head>
     <body>
 
+
         @if (Session::has('successMessage'))
             <div class="alert alert-success fade_message">{{{ Session::get('successMessage') }}}</div>
         @endif
