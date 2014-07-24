@@ -15,6 +15,17 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	public function showHome()
+	{
+		$index = true;
+		return View::make('home.index')->with('index', $index);
+	}
+
+	public function showPreLogin()
+	{
+		return View::make('home.pre-login');
+	}
+
 	public function showLogin()
 	{
 	    // Reqest tokens
@@ -23,6 +34,21 @@ class HomeController extends BaseController {
 	    // Redirect to twitter
 	    Twitter::oAuthAuthenticate(array_get($tokens, 'oauth_token'));
 	    exit;
+	}
+
+	public function showRegistration()
+	{
+		// make sure a user is authenticated
+		if (Auth::guest())
+		{
+			App::abort(404);
+		}
+
+		$data = array(
+			'user' => Auth::user()
+		);
+
+		return View::make('home.registration')->with($data);
 	}
 
 	public function doLogin()
@@ -79,32 +105,6 @@ class HomeController extends BaseController {
 	public function showThankYou()
 	{
 		return View::make('home.thankyou');
-	}
-
-	public function showHome()
-	{
-		$index = true;
-		return View::make('home.index')->with('index', $index);
-	}
-
-	public function showPreLogin()
-	{
-		return View::make('home.pre-login');
-	}
-
-	public function showRegistration()
-	{
-		// make sure a user is authenticated
-		if (Auth::guest())
-		{
-			App::abort(404);
-		}
-
-		$data = array(
-			'user' => Auth::user()
-		);
-
-		return View::make('home.registration')->with($data);
 	}
 
 	public function doRegistration()

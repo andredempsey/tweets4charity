@@ -10,18 +10,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 	//The db table this model relates to
-    protected $table = 'users';
 
+    public static $user_rules = [
+    	'first_name'=>'required|max:100',
+    	'last_name'=>'required|max:100',
+    	'email'=>'required|email',
+    	'twitter_handle'=>'required|max:15',
+    	'password'=>'required|min:6'
+    ];
 
-	// static public $user_rules = [
- //    	'first_name'=>'required|max:100',
- //    	'last_name'=>'required|max:100',
- //    	'email'=>'required|email',
- //    	'twitter_handle'=>'required|max:15',
- //    	'password'=>'required|min:6'
- //    ];
-
-    static public $user_update_rules = [
+    public static $user_update_rules = [
     	'first_name'=>'required|max:100',
     	'last_name'=>'required|max:100',
     	'email'=>'required|email',
