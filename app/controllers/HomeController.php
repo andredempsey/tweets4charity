@@ -15,6 +15,17 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	public function showHome()
+	{
+		$index = true;
+		return View::make('home.index')->with('index', $index);
+	}
+
+	public function showPreLogin()
+	{
+		return View::make('home.pre-login');
+	}
+
 	public function showLogin()
 	{
 	    // Reqest tokens
@@ -23,6 +34,21 @@ class HomeController extends BaseController {
 	    // Redirect to twitter
 	    Twitter::oAuthAuthenticate(array_get($tokens, 'oauth_token'));
 	    exit;
+	}
+
+	public function showRegistration()
+	{
+		// make sure a user is authenticated
+		if (Auth::guest())
+		{
+			App::abort(404);
+		}
+
+		$data = array(
+			'user' => Auth::user()
+		);
+
+		return View::make('home.registration')->with($data);
 	}
 
 	public function doLogin()
@@ -81,31 +107,6 @@ class HomeController extends BaseController {
 		return View::make('home.thankyou');
 	}
 
-	public function showHome()
-	{
-		return View::make('home.index');
-	}
-
-	public function showPreLogin()
-	{
-		return View::make('home.pre-login');
-	}
-
-	public function showRegistration()
-	{
-		// make sure a user is authenticated
-		if (Auth::guest())
-		{
-			App::abort(404);
-		}
-
-		$data = array(
-			'user' => Auth::user()
-		);
-
-		return View::make('home.registration')->with($data);
-	}
-
 	public function doRegistration()
 	{
 		// make sure a user is authenticated
@@ -138,9 +139,28 @@ class HomeController extends BaseController {
 		else if (Input::get('role_id') == User::ROLE_CHARITY)
 		{
 			// validate charity and create
-			$rules = Charity::$rules;
+			// $rules = Charity::$rules;
 
-			// todo immplment as above
+			$user = Auth::user();
+			$user->first_name = Input::get('first_name');
+			$user->last_name = Input::get('last_name');
+			$user->email = Input::get('email');
+			$user->role_id = User::ROLE_CHARITY;
+			$user->is_active = false;
+			$user->save();
+
+			$charity = new Charity();
+			$charity->user_id = $user->id;
+			$charity->tax_id = Input::get('tax_id');
+			$charity->phone = Input::get('phone');
+			$charity->street = Input::get('street');
+			$charity->city = Input::get('city');
+			$charity->state = Input::get('state');
+			$charity->zip = Input::get('zip');
+			$charity->tax_pdf = Input::get('tax_pdf');
+			$charity->save();
+
+			return Redirect::action('UsersController@show', $user->twitter_handle);
 		}
 		else
 		{

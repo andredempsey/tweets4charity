@@ -4,21 +4,21 @@ class Donor extends Eloquent {
 
     protected $table = 'donors';
 
-    public static $rules = array(
-    	// 	'first_name'=>'required|max:100',
-    // 	'last_name'=>'required|max:100',
-    // 	// 'email'=>'required|email',
-    );
+    public static $rules = [
+    	'first_name'=>'required|max:100',
+    	'last_name'=>'required|max:100',
+    	'email'=>'required|email',
+    ];
 
 
-    // static public $user_update_rules = [
-    // 	'first_name'=>'required|max:100',
-    // 	'last_name'=>'required|max:100',
-    // 	// 'email'=>'required|email',
-    // 	'amount_per_tweet'=>'required|numeric|min:0',
-    // 	'report_frequency'=>'required|numeric|integer:7',
-    // 	'monthly_goal'=>'required|numeric|min:0'
-    // ];
+    public static $user_update_rules = [
+    	'first_name'=>'required|max:100',
+    	'last_name'=>'required|max:100',
+    	'email'=>'required|email',
+    	'amount_per_tweet'=>'required|numeric|min:0',
+    	'report_frequency'=>'required|numeric|integer:7',
+    	'monthly_goal'=>'required|numeric|min:0'
+    ];
     
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -72,6 +72,7 @@ class Donor extends Eloquent {
 
 	public static function findByTwitterHandle($twitter_handle)
     {
+        // $user = Auth::User();
         $user = User::where('twitter_handle', $twitter_handle)->first();
         return ($user->donor == null) ? App::abort(404) : $user->donor;
 

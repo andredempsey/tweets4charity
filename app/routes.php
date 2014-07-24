@@ -27,5 +27,4 @@ Route::post('allocation', 'DonorsController@updateAllocation');
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
 
-
 ?>

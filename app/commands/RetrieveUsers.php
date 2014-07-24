@@ -47,9 +47,6 @@ class RetrieveUsers extends Command {
 		{
 			//to-do:  need to verify this is the proper process for retrieving data from Twitter using 
 
-		    // Setup OAuth token and secret
-		    // Twitter::setOAuthToken($user->oauth_token);
-		    // Twitter::setOAuthTokenSecret($user->oauth_token_secret);
 			//retrieve tweets from User's Timeline
 		    $tweets = Twitter::statusesUserTimeline($user->user_id);
 		    // Log::info($tweets[0]['user']['statuses_count']);

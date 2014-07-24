@@ -18,40 +18,8 @@
 <!-- end error display section -->
 
 <!-- Donor information that can be edited by user -->
-{{ Form::model($user, array('action' => array('UsersController@update', $user->twitter_handle), 'method' => 'PUT')) }}
-<div class="row">
-	<div class="col-md-1 col-sm-1">
-	    <a href="https://twitter.com/{{{ $user->twitter_handle }}}"><img class="img-circle" src="{{{ $user->profile_picture_link }}}" height="100" width="100"></a>
-	</div>   
-    <div class="col-md-2 col-sm-2">
-	</div>
-</div>
-<div class="row">
-	<table class="table table-hover table-striped table-responsive">
-	<tr>
-		<th>{{Form::label('first_name','First Name')}}</th>
-		<th>{{Form::label('last_name','Last Name')}}</th>
-		<th>{{Form::label('email','Email')}}</th>
-		<th>{{Form::label('amount_per_tweet','Amount/Tweet', array('class' => 'text-center'))}}</th>
-		<th>{{Form::label('report_frequency','Report Frequency', array('class' => 'text-center'))}}</th>
-		<th>{{Form::label('monthly_goal','Max Contribution', array('class' => 'text-center'))}}</th>
-		<th>Action</th>
-	</tr>
-	<tr>
-		<td>{{Form::text('first_name', $user->first_name, array('class' => 'form-control'))}}</td>
-		<td>{{Form::text('last_name', $user->last_name, array('class' => 'form-control'))}}</td>
-		<td>{{Form::text('email', $user->email, array('class' => 'form-control'))}}</td>
-		<td>{{Form::text('amount_per_tweet', $user->donor->amount_per_tweet, array('class' => 'form-control text-center'))}}</td>
-		<td>{{Form::text('report_frequency', $user->donor->report_frequency, array('class' => 'form-control text-center'))}}</td>
-		<td>{{Form::text('monthly_goal', $user->donor->monthly_goal, array('class' => 'form-control text-center'))}}</td>
-		<td>{{Form::Submit('Update', array('class' => 'btn btn-default form-group', 'id' => 'submit'))}}</td>
-	</tr>
-</table>
-{{Form::close()}}
-</div>
-<!-- end Donor data section -->
 <div class="container">
-
+	
 	<!-- Begin Charities section -->
 	<h2>Charities</h2>
 	<div class="row">
@@ -133,48 +101,49 @@
 
 	<div class="row">
 		<h2 class="page-header">Transaction History</h2>
-	</div>
-	<div class="row">
-		<table class="table table-hover table-striped table-responsive">
-			<tr>
-				<th class='text-center'>Month</th>
-				<th class='text-center'>Amount ($)</th>
-				<th class='text-center'>Transaction Date</th>
-			</tr>
-			@foreach ($user->donor->transactions as $transaction)
-			<tr>
-				<td class='text-center'>{{date_format($transaction->created_at,'M')}}</td>
-				<td class='text-center'>{{number_format((float)($transaction->amount), 2 ,'.','')}}</td>
-				<td class='text-center'>{{$transaction->created_at}}</td>
-			</tr>
-			@endforeach
-		</table>
-	</div><!-- end of row -->
+		</div>
+		<div class="row">
+			<table class="table table-hover table-striped table-responsive">
+				<tr>
+					<th class='text-center'>Month</th>
+					<th class='text-center'>Amount ($)</th>
+					<th class='text-center'>Transaction Date</th>
+				</tr>
+				@foreach ($user->donor->transactions as $transaction)
+				<tr>
+					<td class='text-center'>{{date_format($transaction->created_at,'M')}}</td>
+					<td class='text-center'>{{number_format((float)($transaction->amount), 2 ,'.','')}}</td>
+					<td class='text-center'>{{$transaction->created_at}}</td>
+				</tr>
+				@endforeach
+			</table>
+		</div><!-- end of row -->
 
-	<div class="row">
-		<h2 class="page-header">Charity Distribution History</h2>
-	</div>
-	<div class="row">
-		<table class="table table-hover table-striped table-responsive">
-			<tr>
-				<th class='text-center'>Month</th>
-				<th class='text-center'>Charity</th>
-				<th class='text-center'>Amount ($)</th>
-				<th class='text-center'>Distribution Date</th>
-				<th class='text-center'>Check Sent?</th>
-			</tr>
-			@foreach ($charities as $charity)
-			<tr>
-				<td class='text-center'></td>
-				<td class='text-center'>{{$charity->charity_name}}</td>
-				<td class='text-center'></td>
-				<td class='text-center'></td>
-				<td class='text-center'></td>
-			</tr>
-			@endforeach
-		</table>
-	</div><!-- end of row -->
-</div> <!-- end of container -->
+		<div class="row">
+			<h2 class="page-header">Charity Distribution History</h2>
+		</div>
+		<div class="row">
+			<table class="table table-hover table-striped table-responsive">
+				<tr>
+					<th class='text-center'>Month</th>
+					<th class='text-center'>Charity</th>
+					<th class='text-center'>Amount ($)</th>
+					<th class='text-center'>Distribution Date</th>
+					<th class='text-center'>Check Sent?</th>
+				</tr>
+				@foreach ($charities as $charity)
+				<tr>
+					<td class='text-center'></td>
+					<td class='text-center'>{{$charity->charity_name}}</td>
+					<td class='text-center'></td>
+					<td class='text-center'></td>
+					<td class='text-center'></td>
+				</tr>
+				@endforeach
+			</table>
+		</div><!-- end of row -->
+	</div> <!-- end of container -->
+</div>	
 @stop
 
 @section('bottomscript')

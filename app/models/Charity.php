@@ -4,15 +4,31 @@ class Charity extends BaseModel {
 
     protected $table = 'charities';
 
-    public static $rules = array(
-        // 'first_name'     =>'required|max:100',
-        // 'last_name'      =>'required|max:100',
-        // 'email'          =>'required|email',
-        // 'street'         =>'required',
-        // 'city'           =>'required',
-        // 'state'          =>'required',
-        // 'zip'            =>'required',
-    );
+    public static $rules = [
+        'first_name'     =>'required|max:100',
+        'last_name'      =>'required|max:100',
+        'email'          =>'required|email',
+        'phone'          =>'required',
+        'street'         =>'required',
+        'city'           =>'required',
+        'state'          =>'required',
+        'zip'            =>'required',
+        'tax_id'         =>'required',
+        'tax_pdf'        =>'required'
+    ];
+
+    public static $charity_update_rules = [
+        'first_name'     =>'required|max:100',
+        'last_name'      =>'required|max:100',
+        'email'          =>'required|email',
+        'phone'          =>'required',
+        'street'         =>'required',
+        'city'           =>'required',
+        'state'          =>'required',
+        'zip'            =>'required',
+        'tax_id'         =>'required',
+        'tax_pdf'        =>'required', 
+    ];
     
     public function donors()
     {
@@ -27,5 +43,10 @@ class Charity extends BaseModel {
     public function transactions()
     {
       return $this->belongsToMany('Transaction')->withPivot('amount', 'created_at', 'check_sent')->withTimestamps();
+    }
+
+    public function setPhoneAttribute($value) {
+        $value = preg_replace('/\D/', '', $value);
+        $this->attributes['phone'] = $value;
     }
 }

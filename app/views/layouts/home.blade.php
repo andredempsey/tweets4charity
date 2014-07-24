@@ -27,8 +27,8 @@
     @yield('content')
 
      <div id="navigation">
-            <nav class="navbar navbar-custom" role="navigation">
-                                  <div class="container">
+       <nav class="navbar navbar-custom" role="navigation">
+          <div class="container">
                                         <div class="row">
                                               <div class="col-md-4">
                                                        <div class="site-logo">

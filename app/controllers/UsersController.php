@@ -8,7 +8,7 @@ class UsersController extends BaseController {
     	parent::__construct();
     	
     	// run auth filter before all methods on this controller except create and show
-    	$this->beforeFilter('auth', array('except' => array('create', 'show', 'store', 'twitter_redirect', 'index')));
+    	$this->beforeFilter('auth', array('except' => array('show', 'index')));
 
 	}
 
@@ -20,7 +20,7 @@ class UsersController extends BaseController {
 	 */
 	public function show($twitter_handle)
 	{
-		$user = User::findByTwitterHandle($twitter_handle);
+		$user = Auth::user();
 		$tweets = Twitter::statusesUserTimeline($user->user_id);
 		$name = ($tweets[0]['user']['name']);
 		$statuses_count = ($tweets[0]['user']['statuses_count']);
@@ -28,7 +28,6 @@ class UsersController extends BaseController {
 
 		$data = [
 			'user' => $user,
-			'tweets' => $tweets,
 			'name' => $name,
 			'statuses_count' => $statuses_count,
 			'profile_image' => $profile_image
@@ -91,6 +90,7 @@ class UsersController extends BaseController {
 	public function update($twitter_handle)
 	{
 
+		
 		//find record in user table using the twitter handle
 		$user = User::findByTwitterHandle($twitter_handle);
 

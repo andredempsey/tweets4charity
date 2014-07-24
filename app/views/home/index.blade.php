@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.master')
 
 @section('content')
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
@@ -29,7 +29,7 @@
                             </h3>
                             <br>
                             <div class="">
-                                 <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a></div>
+                                 <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a><a class="btn btn-theme btn-sm btn-min-block" href="{{action('CharitiesController@index') }}">Our Charities</a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -47,7 +47,7 @@
                             </h3>
                             <br>
                             <div class="">
-                                 <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a></div>
+                                 <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a><a class="btn btn-theme btn-sm btn-min-block" href="">Our Charities</a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -65,7 +65,7 @@
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a></div>
+                                <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a><a class="btn btn-theme btn-sm btn-min-block" href="">Our Charities</a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -82,8 +82,6 @@
     </section>
     <!-- /Section: intro -->
   @stop
-  
-    
   
   @section('content2')
   <!-- Section: services -->
