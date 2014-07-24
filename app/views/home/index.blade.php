@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.master')
 
 @section('content')
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
@@ -82,8 +82,6 @@
     </section>
     <!-- /Section: intro -->
   @stop
-  
-    
   
   @section('content2')
   <!-- Section: services -->

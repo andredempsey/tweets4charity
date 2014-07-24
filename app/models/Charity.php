@@ -4,15 +4,15 @@ class Charity extends BaseModel {
 
     protected $table = 'charities';
 
-    public static $rules = array(
-        // 'first_name'     =>'required|max:100',
-        // 'last_name'      =>'required|max:100',
-        // 'email'          =>'required|email',
-        // 'street'         =>'required',
-        // 'city'           =>'required',
-        // 'state'          =>'required',
-        // 'zip'            =>'required',
-    );
+    // public static $rules = array(
+    //     // 'first_name'     =>'required|max:100',
+    //     // 'last_name'      =>'required|max:100',
+    //     // 'email'          =>'required|email',
+    //     // 'street'         =>'required',
+    //     // 'city'           =>'required',
+    //     // 'state'          =>'required',
+    //     // 'zip'            =>'required',
+    // );
     
     public function donors()
     {

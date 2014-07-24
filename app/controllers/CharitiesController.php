@@ -87,7 +87,7 @@ class CharitiesController extends BaseController {
 			// Session::flash('successMessage', $messageValue);
 			return Redirect::action('CharitiesController@show')->with($twitter_handle);
 		
-		}
+	
 	}
 	/**
 	 * Display the specified resource.
@@ -98,11 +98,17 @@ class CharitiesController extends BaseController {
 	
 	public function show($twitter_handle)
 	{
-		$charity = Charity::findByTwitterHandle($twitter_handle);
+		$user = User::findByTwitterHandle($twitter_handle);
+		$tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
+		$name = ($tweets[0]['user']['name']);
+		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
 		$data = array(
-			'charity' => $charity);
-		
-		return View::make('tweetsforcharity.charity_dashboard')->with($data);
+			'user' => $user,
+			'name' => $name,
+			'statuses_count' => $statuses_count,
+			'profile_image' => $profile_image
+			);
+		return View::make('users.show')->with($data);
 	}
 
 	
