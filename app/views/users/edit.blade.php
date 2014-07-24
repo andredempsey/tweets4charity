@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="/css/slider.css" >
 <link rel="stylesheet" href="/css/main.css" >
 
+<meta name="csrf-token" content="{{{ csrf_token() }}}">
+
 @stop
 
 @section('content')
@@ -54,45 +56,52 @@
 	<h2>Charities</h2>
 	<div class="row">
 		<div class="col-md-12">
-			@foreach ($user->donor->charities as $charity)
-			<div class="col-md-12 col-sm-12">	
-			<!-- Ajax Form -->
-			<form class="ajax-update">
-				{{Form::hidden('user_id', $user->id)}}
-				<div class="col-md-1 col-sm-1">	
-					<img class="img-circle img-responsive" style="width: 75px" src="{{$charity->user->profile_picture_link}}" alt="{{$charity->charity_name}}">
+			<div class="panel panel-default">
+				<div class="panel-body">	
+					@foreach ($user->donor->charities as $charity)
+					<div class="col-md-12 col-sm-12">
+						<!-- Ajax Form -->
+						<form id="{{'ajax-update' . $charity->id}}">
+							<div class="col-sm-1 col-sm-1">	
+								<img class="img-circle img-responsive" style="width: 75px" src="{{$charity->user->profile_picture_link}}" alt="{{$charity->charity_name}}">
+							</div>
+							<div class="col-sm-3 col-sm-3">
+								<h4>{{$charity->charity_name}}</h4>
+							</div>
+							<div class="col-sm-4 col-sm-4">
+								<input id="slider" class="span2 sliderValue" data-charity = "{{$charity->id}}" data-slider-max="100" type="text" value = {{$charity->pivot->allotted_percent}} name="slider"><br>
+							</div>
+							{{Form::hidden('charity_id', $charity->id)}}
+							<div class="col-sm-1 col-sm-1 text-right">
+								<input type="text" id="alloted_percent" name="alloted_percent" data-charity = "{{$charity->id}}" class="amount" value="{{$charity->pivot->allotted_percent}}" >
+							</div>
+							<div class="col-sm-1 col-sm-1"> 
+								{{link_to_action('DonorsController@removeCharity', 'Remove', array('charity_id' => $charity->id))}}
+							</div>
+						</form>
+						<!--end Ajax Form -->
+					</div> <!-- end class="col-md-12 col-sm-12" -->
+					@endforeach
 				</div>
-				<div class="col-md-2 col-sm-2">
-					<h4>{{$charity->charity_name}}</h4>
-				</div>
-				<div class="col-md-7 col-sm-7">
-					<input id="slider" class="span2 sliderValue" data-slider-max="100" type="text" value = {{$charity->pivot->allotted_percent}} name="slider"><br>
-				</div>
-				{{Form::hidden('charity_id', $charity->id)}}
-				<div class="col-md-1 col-sm-1">
-					<input type="text" id="alloted_percent" name="alloted_percent" class="amount" value="{{$charity->pivot->allotted_percent}}" >
-				</div>
-				<div class="col-md-1 col-sm-1"> <input type="submit"></div>
-				<div class="col-md-1 col-sm-1"> 
-					{{link_to_action('DonorsController@removeCharity', 'Remove', array('charity_id' => $charity->id))}}
-				</div>
-			</form>
-			<!--end Ajax Form -->
-			</div> <!-- end class="col-md-12 col-sm-12" -->
-			@endforeach
+			</div>
 		</div> <!-- end charities section -->
 	</div> <!-- end row -->
 	<!-- Available Charities Section -->
 	<div class="row">
-		<div class="col-md-12 center-text">
-		<h4>Available Charities</h4>
-		<!-- <form action=""></form> -->
-	    @foreach ($charities as $charity)
-		    <span>{{link_to_action('DonorsController@addCharity', 'Add', array('charity_id' => $charity->id))}}<img src="{{$charity->user->profile_picture_link}}" style="height:50px">{{$charity->charity_name}}</span>
-	    @endforeach
+	<h5 class="text-center">Pick a Charity</h5>
+		<div class="col-md-3"></div>
+			<div class="col-md-6 text-center">	
+				<div class="panel panel-default">
+					<div class="panel-body">
+					    @foreach ($charities as $charity)
+						    {{link_to_action('DonorsController@addCharity', 'Add', array('charity_id' => $charity->id))}}<img src="{{$charity->user->profile_picture_link}}" style="height:50px">{{$charity->charity_name}}
+					    @endforeach
+					</div> <!-- end panel-body -->
+				</div> <!-- end panel -->
+			<div class="text-left">{{ $charities->links() }}</div> <!-- pagination -->
 		</div> <!-- end class="col-md-12" -->
+		<div class="col-md-3"></div>
 	</div>	<!-- end Available Charities Section -->
-	<div class="text-left">{{ $charities->links() }}</div> <!-- pagination -->
 
 	<div class="row">
 		<h2 class="page-header">Twitter Activity</h2>
@@ -116,7 +125,7 @@
 				<td class='text-center'>{{$activity->updated_at}}</td>
 				<td><script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
 				                data-key="@stripeKey"
-				                data-amount="5000" data-description="Pay my bill"></script></td>
+				                data-amount="" data-description="Pay my bill"></script></td>
 			</tr>
 			@endforeach
 		</table>
@@ -176,41 +185,60 @@
 
 <script>
 
-$("#pickList").als({
-	visible_items: 5,
-	scrolling_items: 1,
-	orientation: "horizontal",
-	circular: "yes",
-	autoscroll: "no",
-	interval: 2000
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
 });
 
-$('.sliderValue').slider().on('slideStop', function() {
- 	
- 	var numberOfSliders =  $(":input[id^=alloted_percent]").length;
-	console.log($(this).slider('getValue').val());
-	var formValues = $(this).serialize();
-	console.log(formValues);
-});
+//script to make error or success message disappear after a couple seconds
+$('.fade_message').delay(2000).fadeOut(1000);
 
-$('.ajax-update').on('submit', function (e) {
-    e.preventDefault();
-    var formValues = $(this).serialize();
-    console.log($('#allotted_percent').val());
-   console.log(formValues);
+// $('.amount').each(function(index, amt) {
 
+// 	var charityId = $(this).data('charity');
+// 	var amtValue = $(this).val();
+// 	var $sliders = $('.sliderValue');
+// 	console.log('Charity Amount Value: ' +  amtValue);
+// 	$sliders.each(function(index, sld) {
+// 		if ($(sld).data('charity') == charityId) {
+// 			console.log('Found match: ' +  $(sld).slider('getValue').val());
+// 			$(sld).slider('setValue').val(amtValue);
+// 			// $(sld).slider('refresh');
+// 		}
+// 	});
+// });
+
+// console.log(charityPercents);
+
+//update amount field with slider value
+$('.sliderValue').slider().on('slideStop', function() { 	
+
+ 	var slideValue = $(this).slider('getValue').val();  
+ 	var charityID = $(this).data('charity');
+	
+	$('.amount').each(function(index, amt) {
+		if (charityID  == $(this).data('charity')) {
+			// console.log('Found match: ' +  $(sld).slider('getValue').val());
+			$(amt).val(slideValue);
+		}
+	});
+	
+	var formValues = $('#ajax-update'+charityID).serialize();  //serialize all form values for ajax
+
+	console.log(formValues);  //verify it works
+
+	//pass data to ajax request to update database
     $.ajax({
-        url: "/ajax",
+        url: "/allocation",
         type: "POST",
         data: formValues,
         dataType: "json",
         success: function (data) {
         $('#ajax-message').html(data.message);
         }
-    });
- });
-
-
+	});
+});
 
 </script>
 

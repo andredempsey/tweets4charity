@@ -21,6 +21,7 @@
     <link href="/shuffle/css/style.css" rel="stylesheet">
     <link href="/shuffle/color/default.css" rel="stylesheet">
 
+    @yield('topscript')
 </head>
 
     <body>
@@ -73,7 +74,6 @@
         @if (Session::has('errorMessage'))
             <div class="alert alert-danger fade_message">{{{ Session::get('errorMessage') }}}</div>
         @endif
-        @yield('topscript')
         @yield('content')
         
         @yield('content2')

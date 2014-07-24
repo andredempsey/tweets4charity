@@ -48,12 +48,12 @@ class RetrieveUsers extends Command {
 			//to-do:  need to verify this is the proper process for retrieving data from Twitter using 
 
 		    // Setup OAuth token and secret
-		    Twitter::setOAuthToken($user->oauth_token);
-		    Twitter::setOAuthTokenSecret($user->oauth_token_secret);
+		    // Twitter::setOAuthToken($user->oauth_token);
+		    // Twitter::setOAuthTokenSecret($user->oauth_token_secret);
 			//retrieve tweets from User's Timeline
 		    $tweets = Twitter::statusesUserTimeline($user->user_id);
 		    // Log::info($tweets[0]['user']['statuses_count']);
-
+			 // Log::info($tweets);
 		    //to-do:  save latest profile picture to database
 		    //to-do:  refactor so this happens when user logs in
 			$user->profile_picture_link = $tweets[0]['user']['profile_image_url'];

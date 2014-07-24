@@ -22,8 +22,10 @@ Route::get('thankyou', 'HomeController@showThankYou');
 
 Route::get('add-charity', 'DonorsController@addCharity');
 Route::get('remove-charity', 'DonorsController@removeCharity');
+Route::post('allocation', 'DonorsController@updateAllocation');
 
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
+
 
 ?>
