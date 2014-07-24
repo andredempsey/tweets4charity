@@ -39,7 +39,6 @@ class RetrieveUsers extends Command {
 	{
 		$recordsUpdated = 0;
 		$userStatusUpdated = 0;
-		$tweetCount = 0;
 
 		//retrieve all active donors from database
 		$users = User::where('is_active','1')->where('role_id','3')->get();
@@ -53,27 +52,18 @@ class RetrieveUsers extends Command {
 		    Twitter::setOAuthTokenSecret($user->oauth_token_secret);
 			//retrieve tweets from User's Timeline
 		    $tweets = Twitter::statusesUserTimeline($user->user_id);
+		    // Log::info($tweets[0]['user']['statuses_count']);
 
-			//retrieve previous activity
-			$tweetCount = Activity::where('donor_id',$user->donor->donor_id)->sum('tweet_count');
-
-		    Log::info($user->twitter_handle);
-		    // Log::info($tweets);
-		    Log::info($tweets[0]['user']['statuses_count']);
-
-			// //if user not found; ie. account cancelled (change role to '2') then set 'is_active' to false and move on
-			// if($tweets['error'])  //to-do:  what error will we get back (i.e. how do I trap it)?
-			// {
-			// 	$userStatusUpdated++;
-			// }
-			// else
-			// {			
+		    //to-do:  save latest profile picture to database
+		    //to-do:  refactor so this happens when user logs in
+			$user->profile_picture_link = $tweets[0]['user']['profile_image_url'];
+			$user->save();
 			// 	//create  a new instance activity
 				$activity = new Activity();
 
 				//write values
 				$activity->donor_id = $user->donor->id;
-				$tweetCount=$tweets[0]['user']['statuses_count']-$tweetCount;
+				$tweetCount=$tweets[0]['user']['statuses_count'];
 				$activity->tweet_count = $tweetCount;
 				$activity->save();
 				$recordsUpdated++;
@@ -82,8 +72,7 @@ class RetrieveUsers extends Command {
 
 		}
 
-		$this->info($recordsUpdated . ' users updated.');
-		$this->info($userStatusUpdated . ' users made inactive.');
+		$this->info($recordsUpdated . ' activity entries created.');
 	}
 
 	/**
