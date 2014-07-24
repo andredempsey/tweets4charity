@@ -28,6 +28,7 @@
                                                     <li class="right">
                                                         <a href="{{ action('UsersController@edit', Auth::user()->twitter_handle) }}">Edit</a></li>
                                                     @elseif(Auth::user()->role = User::ROLE_CHARITY)
+
                                                       <a href="{{ action('CharitiesController@edit', Auth::user()->twitter_handle) }}">Edit</a></li>
                                                     @endif      
                                                     <li class-"right"><a href="{{ action('HomeController@logout') }}">Logout</a></li>
