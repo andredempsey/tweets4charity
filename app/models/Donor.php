@@ -41,7 +41,7 @@ class Donor extends Eloquent {
 	*/
 	public function charities()
 	{
-	    return $this->belongsToMany('Charity')->withPivot('allotted_percent');
+	    return $this->belongsToMany('Charity')->withPivot('allotted_percent')->withTimestamps();
 	}
 
 	/**

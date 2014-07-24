@@ -21,10 +21,10 @@ class DonorsController extends \BaseController {
 	public function updateAllocation()
 	{
 	    $charity_id = Input::get('charity_id');
-	    $alloted_percent = Input::get('alloted_percent');
+	    $allotted_percent = Input::get('allotted_percent');
 	    $donor = Auth::user()->donor;
-
-		$donor->charities()->updateExistingPivot($charity_id, array('allotted_percent' => $alloted_percent), false);
+	    //update pivot value with all
+		$donor->charities()->updateExistingPivot($charity_id, array('allotted_percent' => $allotted_percent), false);
 	    $message = "Allocation Percent Updated";
 	    Session::flash('successMessage', $message);
 	    $error = false;

@@ -26,6 +26,6 @@ class Charity extends BaseModel {
 
     public function transactions()
     {
-      return $this->belongsToMany('Transaction')->withPivot('amount', 'created_at', 'check_sent');
+      return $this->belongsToMany('Transaction')->withPivot('amount', 'created_at', 'check_sent')->withTimestamps();
     }
 }

@@ -69,11 +69,11 @@
 								<h4>{{$charity->charity_name}}</h4>
 							</div>
 							<div class="col-sm-4 col-sm-4">
-								<input id="slider" class="span2 sliderValue" data-charity = "{{$charity->id}}" data-slider-max="100" type="text" value = {{$charity->pivot->allotted_percent}} name="slider"><br>
+								<input id="slider" class="span2 sliderValue" data-charity="{{$charity->id}}" data-slider-min="0" data-slider-max="100" type="text" value="{{$charity->pivot->allotted_percent}}" data-slider-step="1" name="slider"><br>
 							</div>
 							{{Form::hidden('charity_id', $charity->id)}}
 							<div class="col-sm-1 col-sm-1 text-right">
-								<input type="text" id="alloted_percent" name="alloted_percent" data-charity = "{{$charity->id}}" class="amount" value="{{$charity->pivot->allotted_percent}}" >
+								<input type="text" id="allotted_percent" name="allotted_percent" data-charity="{{$charity->id}}" class="amount" value="{{$charity->pivot->allotted_percent}}" >
 							</div>
 							<div class="col-sm-1 col-sm-1"> 
 								{{link_to_action('DonorsController@removeCharity', 'Remove', array('charity_id' => $charity->id))}}
@@ -194,24 +194,23 @@ $.ajaxSetup({
 //script to make error or success message disappear after a couple seconds
 $('.fade_message').delay(2000).fadeOut(1000);
 
-// $('.amount').each(function(index, amt) {
 
-// 	var charityId = $(this).data('charity');
-// 	var amtValue = $(this).val();
-// 	var $sliders = $('.sliderValue');
-// 	console.log('Charity Amount Value: ' +  amtValue);
-// 	$sliders.each(function(index, sld) {
-// 		if ($(sld).data('charity') == charityId) {
-// 			console.log('Found match: ' +  $(sld).slider('getValue').val());
-// 			$(sld).slider('setValue').val(amtValue);
-// 			// $(sld).slider('refresh');
-// 		}
-// 	});
-// });
+// set the initial values for the slider controls
+$('.amount').each(function(index, amt) {
+	var charityId = $(this).data('charity');
+	var amtValue = $(this).val();
+	var $sliders = $('.sliderValue');
+	$sliders.each(function(index, sld) {
+		if ($(sld).data('charity') == charityId) {
+			
+			$(sld).slider('setValue', amtValue);
+		}
+	});
+});
 
-// console.log(charityPercents);
 
 //update amount field with slider value
+
 $('.sliderValue').slider().on('slideStop', function() { 	
 
  	var slideValue = $(this).slider('getValue').val();  
