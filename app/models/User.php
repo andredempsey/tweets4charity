@@ -40,51 +40,48 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
-
-	public function donor()
 	/**
 	* allows retrieval of donor information from the User model
 	* syntax $user->donor
 	* works
 	 */
+	public function donor()
 	{
 	    return $this->hasOne('Donor');
 	}
 	
- 	public function charities()
     /**
 	* allows retrieval of all charities related to a Donor User from the User model
 	* syntax $user->charities
-	* works??
-	 */
+	*/
+ 	public function charities()
     {
       return $this->belongsToMany('Charity');
 	}
-	public function charity()
-		/**
+	
+	/**
 	* allows retrieval of charity information from the User model
 	* syntax $user->charity
-	* works
-	 */
+	*/
+	public function charity()
 	{
 	    return $this->hasOne('Charity');
 	}
-	public function transactions()
+
 	/**
 	* allows retrieval of transaction information from the User model
 	* syntax $user->transactions
-	* does not work
-	 */
+	*/
+	public function transactions()
 	{
-	    return $this->hasMany('Transaction');
+	    return $this->hasManyThrough('Transaction', 'Donor');
 	}
 
-	public function activities()
 	/**
-	* allows retrieval of donor information from the User model
-	* syntax $user->donor
-	* does not work
-	 */
+	* allows retrieval of activities information from the User model
+	* syntax $user->activites
+	*/
+	public function activities()
 	{
 	    return $this->hasMany('Activity');
 	}

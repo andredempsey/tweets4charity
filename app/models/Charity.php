@@ -40,9 +40,9 @@ class Charity extends BaseModel {
         return $this->belongsTo('User');
     }
 
-    public function distributions()
+    public function transactions()
     {
-      return $this->belongsToMany('Transaction', 'distributions')->withPivot('amount', 'created_at', 'check_sent');
+      return $this->belongsToMany('Transaction')->withPivot('amount', 'created_at', 'check_sent')->withTimestamps();
     }
 
     public function setPhoneAttribute($value) {

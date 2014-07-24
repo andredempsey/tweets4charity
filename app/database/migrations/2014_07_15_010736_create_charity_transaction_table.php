@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDistributionsTable extends Migration {
+class CreateCharityTransactionTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateDistributionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('distributions', function(Blueprint $table)
+		Schema::create('charity_transaction', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('charity_id')->unsigned();
@@ -34,9 +34,9 @@ class CreateDistributionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('distributions', function(Blueprint $table)
+		Schema::table('charity_transaction', function(Blueprint $table)
 		{
-			Schema::drop('distributions');
+			Schema::drop('charity_transaction');
 		});
 	}
 

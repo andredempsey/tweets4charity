@@ -29,8 +29,7 @@ class Donor extends Eloquent {
 	/**
 	* allows retrieval of user information from the Donor model
 	* syntax $donor->user
-	* 
-	 */
+	*/
 	public function user()
 	{
 	    return $this->belongsTo('User');
@@ -38,19 +37,17 @@ class Donor extends Eloquent {
 
 	/**
 	* allows retrieval of charity information and join table values from the Donor model
-	* syntax $donor->charities
-	* 
-	 */
+	* syntax $donor->charities 
+	*/
 	public function charities()
 	{
-	    return $this->belongsToMany('Charity')->withPivot('allotted_percent');
+	    return $this->belongsToMany('Charity')->withPivot('allotted_percent')->withTimestamps();
 	}
 
 	/**
-	* allows retrieval of charity information and join table values from the Donor model
-	* syntax $donor->charities
-	* 
-	 */
+	* allows retrieval of activities information from the Donor model
+	* syntax $donor->activities
+	*/
 	public function activities()
 	{
 	    return $this->hasMany('Activity');
@@ -59,7 +56,6 @@ class Donor extends Eloquent {
 	/**
 	* allows retrieval of transaction information using the Donor model
 	* syntax $donor->transactions
-	* 
 	*/
 	public function transactions()
 	{

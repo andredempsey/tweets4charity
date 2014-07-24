@@ -17,7 +17,7 @@ class Transaction extends Eloquent {
 	    return $this->belongsTo('Donor');
 	}
 
-	public function distributions()
+	public function charities()
     {
       return $this->belongsToMany('Charity')->withPivot('amount', 'distributed_on', 'check_sent');
     }

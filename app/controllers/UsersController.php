@@ -48,6 +48,7 @@ class UsersController extends BaseController {
 		
 		//find record in user table using the twitter handle
 		$user = User::findByTwitterHandle($twitter_handle);
+		$transactions = $user->donor->transactions;
 
 		$alreadySelectedCharities = [];
 		
@@ -71,7 +72,8 @@ class UsersController extends BaseController {
 		//prepare data for passing to user dashboard view
 		$data = [
 		'user' => $user,
-		'charities' => $charities
+		'charities' => $charities,
+		'transactions' => $transactions
 		];
 
 		return View::make('users.edit')->with($data);

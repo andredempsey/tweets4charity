@@ -21,6 +21,7 @@
     <link href="/shuffle/css/style.css" rel="stylesheet">
     <link href="/shuffle/color/default.css" rel="stylesheet">
 
+    @yield('topscript')
 </head>
     <body>
 
@@ -37,6 +38,7 @@
         @endif
 
         @yield('topscript')
+
         @yield('content')
 
         @if (isset($index))
