@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+
 @section('topscript')
 @stop
 
@@ -17,11 +18,10 @@
 				<div  id="area-3" class="area">
 
 			        <h1>Donor Registration</h1>
-			        {{ Form::open(array('action' => array('HomeController@doRegistration'), 'method' => 'POST')) }}
+			        {{ Form::model($user, array('action' => array('UsersController@store', $user->twitter_handle), 'method' => 'PUT')) }}
 
 				    <div>
 				        {{ $user->twitter_handle }}<br>
-				        {{ Form::hidden('role_id', User::ROLE_DONOR) }}
 				    </div>
 				    
 				    <div>
@@ -44,65 +44,62 @@
 				   	{{ Form::close() }}
 
 				</div>
+
+
+				    <!-- <input type="text" value="123123" id="id1">
+				    <input type="text" value="123123" id="id2">
+				    <input type="text" value="123123" id="id3"> -->
 				
 				<div id="area-4"  class="area">
-
-					<h1>Charity Registration</h1>
-					{{Form::open(array('action'=> array('HomeController@doRegistration'), 'files' => true, 'method' => 'POST'))  }}
-
-				    <div>
-				        {{ $user->twitter_handle }}<br>
-				        {{ Form::hidden('role_id', User::ROLE_CHARITY) }}
-				    </div>
-
+					{{Form::model($user, array('action'=> array('CharitiesController@store', $user->twitter_handle), 'method' => 'PUT'))  }}
 					<div class="form-group">
-					    {{ Form::label('charity_name', 'Charity Name') }}
-					    {{ Form::text('charity_name') }}
+					    {{ Form::label('charity_name', 'Charity Name', array('class' => 'icon-user')) }}
+					    {{ Form::text('charity_name', null, array('class' => 'form-control')) }}
 					   	{{ $errors->first('charity_name', '<span class="help-block">:message</span>') }}<br>
 					</div>
 					<div class="form-group">
-					    {{ Form::label('first_name', 'Contact person First Name') }}
-					    {{ Form::text('first_name') }}
+					    {{ Form::label('first_name', 'Contact person First Name', array('class' => 'icon-user')) }}
+					    {{ Form::text('first_name', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('first_name', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
-					    {{ Form::label('last_name', 'Contact person Last Name') }}
-					    {{ Form::text('last_name') }}
+					    {{ Form::label('last_name', 'Contact person Last Name', array('class' => 'icon-user')) }}
+					    {{ Form::text('last_name', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('last_name', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
-					    {{ Form::label('email', 'Email Address') }}
-					    {{ Form::text('email') }}
+					    {{ Form::label('email', 'Email Address', array('class' => 'icon-user')) }}
+					    {{ Form::text('email', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('email', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
-					    {{ Form::label('phone', 'Phone Number') }}
-					    {{ Form::text('phone') }}
+					    {{ Form::label('phone', 'Phone Number', array('class' => 'icon-user')) }}
+					    {{ Form::text('phone', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('phone', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
-					    {{ Form::label('street', 'Street Address') }}
-					    {{ Form::text('street') }}
+					    {{ Form::label('street', 'Street Address', array('class' => 'icon-user')) }}
+					    {{ Form::text('street', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('street', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
-					    {{ Form::label('city', 'City') }}
-					    {{ Form::text('city') }}
+					    {{ Form::label('city', 'City', array('class' => 'icon-user')) }}
+					    {{ Form::text('city', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('city', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
-					    {{ Form::label('state', 'State') }}
-					    {{ Form::text('state') }}
+					    {{ Form::label('state', 'State', array('class' => 'icon-user')) }}
+					    {{ Form::text('state', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('state', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div class="form-group">
-					    {{ Form::label('zip', 'Zip') }}
-					    {{ Form::text('zip') }}
+					    {{ Form::label('zip', 'Zip', array('class' => 'icon-user')) }}
+					    {{ Form::text('zip', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('zip', '<span class="help-block">:message</span>') }}<br> -->
 					</div class="form-group">
 					<div class="form-group">
-					    {{ Form::label('tax_id', 'Tax ID #') }}
-					    {{ Form::text('tax_id') }}
+					    {{ Form::label('tax_id', 'Tax ID #', array('class' => 'icon-user')) }}
+					    {{ Form::text('tax_id', null, array('class' => 'form-control')) }}
 					   	<!-- {{ $errors->first('tax_id', '<span class="help-block">:message</span>') }}<br> -->
 					</div>
 					<div>
@@ -121,8 +118,7 @@
 			</div>
 		</div>
 	</div>
-</div>
-				
+</div>				
 @stop
 
 @section('bottomscript')

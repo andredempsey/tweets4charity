@@ -30,14 +30,16 @@
         </div>
 
         <div class="row">
-            @foreach ($user->donor->charities as $charity)
-            <div class="col-md-4 col-sm-6">
-                <img class="img-circle img-responsive" src="http://placehold.it/200x200">
-                
-                <h3>{{{ $charity->charity_name }}}</h3>
-                <!-- <p>Charity Description</p> -->
-            </div>
-            @endforeach
+            @if ($user->donor) 
+                @foreach ($user->donor->charities as $charity)
+                <div class="col-md-4 col-sm-6">
+                    <img class="img-circle img-responsive" src="http://placehold.it/200x200">
+                    
+                    <h3>{{{ $charity->charity_name }}}</h3>
+                    <!-- <p>Charity Description</p> -->
+                </div>
+                @endforeach
+            @endif
         </div>
  </div>       
 
