@@ -9,7 +9,7 @@ class CharitiesController extends BaseController {
 
     	//NRS- changed 7/19/14
     	// run auth filter before all methods on this controller except create and show
-    	$this->beforeFilter('auth', array('except' => array('create', 'show', 'store')));
+    	$this->beforeFilter('auth', array('except' => array('index', 'create', 'show', 'store')));
 	}
 	/**
 	 * Display a listing of the resource.
@@ -17,9 +17,17 @@ class CharitiesController extends BaseController {
 	 * @return Response
 	 */
 	public function index()
+
 	{
-	
-		return View::make('tweetsforcharity.charity_dashboard');
+		// $charities = DB::table('charities')->get();
+		$charities = Charity::with('user')->get();
+		$data = array(
+			'charities' => $charities
+		);
+		// $data = array(
+		// 	'charities' => $charities);
+		return View::make('charities.index')->with($data);
+		
 	}
 
 
@@ -31,64 +39,64 @@ class CharitiesController extends BaseController {
 	public function create()
 	{
 
-		return View::make('tweetsforcharity.charities_sign_up');
+		// return View::make('tweetsforcharity.charities_sign_up');
 	}
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store($twitter_handle)
-	{
-		$charity = new Charity();
-		//$user = new User();
-		$user = findByTwitterHandle($twitter_handle);
+	// /**
+	//  * Store a newly created resource in storage.
+	//  *
+	//  * @return Response
+	//  */
+	// public function store($twitter_handle)
+	// {
+	// 	$charity = new Charity();
+	// 	//$user = new User();
+	// 	$user = findByTwitterHandle($twitter_handle);
 
-		// $messageValue = 'You have successfully registered your charity!';
-		// $eMessageValue = 'There was a problem registering your charity.';
+	// 	// $messageValue = 'You have successfully registered your charity!';
+	// 	// $eMessageValue = 'There was a problem registering your charity.';
 		
-		// $validator = Validator::make(Input::all(), User::$user_rules);
-		// if ($validator->fails()) 
-		// {
-		// 	Session::flash('errorMessage', $eMessageValue);
-		// 	return Redirect::back()->withInput()->withErrors($validator);
-		// }
-		// else
-		// {
+	// 	// $validator = Validator::make(Input::all(), User::$user_rules);
+	// 	// if ($validator->fails()) 
+	// 	// {
+	// 	// 	Session::flash('errorMessage', $eMessageValue);
+	// 	// 	return Redirect::back()->withInput()->withErrors($validator);
+	// 	// }
+	// 	// else
+	// 	// {
 			
-			// if($tweets['error']){
-			// 	Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
-			// 	return Redirect::back()->withInput()->withInput;
-			// } else { 
-			// $tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
-			// $profile_image = ($tweets[0]['user']['profile_image_url']);
-			// $tweet_count = ($tweets[0]['user']['statuses_count']);
-			// $user->profile_picture_link = $profile_image;
-			$user->twitter_handle    = Input::get('twitter_handle');
-			$charity->first_name     = Input::get('first_name');
-			$charity->last_name      = Input::get('last_name');
-			$user->email             = Input::get('email');
-			$user->role_id           = 4;
-			$user->is_active         = False;
-			$user->save();
-			$charity->user_id        = $user->id;
-			$charity->charity_name   = Input::get('charity_name');
-			$charity->tax_id         = Input::get('tax_id');
-			//need to add tax pdf here
-			$charity->phone          = Input::get('phone');
-			$charity->street         = Input::get('street');
-			$charity->city           = Input::get('city');
-			$charity->state          = Input::get('state');
-			$charity->zip            = Input::get('zip');
-			$charity->save();
-			// show msg if charity has been added w/ no errors
-			// Session::flash('successMessage', $messageValue);
-			return Redirect::action('CharitiesController@show')->with($twitter_handle);
+	// 		// if($tweets['error']){
+	// 		// 	Session::flash('errorMessage', 'That Twitter account is protected and cannot be registered.');
+	// 		// 	return Redirect::back()->withInput()->withInput;
+	// 		// } else { 
+	// 		// $tweets = Twitter::getUserTimeline(array('screen_name' => $twitter_handle, 'count' => 1, 'format' => 'array'));
+	// 		// $profile_image = ($tweets[0]['user']['profile_image_url']);
+	// 		// $tweet_count = ($tweets[0]['user']['statuses_count']);
+	// 		// $user->profile_picture_link = $profile_image;
+	// 		$user->twitter_handle    = Input::get('twitter_handle');
+	// 		$charity->first_name     = Input::get('first_name');
+	// 		$charity->last_name      = Input::get('last_name');
+	// 		$user->email             = Input::get('email');
+	// 		$user->role_id           = 4;
+	// 		$user->is_active         = False;
+	// 		$user->save();
+	// 		$charity->user_id        = $user->id;
+	// 		$charity->charity_name   = Input::get('charity_name');
+	// 		$charity->tax_id         = Input::get('tax_id');
+	// 		//need to add tax pdf here
+	// 		$charity->phone          = Input::get('phone');
+	// 		$charity->street         = Input::get('street');
+	// 		$charity->city           = Input::get('city');
+	// 		$charity->state          = Input::get('state');
+	// 		$charity->zip            = Input::get('zip');
+	// 		$charity->save();
+	// 		// show msg if charity has been added w/ no errors
+	// 		// Session::flash('successMessage', $messageValue);
+	// 		return Redirect::action('CharitiesController@show')->with($twitter_handle);
 		
-		}
-	}
+	// 	}
+	// }
 	/**
 	 * Display the specified resource.
 	 *

@@ -51,7 +51,7 @@
                                                 <!-- NRS- refactored 7/19/14 - made check for if logged in show log out button, if not logged in show register and log in -->
                                                 @if (Auth::check())
                                                     <li class="right">
-                                                        <!-- <a href="{{ action('UsersController@edit', $user->twitter_handle) }}">Edit</a></li> -->
+                                                        <a href="{{ action('UsersController@edit', Auth::user()->twitter_handle) }}">Edit</a></li>
                                                     <li class-"right"><a href="{{ action('HomeController@logout') }}">Logout</a></li>
                                                 @else
                                                     <li class="right"><a href="{{ action('HomeController@showPreLogin') }}">Login/Sign up</a></li>

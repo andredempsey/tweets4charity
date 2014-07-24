@@ -26,4 +26,6 @@ Route::get('remove-charity', 'DonorsController@removeCharity');
 Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
 
+// Route::get('all', 'CharitiesController@index')
+
 ?>
