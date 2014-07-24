@@ -10,7 +10,7 @@
             <p class="lead">As part of our registration process, you will need to log in and allow Tweets for Charity as an authorized application. <br>After you sign in with your Twitter account, you will be redirected back to our page to complete registration. <br></p>
 
             <br><br>
-            <a href="{{ action('HomeController@showLogin') }}" class="btn btn-primary btn-lg">Sign in with Twitter</a>
+            <a href="{{ action('HomeController@showLogin') }}" class="btn btn-skin btn-lg">Sign in with Twitter</a>
         </div>
     </div>
     <br><br><br><br><br>
