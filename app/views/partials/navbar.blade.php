@@ -24,6 +24,7 @@
                                             <ul class="nav navbar-nav">
                                                 
                                                 @if (Auth::check())
+
                                                   @if(Auth::user()->role_id = User::ROLE_DONOR)
                                                     <li class="right">
                                                         <a href="{{ action('UsersController@edit', Auth::user()->twitter_handle) }}">Edit</a></li>
