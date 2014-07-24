@@ -13,8 +13,7 @@ class Charity extends BaseModel {
         'city'           =>'required',
         'state'          =>'required',
         'zip'            =>'required',
-        'tax_id'         =>'required',
-        'tax_pdf'        =>'required'
+        'tax_id'         =>'required'
     ];
 
     public static $charity_update_rules = [
@@ -27,7 +26,6 @@ class Charity extends BaseModel {
         'state'          =>'required',
         'zip'            =>'required',
         'tax_id'         =>'required',
-        'tax_pdf'        =>'required', 
     ];
     
     public function donors()
