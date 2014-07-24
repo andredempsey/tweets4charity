@@ -221,7 +221,7 @@ $charity_twitter_seed = [
             $user = new User();
             $user->twitter_handle = "Admin";
             $user->email = "admin" . '@codeup.com';
-            $user->role_id = 'admin';
+            $user->role_id = 1;
             $user->is_active = True;
             $user->save();
 
@@ -233,7 +233,7 @@ $charity_twitter_seed = [
             $user->first_name = "Donor_First{$i}";
             $user->last_name = "Donor_Last{$i}";
             $user->email = "donor{$i}" . '@codeup.com';
-            $user->role_id = 'donor';
+            $user->role_id = 3;
             $user->is_active = True;
             $user->save();
         }
@@ -245,7 +245,7 @@ $charity_twitter_seed = [
             $user->first_name = $first_name_seed[mt_rand(0,49)];
             $user->last_name = $last_name_seed[mt_rand(0,49)];
             $user->email = $user->first_name . $user->last_name . '@' . $charity_twitter_seed[$i - 1] . '.org';
-            $user->role_id = 'charity';
+            $user->role_id = 4;
             $user->is_active = True;
             $user->save();
         }
