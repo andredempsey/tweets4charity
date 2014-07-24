@@ -24,11 +24,12 @@
                                             <ul class="nav navbar-nav">
                                                 
                                                 @if (Auth::check())
-                                                  @if($Auth::user()->role_id = User::ROLE_DONOR)
+
+                                                  @if(Auth::user()->role_id = User::ROLE_DONOR)
                                                     <li class="right">
-                                                        <a href="{{ action('UsersController@edit', $Auth::user()->twitter_handle) }}">Edit</a></li>
-                                                    @elseif($Auth::user()->role = User::ROLE_CHARITY)
-                                                      <a href="{{ action('CharitiesController@edit', $Auth::user()->twitter_handle) }}">Edit</a></li>
+                                                        <a href="{{ action('UsersController@edit', Auth::user()->twitter_handle) }}">Edit</a></li>
+                                                    @elseif(Auth::user()->role = User::ROLE_CHARITY)
+                                                      <a href="{{ action('CharitiesController@edit', Auth::user()->twitter_handle) }}">Edit</a></li>
                                                     @endif      
                                                     <li class-"right"><a href="{{ action('HomeController@logout') }}">Logout</a></li>
                                                 @else
