@@ -65,7 +65,7 @@
 						<!-- Ajax Form -->
 						<form id="{{'ajax-update' . $charity->id}}">
 							<div class="col-sm-1 col-sm-1">	
-								<a href="{{action('CharitiesController@show', $charity->user->twitter_handle)}}"><img class="img-circle img-responsive"  src="{{$charity->user->profile_picture_link}}" height="100px" width="100px" alt="{{$charity->charity_name}}"></a>
+								<a href="http://www.twitter.com/{{$charity->user->twitter_handle}}"><img class="img-circle img-responsive"  src="{{$charity->user->profile_picture_link}}" height="100px" width="100px" alt="{{$charity->charity_name}}"></a>
 							</div>
 							<div class="col-sm-3 col-sm-3">
 								<h4>{{$charity->charity_name}}</h4>
@@ -102,7 +102,8 @@
 							<div class="row">
 						    @foreach ($charities as $charity)
 							    <div class="col-md-1 text-center">
-								    <img src="{{$charity->user->profile_picture_link}}" height="100px" width="100px">{{link_to_action('DonorsController@addCharity','Add', array('charity_id' => $charity->id))}}<span> </span>{{$charity->charity_name}}
+								    <a href="http://www.twitter.com/{{$charity->user->twitter_handle}}"><img class="img-circle img-responsive"  src="{{$charity->user->profile_picture_link}}" height="100px" width="100px" alt="{{$charity->charity_name}}"></a>
+								    {{link_to_action('DonorsController@addCharity','Add', array('charity_id' => $charity->id))}}<span> </span>{{$charity->charity_name}}
 							    </div>
 							    <div class="col-md-1"></div>
 						    @endforeach
@@ -160,50 +161,6 @@
 				@endforeach
 		</table>
 	</div><!-- end of row -->
-
-	<div class="row">
-		<h2 class="page-header">Transaction History</h2>
-		</div>
-		<div class="row">
-			<table class="table table-hover table-striped table-responsive">
-				<tr>
-					<th class='text-center'>Month</th>
-					<th class='text-center'>Amount ($)</th>
-					<th class='text-center'>Transaction Date</th>
-				</tr>
-				@foreach ($user->donor->transactions as $transaction)
-				<tr>
-					<td class='text-center'>{{date_format($transaction->created_at,'M')}}</td>
-					<td class='text-center'>{{number_format((float)($transaction->amount), 2 ,'.','')}}</td>
-					<td class='text-center'>{{$transaction->created_at}}</td>
-				</tr>
-				@endforeach
-			</table>
-		</div><!-- end of row -->
-
-		<div class="row">
-			<h2 class="page-header">Charity Distribution History</h2>
-		</div>
-		<div class="row">
-			<table class="table table-hover table-striped table-responsive">
-				<tr>
-					<th class='text-center'>Month</th>
-					<th class='text-center'>Charity</th>
-					<th class='text-center'>Amount ($)</th>
-					<th class='text-center'>Distribution Date</th>
-					<th class='text-center'>Check Sent?</th>
-				</tr>
-				@foreach ($charities as $charity)
-				<tr>
-					<td class='text-center'></td>
-					<td class='text-center'>{{$charity->charity_name}}</td>
-					<td class='text-center'></td>
-					<td class='text-center'></td>
-					<td class='text-center'></td>
-				</tr>
-				@endforeach
-			</table>
-		</div><!-- end of row -->
 	</div> <!-- end of container -->
 </div>	
 @stop
