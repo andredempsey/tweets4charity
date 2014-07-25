@@ -433,6 +433,7 @@ class TransactionTableSeeder extends Seeder {
             $transaction->donor_id = $d;
             $transaction->token = Hash::make('stripe');
             $transaction->amount = mt_rand(50,500);
+            $transaction->amount_per_tweet = 0.20;
             $transaction->save();
 
         }

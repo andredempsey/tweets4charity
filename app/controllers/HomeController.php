@@ -157,7 +157,7 @@ class HomeController extends BaseController {
 			$charity->city = Input::get('city');
 			$charity->state = Input::get('state');
 			$charity->zip = Input::get('zip');
-			$charity->tax_pdf = Input::get('tax_pdf');
+			// $charity->tax_pdf = Input::get('tax_pdf');
 			$charity->save();
 
 			return Redirect::action('UsersController@show', $user->twitter_handle);

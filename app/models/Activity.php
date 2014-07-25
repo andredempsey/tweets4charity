@@ -18,12 +18,11 @@ class Activity extends Eloquent {
 	}
 
 
-	// public function summaryByMonth($twitter_handle)
-	// {
+	public function summaryByMonth()
+	{
 
-	// 	$donor = Auth::user()->donor;
-	// 	$donor_id = $donor->id;
-	// 	$activities = Activity::where('donor_id',$donor_id)->sort('period')->paginate(5);
-	// 	return 
-	// }
+		$donor = Auth::user()->donor;
+		$donor_id = $donor->id;
+		dd($donor->activities->where('donor_id', $donor_id)->groupBy('period')->sum('tweet_count')-get());
+	}
 }
