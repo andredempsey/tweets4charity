@@ -47,4 +47,9 @@ class Charity extends BaseModel {
         $value = preg_replace('/\D/', '', $value);
         $this->attributes['phone'] = $value;
     }
+    
+    public static function filteredCharities($searchTitle = null)
+    {
+        return self::where('charity_name', 'LIKE', '%' . $searchTitle . '%')->orderBy('charity_name', 'asc')->paginate(8);
+    }
 }

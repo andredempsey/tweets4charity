@@ -234,7 +234,7 @@ $charity_twitter_seed = [
             $user->last_name = "Donor_Last{$i}";
             $user->email = "donor{$i}" . '@codeup.com';
             $user->role_id = 3;
-            $user->is_active = True;
+            $user->is_active = False;
             $user->save();
         }
         for ($i=1;$i<=50;$i++)
@@ -470,6 +470,7 @@ class ActivityTableSeeder extends Seeder {
             $activity->donor_id = mt_rand(1,5);
             $activity->period = 'June';
             $activity->tweet_count = mt_rand(20,500);
+            $activity->is_paid = false;
             $activity->save();
         }
     }
