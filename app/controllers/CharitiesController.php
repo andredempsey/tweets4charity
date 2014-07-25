@@ -22,7 +22,7 @@ class CharitiesController extends BaseController {
 
 	{
 		// $charities = DB::table('charities')->get();
-		$charities = Charity::with('user')->get();
+		$charities = Charity::with('user')->orderBy('charity_name','ASC')->paginate(9);
 		$data = array(
 			'charities' => $charities
 		);
@@ -35,7 +35,7 @@ class CharitiesController extends BaseController {
 	public function show($twitter_handle)
 
 	{
-		$user = Auth::user();
+		$user = User::findByTwitterHandle($twitter_handle);
 		$tweets = Twitter::statusesUserTimeline($user->user_id);
 		$name = ($tweets[0]['user']['name']);
 		$statuses_count = ($tweets[0]['user']['statuses_count']);
@@ -123,6 +123,7 @@ class CharitiesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+	
 	public function destroy($id)
 	{
 		//

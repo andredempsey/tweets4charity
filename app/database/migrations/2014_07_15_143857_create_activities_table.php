@@ -18,6 +18,7 @@ class CreateActivitiesTable extends Migration {
 			$table->integer('donor_id')->unsigned();
 			$table->string('period');
 			$table->integer('tweet_count');
+			$table->boolean('is_paid');
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');
 			
