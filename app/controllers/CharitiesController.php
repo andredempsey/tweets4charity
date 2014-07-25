@@ -22,12 +22,20 @@ class CharitiesController extends BaseController {
 
 	{
 		// $charities = DB::table('charities')->get();
+		
+		$user = User::findByTwitterHandle($user->twitter_handle);
 		$charities = Charity::with('user')->get();
-		$data = array(
-			'charities' => $charities
-		);
-		// $data = array(
-		// 	'charities' => $charities);
+		$tweets = Twitter::statusesUserTimeline($user->twitter_handle);
+		$name = ($tweets[0]['user']['name']);
+
+		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
+
+		$data = [
+			'user' => $user,
+			'name' => $name,
+			'profile_image' => $profile_image
+		];
+
 		return View::make('charities.index')->with($data);
 		
 	}
@@ -36,11 +44,10 @@ class CharitiesController extends BaseController {
 
 	{
 		$user = Auth::user();
-		$tweets = Twitter::statusesUserTimeline($user->user_id);
-		$name = ($tweets[0]['user']['name']);
-		$statuses_count = ($tweets[0]['user']['statuses_count']);
-		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
-
+		$tweets = Twitter::usersLookup($user->user_id);
+		$name = ($tweets[0]['name']);
+		$statuses_count = ($tweets[0]['statuses_count']);
+		$profile_image = ($tweets[0]['profile_image_url_https']);
 
 		$data = [
 			'user' => $user,
@@ -66,7 +73,7 @@ class CharitiesController extends BaseController {
 			'user' => $user,
 			'charity' =>$charity
 		];
-		return View::make('tweetsforcharity.charity_dashboard')->with($data);
+		return View::make('charities.edit')->with($data);
 	}
 
 	/**
@@ -111,8 +118,8 @@ class CharitiesController extends BaseController {
 			$charity->save();
 			
 			// show success msg 
-			Session::flash('successMessage', 'Your charity information has bee update, Thank You!');
-			return View::make('tweetsforcharity.charity_dashboard')->with($data);
+			Session::flash('successMessage', 'Your charity information has been updated, Thank You!');
+			return View::make('charities.edit')->with($data);
 		}		
 	}
 		
