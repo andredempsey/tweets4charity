@@ -26,7 +26,6 @@ class DonorsController extends \BaseController {
 	    //update pivot value with all
 		$donor->charities()->updateExistingPivot($charity_id, array('allotted_percent' => $allotted_percent), false);
 	    $message = "Allocation Percent Updated";
-	    Session::flash('successMessage', $message);
 	    $error = false;
 
 	    $result = array(

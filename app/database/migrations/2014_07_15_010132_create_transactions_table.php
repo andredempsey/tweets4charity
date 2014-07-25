@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration {
 			$table->increments('id');
 			$table->integer('donor_id')->unsigned();
 			$table->string('token',150)->unique();
+			$table->decimal('amount_per_tweet', 5, 2);
 			$table->decimal('amount', 5, 2);
 			$table->timestamp('updated_at');
 			$table->timestamp('created_at');

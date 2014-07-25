@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 class BaseController extends Controller {
 
 
@@ -24,6 +24,13 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
+	}
+
+	private function convertToLocalTimeZones($value) 
+	{
+
+		$utc = Carbon::createFromFormat($this->getDateFormat(), $value);
+	    return $utc->setTimezone('America/Chicago');	
 	}
 
 }

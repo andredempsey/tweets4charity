@@ -48,9 +48,14 @@ class UsersController extends BaseController {
 		
 		//find record in user table using the twitter handle
 		$user = User::findByTwitterHandle($twitter_handle);
+		$activities = Activity::where('donor_id', $user->donor->id)->orderBy('updated_at','ASC')->get();
 		$transactions = $user->donor->transactions;
-
+		$tweets = Twitter::statusesUserTimeline($user->user_id);
+		$name = ($tweets[0]['user']['name']);
+		$statuses_count = ($tweets[0]['user']['statuses_count']);
+		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
 		$alreadySelectedCharities = [];
+
 		
 		//extract charities which belong to Donor
 		foreach ($user->donor->charities as $charity)
@@ -62,18 +67,51 @@ class UsersController extends BaseController {
 
 		if (empty($alreadySelectedCharities))
 		{
-			$charities = Charity::paginate(3);
+			$charities = Charity::orderBy('charity_name', 'ASC')->paginate(6);
 		}
 		else
 		{
-			$charities = Charity::whereNotIn('id', $alreadySelectedCharities)->paginate(3);
+			$charities = Charity::whereNotIn('id', $alreadySelectedCharities)->orderBy('charity_name', 'ASC')->paginate(6);
 		}
+		// dd($activities);
+
+		//calculate activity deltas
+		$monthlyTweets[] = array('period'=>'','tweet_count'=>'','is_paid'=>'','updated_at'=>'');
+		$i = 0;
+		foreach ($activities as $activity) 
+		{
+			$monthlyTweets[$i]['period'] = $activity['period'];
+			$monthlyTweets[$i]['is_paid'] = $activity['is_paid'];
+			$monthlyTweets[$i]['updated_at'] = $activity['updated_at']->format('F jS Y');
+			
+			if ($i==0) 
+			{
+				$monthlyTweets[$i]['tweet_count'] = $activity['tweet_count'];
+				$previousAmount = $activity['tweet_count'];
+				$i++;
+			} 
+			else 
+			{
+				$monthlyTweets[$i]['tweet_count'] = $activity['tweet_count'] - $previousAmount;
+				$previousAmount = $activity['tweet_count'];
+				$i++;
+			}
+		}
+		$monthlyTweets[0]['tweet_count'] = 0;
+		$activities = array_reverse($monthlyTweets);
+		$rows = count($activities);
+		// dd($activities);
 
 		//prepare data for passing to user dashboard view
 		$data = [
 		'user' => $user,
 		'charities' => $charities,
-		'transactions' => $transactions
+		'transactions' => $transactions,
+		'profile_image' => $profile_image,
+		'statuses_count' => $statuses_count,
+		'name' => $name,
+		'activities' => $activities,
+		'rows' => $rows
 		];
 
 		return View::make('users.edit')->with($data);

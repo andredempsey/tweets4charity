@@ -8,7 +8,8 @@
 		"thujohn/twitter": "1.1.*",
 		"abodeo/laravel-stripe": "dev-master",
 		"philo/laravel-twitter": "dev-master",
-		"way/generators": "dev-master"
+		"way/generators": "dev-master",
+		"nesbot/carbon": "~1.0"
 	},
 	"autoload": {
 		"classmap": [

@@ -38,40 +38,60 @@ class RetrieveUsers extends Command {
 	public function fire()
 	{
 		$recordsUpdated = 0;
-		$userStatusUpdated = 0;
+		$recordsCreated = 0;
 
 		//retrieve all active donors from database
 		$users = User::where('is_active','1')->where('role_id','3')->get();
+		// $charity = User::where('charity_name','Codeup for Kids')->first();
 		//enumerate through users to retrieve twitter profile updates and tweet count
+		
+		// $sample = Twitter::statusesUserTimeline($charity->user->user_id);
+		// $charity->user->profile_picture_link = $sample[0]['user']['profile_image_url'];
+		
 		foreach ($users as $user)
 		{
-			//to-do:  need to verify this is the proper process for retrieving data from Twitter using 
-
-			//retrieve tweets from User's Timeline
+			//retrieve tweets from User's Timeline and update profile image
 		    $tweets = Twitter::statusesUserTimeline($user->user_id);
-		    // Log::info($tweets[0]['user']['statuses_count']);
-			 // Log::info($tweets);
-		    //to-do:  save latest profile picture to database
-		    //to-do:  refactor so this happens when user logs in
 			$user->profile_picture_link = $tweets[0]['user']['profile_image_url'];
 			$user->save();
-			// 	//create  a new instance activity
-				$activity = new Activity();
+			
+			//check if entry exists in activites table for donor in the current month
+			$activity = Activity::where('donor_id', '=',$user->donor->id)->where('period', '=', date("F Y", strtotime(date('F Y'))))->first();
 
-				//write values
+			Log::info($activity);
+
+			if (is_null($activity)) 
+			{
+			//no
+			//add new record
+			//create  a new instance activity
+				$activity = new Activity();
 				$activity->donor_id = $user->donor->id;
+				$tweetCount=$tweets[0]['user']['statuses_count'];
+				$activity->period = date("F Y",strtotime(date('F Y')));
+				$activity->is_paid = False;
+				$activity->tweet_count = $tweetCount;
+				$activity->save();
+				$recordsCreated++;
+			} 
+			else 
+			{
 				$tweetCount=$tweets[0]['user']['statuses_count'];
 				$activity->tweet_count = $tweetCount;
 				$activity->save();
 				$recordsUpdated++;
+			}
+			
+			//yes
+			//overwrite record with new record
 				
 			// }
 
 		}
 
-		$this->info($recordsUpdated . ' activity entries created.');
+		$this->info($recordsCreated . ' activity entries created.');
+		$this->info($recordsUpdated . ' activity entries updated.');
 	}
-
 	/**
 	 * Get the console command arguments.
 	 *
