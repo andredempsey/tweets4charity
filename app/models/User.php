@@ -97,4 +97,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         return self::where('user_id', $twitterId)->first();
     }
+    public function getUserImage()
+    {
+        $parameters = [
+            'screen_name' => $this->twitter_handle,
+            'count' => 1,
+            'format' => 'array'
+        ];
+
+        $twitter = new Thujohn\Twitter\Twitter;
+
+        $timeline = $twitter->getUserTimeline($parameters);
+
+        dd($timeline);
+        if (isset($timeline[0])) {
+            return $timeline[0]['user']['profile_image_url'];
+        }
+
+        return '';
+    }
 }
