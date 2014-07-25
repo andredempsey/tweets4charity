@@ -16,7 +16,7 @@
     @foreach ($charities as $charity)
     <div class="col-md-4 col-sm-6">
 
-        <img src="{{$charity->user->profile_picture_link}}" height="80px" width="80px">
+        <img src="{{$charity->user->getUserImage()}}" height="80px" width="80px">
         <h5>
         <a href="http://www.twitter.com/{{$charity->user->twitter_handle}}">{{$charity->charity_name}}</a></h5>
     </div>
