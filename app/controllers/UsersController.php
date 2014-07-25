@@ -21,10 +21,10 @@ class UsersController extends BaseController {
 	public function show($twitter_handle)
 	{
 		$user = Auth::user();
-		$tweets = Twitter::statusesUserTimeline($user->user_id);
-		$name = ($tweets[0]['user']['name']);
-		$statuses_count = ($tweets[0]['user']['statuses_count']);
-		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
+		$tweets = Twitter::usersLookup($user->user_id);
+		$name = ($tweets[0]['name']);
+		$statuses_count = ($tweets[0]['statuses_count']);
+		$profile_image = ($tweets[0]['profile_image_url_https']);
 
 		$data = [
 			'user' => $user,
@@ -47,8 +47,10 @@ class UsersController extends BaseController {
 	{
 		
 		//find record in user table using the twitter handle
-		$user = User::findByTwitterHandle($twitter_handle);
+
+		$user = Auth::user();
 		$activities = Activity::where('donor_id', $user->donor->id)->orderBy('updated_at','ASC')->get();
+
 		$transactions = $user->donor->transactions;
 		$tweets = Twitter::statusesUserTimeline($user->user_id);
 		$name = ($tweets[0]['user']['name']);
@@ -127,10 +129,8 @@ class UsersController extends BaseController {
 	 */
 	public function update($twitter_handle)
 	{
-
-		
 		//find record in user table using the twitter handle
-		$user = User::findByTwitterHandle($twitter_handle);
+		$user = Auth::User();
 
 		//initialize the error messages
 		$messageValue = 'User information was successfully updated!';

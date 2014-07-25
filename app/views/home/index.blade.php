@@ -47,7 +47,7 @@
                             </h3>
                             <br>
                             <div class="">
-                                 <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a><a class="btn btn-theme btn-sm btn-min-block" href="">Our Charities</a></div>
+                                 <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a><a class="btn btn-theme btn-sm btn-min-block" href="{{ action('CharitiesController@index') }}">Our Charities</a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -65,7 +65,7 @@
                             </h3>
                             <br>
                             <div class="">
-                                <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a><a class="btn btn-theme btn-sm btn-min-block" href="">Our Charities</a></div>
+                                <a class="btn btn-theme btn-sm btn-min-block" href="#about">About us</a><a class="btn btn-theme btn-sm btn-min-block" href="#works">How it works</a><a class="btn btn-theme btn-sm btn-min-block" href="{{ action('CharitiesController@index') }}">Our Charities</a></div>
                         </div>
                     </div><!-- /header-text -->
                 </div>
@@ -195,17 +195,16 @@
 
     <div class="container">
       <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12" >
+        <div class="col-md-12 col-md-12 col-md-12" >
           <div class="wow bounceInUp" data-wow-delay="0.4s">
-                    <div id="owl-works" class="owl-carousel">
-                        <div class="item"><a href="img/works/1.jpg" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/1@2x.jpg"><img src="img/works/1.jpg" class="img-responsive" alt="img"></a></div>
-                        <div class="item"><a href="img/works/2.jpg" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/2@2x.jpg"><img src="img/works/2.jpg" class="img-responsive " alt="img"></a></div>
-                        <div class="item"><a href="img/works/3.jpg" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/3@2x.jpg"><img src="img/works/3.jpg" class="img-responsive " alt="img"></a></div>
-                        
-                    </div>
-          </div>
-                </div>
+            <div id="owl-works" class="owl-carousel">
+              <div class="item"><a href="http://www.twitter.com" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/1@2x.jpg"><p>Andre</p><img src="img/andre.jpg" class="img-responsive" alt="img"></a></div>
+              <div class="item"><a href="img/works/2.jpg" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/2@2x.jpg"><p>Nicole</p><img src="img/nicole.jpg" class="img-responsive " alt="img"></a></div>
+              <div class="item"><a href="img/works/3.jpg" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/3@2x.jpg"><p>Andrew</p><img src="img/andrew.jpg" class="img-responsive " alt="img"></a></div>        
             </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </section>
