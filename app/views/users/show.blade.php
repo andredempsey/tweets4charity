@@ -24,7 +24,7 @@
             </div>
             <div class="row">
                     <h3>Total Tweets:  {{{$statuses_count}}}</h3>
-                    <small>{{{ $name }}} donates to these charities: </small>
+                    <small>{{{ $name }}} donates to the following: </small>
 
                 </h1>
             </div>
