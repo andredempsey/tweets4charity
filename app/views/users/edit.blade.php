@@ -3,7 +3,12 @@
 @section('topscript')
 
 <link rel="stylesheet" href="/css/slider.css" >
-<link rel="stylesheet" href="/css/main.css" >
+
+<style type="text/css">
+.slider.slider-horizontal {
+	width: 400px;
+}
+</style>
 
 <meta name="csrf-token" content="{{{ csrf_token() }}}">
 
@@ -19,7 +24,7 @@
 
 <!-- Donor information that can be edited by user -->
 <div class="container">
-	-{{ Form::model($user, array('action' => array('UsersController@update', $user->twitter_handle), 'method' => 'PUT')) }}
+	{{ Form::model($user, array('action' => array('UsersController@update', $user->twitter_handle), 'method' => 'PUT')) }}
 <div class="row">
 	<div class="col-md-1 col-sm-1">
 	    <a href="https://twitter.com/{{{ $user->twitter_handle }}}"><img class="img-circle" src="{{{ $profile_image }}}" height="100px" width="100px"></a>
@@ -48,7 +53,7 @@
 		<td>{{Form::text('amount_per_tweet', $user->donor->amount_per_tweet, array('class' => 'form-control text-center'))}}</td>
 		<td>{{Form::text('report_frequency', $user->donor->report_frequency, array('class' => 'form-control text-center'))}}</td>
 		<td>{{Form::text('monthly_goal', $user->donor->monthly_goal, array('class' => 'form-control text-center'))}}</td>
-		<td>{{Form::Submit('Update', array('class' => 'btn btn-default form-group', 'id' => 'submit'))}}</td>
+		<td>{{Form::Submit('Update', array('class' => "btn btn-skin btn-md", 'id' => 'submit'))}}</td>
 	</tr>
 </table>
 {{Form::close()}}
@@ -70,15 +75,28 @@
 							<div class="col-sm-3 col-sm-3">
 								<h4>{{$charity->charity_name}}</h4>
 							</div>
-							<div class="col-sm-4 col-sm-4">
-								<input id="slider" class="span2 sliderValue" data-charity="{{$charity->id}}" data-slider-min="0" data-slider-max="100" type="text" value="{{$charity->pivot->allotted_percent}}" data-slider-step="1" name="slider"><br>
+							<div class="col-sm-5 col-sm-5">
+								<input
+									class="span2 sliderValue" name="slider" type="text"
+									value="{{$charity->pivot->allotted_percent}}"
+									data-charity="{{$charity->id}}"
+									data-slider-min="0"
+									data-slider-max="100"
+									data-slider-step="1">
 							</div>
-							{{Form::hidden('charity_id', $charity->id)}}
-							<div class="col-sm-1 col-sm-1">
-								<input type="text" id="allotted_percent" name="allotted_percent" data-charity="{{$charity->id}}" class="amount text-right" value="{{$charity->pivot->allotted_percent}}" ><span>%</span>
+							<div class="col-sm-2 col-sm-2">
+								{{Form::hidden('charity_id', $charity->id)}}
+								<div class="input-group">
+								<input
+									class="amount text-right form-control" name="allotted_percent"
+									type="text"
+									value="{{$charity->pivot->allotted_percent}}"
+									data-charity="{{$charity->id}}">
+									<span class="input-group-addon">%</span>
+								</div>
 							</div>
 							<div class="col-sm-1 col-sm-1"> 
-								{{link_to_action('DonorsController@removeCharity', 'Remove', array('charity_id' => $charity->id))}}
+								{{link_to_action('DonorsController@removeCharity', 'Remove', array('charity_id' => $charity->id), array('class' => "btn btn-skin"))}}
 							</div>
 						</form>
 						<!--end Ajax Form -->
@@ -154,7 +172,7 @@
 						<td>Paid</td>
 					@else
 					<td><script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-					                data-key="@stripeKey"
+					                data-key="pk_test_4Rd5UZ8YI5GylPQvVuFovbj3"
 					                data-amount="" data-description="Pay my bill"></script></td>
 					@endif
 				</tr>
@@ -168,7 +186,7 @@
 @section('bottomscript')
 
 <script src="/bootstrap-3.2.0/js/jquery.min.js"></script>
-<script src="/bootstrap-3.2.0/js/bootstrap-slider.js"></script>
+<script src="/js/bootstrap-slider.js"></script>
 <script src="/js/jquery.als-1.6.min.js"></script>
 
 <script>
@@ -183,24 +201,14 @@ $.ajaxSetup({
 $('.fade_message').delay(2000).fadeOut(1000);
 $('#ajax-message').delay(2000).fadeOut(1000);
 
-// set the initial values for the slider controls
-$('.amount').each(function(index, amt) {
-	var charityId = $(this).data('charity');
-	var amtValue = $(this).val();
-	var $sliders = $('.sliderValue');
-	$sliders.each(function(index, sld) {
-		if ($(sld).data('charity') == charityId) {
-			
-			$(sld).slider('setValue', amtValue);
-		}
-	});
-});
-
-
 //update amount field with slider value
 
-$('.sliderValue').slider().on('slideStop', function() { 	
- 	var slideValue = $(this).slider('getValue').val();  
+$('.sliderValue').slider({
+	formater: function(value) {
+		return value + " %";
+	}
+}).on('slideStop', function() {
+ 	var slideValue = $(this).slider('getValue');
  	var charityID = $(this).data('charity');
 	
 	$('.amount').each(function(index, amt) {
@@ -223,6 +231,19 @@ $('.sliderValue').slider().on('slideStop', function() {
         success: function (data) {
         $('#ajax-message').html(data.message);
         }
+	});
+});
+
+// set the initial values for the slider controls
+$('.amount').each(function(index, amt) {
+	var charityId = $(this).data('charity');
+	var amtValue = $(this).val();
+	var $sliders = $('.sliderValue');
+	$sliders.each(function(index, sld) {
+		if ($(sld).data('charity') == charityId) {
+
+			$(sld).slider('setValue', parseInt(amtValue, 10));
+		}
 	});
 });
 
