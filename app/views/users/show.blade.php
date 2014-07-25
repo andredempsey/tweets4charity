@@ -22,7 +22,23 @@
                 <div class="col-md-12">
                     <h2 class="page-header">Charities</h2>
                 </div>
+            
+            <div class="col-lg-12 col-sm-12 pull-left">
+                <a href="https://twitter.com/{{{ $user->twitter_handle }}}"><img class="img-circle" src="{{{ str_replace("normal.jpeg", "400x400.jpeg", $profile_image) }}}" height="200" width="200"></a><!-- <a href="http://www.twitter.com/210AxS"><i class="icon-twitter"></i></a> -->
+            </div>
+            <div class="row">
+                <div class="col-md-6 pull-left">
+                    <h1 class="page-header">@{{{ $user->twitter_handle }}} <a href="http://www.twitter.com/{{{ $user->twitter_handle }}}"><i class="icon-twitter"></i></a>
+                </div>
+                
+            </div>
+            <div class="row">
+                    <small>{{{ $name }}} donates to these charities: </small>
 
+                </h1>
+            </div>
+            <div class="col-md-12">
+                <h2 class="page-header">Charities</h2>
             </div>
 
             <div class="row">

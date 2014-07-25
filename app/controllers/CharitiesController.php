@@ -19,23 +19,12 @@ class CharitiesController extends BaseController {
 	 */
 
 	public function index()
-
 	{
-		// $charities = DB::table('charities')->get();
-		
-		$user = User::findByTwitterHandle($user->twitter_handle);
-		$charities = Charity::with('user')->get();
-		$tweets = Twitter::statusesUserTimeline($user->twitter_handle);
-		$name = ($tweets[0]['user']['name']);
 
-		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
-
-		$data = [
-			'user' => $user,
-			'name' => $name,
-			'profile_image' => $profile_image
-		];
-
+		$charities = Charity::with('user')->orderBy('charity_name','ASC')->paginate(9);
+		$data = array(
+			'charities' => $charities
+		);
 		return View::make('charities.index')->with($data);
 		
 	}
@@ -43,6 +32,7 @@ class CharitiesController extends BaseController {
 	public function show($twitter_handle)
 
 	{
+
 		$user = Auth::user();
 		$tweets = Twitter::usersLookup($user->user_id);
 		$name = ($tweets[0]['name']);
@@ -130,6 +120,7 @@ class CharitiesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+	
 	public function destroy($id)
 	{
 		//
