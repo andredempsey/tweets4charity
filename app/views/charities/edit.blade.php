@@ -1,15 +1,14 @@
 @extends('layouts.master')
 
 @section('topscript')
-
-<script src="/bootstrap-3.2.0/js/bootstrap-slider.js"></script>
+<!-- script src="/bootstrap-3.2.0/js/bootstrap-slider.js"></script> -->
 
 @stop
 
 @section('content')
 <div class="container">
 	{{ Form::model($user, array('action' => array('CharitiesController@update', $user->twitter_handle), 'method' => 'PUT')) }}
-	<table class="table table-striped table-responsive">
+	<table class="table table-responsive">
 		<tr>
 			<th>Twitter Handle</th>
 			<th>Charity Name</th>
@@ -46,7 +45,7 @@
          <h1>Number of users donating to {{{ $user->charity->charity_name }}}</h1>
          <h2>{{{ $user->charity->donors->count() }}}
     </div>     	
-</div>	
+</div>
 
 @stop
 

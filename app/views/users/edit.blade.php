@@ -36,7 +36,7 @@
 	</div>
 </div>
 <div class="row">
-	<table class="table table-hover table-striped table-responsive">
+	<table class="table table-hover table-responsive">
 	<tr>
 		<th>{{Form::label('first_name','First Name')}}</th>
 		<th>{{Form::label('last_name','Last Name')}}</th>
@@ -113,7 +113,7 @@
 	<!-- end Search Charities -->
 	<div class="row">
 		<h5 class="text-center">Pick a Charity</h5>
-			<div class="col-md-12"></div>
+			<!-- <div class="col-md-12"></div> -->
 				<div class="col-md-12 text-center">	
 					<div class="panel panel-default">
 						<div class="panel-body">

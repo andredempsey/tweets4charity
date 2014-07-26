@@ -10,7 +10,7 @@
     <title>Tweets for Charity</title>
     
     <!-- css -->
-    <link href="/shuffle/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/shuffle/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="/shuffle/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="/shuffle/css/nivo-lightbox.css" rel="stylesheet" />
     <link href="/shuffle/css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
