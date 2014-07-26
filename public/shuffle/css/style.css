@@ -14,6 +14,9 @@ body {
     line-height: 1.6em;
 	font-weight: 400;
 }
+.font-color {
+    color: #043c6b;
+}
 
 html {
     width: 100%;
@@ -146,7 +149,7 @@ blockquote strong {
 /* --- logo --- */
 
 .site-logo a.brand {
-	color: #111;
+	color: #043c6b;
 	text-transform: uppercase;
 	font-size: 32px;
 	font-family: 'Roboto', sans-serif;
@@ -191,7 +194,7 @@ blockquote strong {
 .navbar-custom ul.nav li a {
 	font-size: 18px;
 	letter-spacing: 1px;
-    color: #444;
+    color: #043c6b;
 	text-transform: uppercase;
 	font-weight: 700;
 }
@@ -351,7 +354,7 @@ hr.bold {
 }
 
 .color-dark .section-heading h2 {
-	color: #111;
+	color: #043c6b;
 }
 .color-dark .section-heading p {
 	color: #444;
@@ -494,6 +497,7 @@ section#intro {
 .carousel-control.right span:hover {
 	opacity: .7;
 	filter: alpha(opacity=70);
+
 }
 
 .carousel-inner > .item {
@@ -532,10 +536,12 @@ section#intro {
 	padding: 10px;
 	color: #fff;
 	text-transform: uppercase;
+    background-color: #043c6b;
 }
 
 .header-text h3 span {
 	color: #fff;
+    background-color: #043c6b
 }
 
 .btn-min-block {
@@ -545,7 +551,7 @@ section#intro {
 
 .btn-theme {
     color: #fff;
-    background-color: transparent;
+    background-color: #043c6b;
     border: 2px solid #fff;
     margin-right: 15px;
 }

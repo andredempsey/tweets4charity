@@ -15,13 +15,13 @@ a,.tp-caption a.btn:hover {
 }
 
 .header-text h2 span {
-    background-color: black;
+    background-color: #043c6b;
     border: 1px solid white;
     padding: 5px;
 }
 
 .header-text h3 span {
-    background-color: black;
+    background-color: #043c6b;
     border: 1px solid white;
     padding: 5px;
 }
@@ -68,7 +68,7 @@ footer a.totop:hover {
 }
 
 .btn-theme {
-    background-color: black;
+    background-color: #043c6b;
 }
 
 .btn-skin {

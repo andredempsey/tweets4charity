@@ -18,8 +18,8 @@
     <link href="/shuffle/css/owl.theme.css" rel="stylesheet" media="screen" />
     <link href="/shuffle/css/flexslider.css" rel="stylesheet" />
     <link href="/shuffle/css/animate.css" rel="stylesheet" />
-    <link href="/shuffle/css/style.css" rel="stylesheet">
     <link href="/shuffle/color/default.css" rel="stylesheet">
+    <link href="/shuffle/css/style.css" rel="stylesheet">
 
     @yield('topscript')
 </head>

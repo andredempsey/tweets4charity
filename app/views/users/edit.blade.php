@@ -36,7 +36,7 @@
 	</div>
 </div>
 <div class="row">
-	<table class="table table-hover table-responsive">
+	<table class="font-color table table-hover table-responsive">
 	<tr>
 		<th>{{Form::label('first_name','First Name')}}</th>
 		<th>{{Form::label('last_name','Last Name')}}</th>
@@ -60,7 +60,7 @@
 </div>
 <!-- end Donor data section -->
 	<!-- Begin Charities section -->
-	<h2>Charities</h2>
+	<h2 class="font-color">Charities</h2>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-default">

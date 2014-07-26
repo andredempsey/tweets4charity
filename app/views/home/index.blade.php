@@ -109,7 +109,7 @@
         <div class="wow fadeInLeft" data-wow-delay="0.2s">
                 <div class="service-box">
           <div class="service-icon">
-            <span class="fa fa-pencil fa-5x"></span> 
+            <span class="font-color fa fa-pencil fa-5x"></span> 
           </div>
           <div class="service-desc">            
             <h5>Registration</h5>
@@ -125,7 +125,7 @@
         <div class="wow fadeInUp" data-wow-delay="0.2s">
                 <div class="service-box">
           <div class="service-icon">
-            <span class="fa fa-twitter fa-5x"></span> 
+            <span class="font-color fa fa-twitter fa-5x"></span> 
           </div>
           <div class="service-desc">
             <h5>Tweet!</h5>
@@ -141,7 +141,7 @@
         <div class="wow fadeInUp" data-wow-delay="0.2s">
                 <div class="service-box">
           <div class="service-icon">
-            <span class="fa fa-credit-card fa-5x"></span> 
+            <span class="font-color fa fa-credit-card fa-5x"></span> 
           </div>
           <div class="service-desc">
             <h5>Payment</h5>
@@ -157,7 +157,7 @@
         <div class="wow fadeInRight" data-wow-delay="0.2s">
                 <div class="service-box">
           <div class="service-icon">
-            <span class="fa fa-globe fa-5x"></span> 
+            <span class="font-color fa fa-globe fa-5x"></span> 
           </div>
           <div class="service-desc">
             <h5>Helping you help others</h5>
@@ -183,8 +183,8 @@
         <div class="col-lg-8 col-lg-offset-2">
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
           <div class="section-heading text-center">
-          <h2 class="h-bold">About Us</h2>
-          <div class="divider-header"></div>
+          <h2 class="font-color h-bold">About Us</h2>
+          <div class="font-color divider-header"></div>
           <p>Who we are and what we do.</p>
           </div>
           </div>
@@ -271,8 +271,8 @@
           <div class="text-center">
             <a href="#intro" class="totop"><i class="fa fa-angle-up fa-3x"></i></a>
 
-            <p>Tweets for Charity,  a Codeup project<br />
-            &copy;Tweets for Charity.<a href="http://www.tweets-for-charity.com">Tweets for Charity</a></p>
+            <p>Tweets for Charity,  a Codeup project<br>
+            &copy;Tweets for Charity. <a href="http://www.tweets-for-charity.com">Tweets for Charity</a></p>
           </div>
         </div>
       </div>  
