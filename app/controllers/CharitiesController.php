@@ -20,10 +20,19 @@ class CharitiesController extends BaseController {
 
 	public function index()
 	{
+		$charities = Charity::with('user');
+		// ->orderBy('charity_name','ASC')->paginate(9);
+		$twitter_handle = $user->charity->charity_name;
+		//$twitter_handle = $charities->charity_name;
+		$user = User::findByTwitterHandle($twitter_handle);
+		$tweets = Twitter::getUserTimeline(array('screen_name' => '210axs', 'count' => 1, 'format' => 'array'));
+		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
+		dd($tweets);
+		$user->profile_picture_link = $profile_image;
+		$user->save();
 
-		$charities = Charity::with('user')->orderBy('charity_name','ASC')->paginate(9);
 		$data = array(
-			'charities' => $charities
+		'charities' => $charities
 		);
 		return View::make('charities.index')->with($data);
 		

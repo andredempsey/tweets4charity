@@ -17,13 +17,15 @@ class HomeController extends BaseController {
 
 	public function showHome()
 	{
-		$index = true;
-		return View::make('home.index')->with('index', $index);
+		// $index = true;
+		// return View::make('home.index')->with('index', $index);
 
 		// $tweets = TwitterProper::getUserTimeline(array('210axs', )){
 		// $response = $this->query('statuses/user_timeline', 'GET', $parameters);
 
 		// return $response;
+
+		
 	}
 
 	public function showPreLogin()

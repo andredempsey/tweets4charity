@@ -183,7 +183,7 @@
 					@if ($activity['is_paid'])
 						<td>Paid</td>
 					@else
-					<td><script src="https://checkout.stripe.com/v2/checkout.js" class="button stripe"
+					<td><script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
 					                data-key="pk_test_4Rd5UZ8YI5GylPQvVuFovbj3"
 					                data-amount="" data-description="Pay my bill"></script></td>
 					@endif
