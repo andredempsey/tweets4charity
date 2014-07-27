@@ -17,6 +17,12 @@ body {
 .font-color {
     color: #043c6b;
 }
+.search_bar {
+    width: 60% !important;
+}
+.search_bar_btn {
+    float:left;
+}
 
 html {
     width: 100%;
