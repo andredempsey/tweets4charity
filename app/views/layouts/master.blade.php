@@ -8,9 +8,10 @@
     <meta name="author" content="">
 
     <title>Tweets for Charity</title>
-    
+
+    <link rel="shortcut icon" href="/favicon.ico">
     <!-- css -->
-    <link href="/shuffle/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/shuffle/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="/shuffle/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="/shuffle/css/nivo-lightbox.css" rel="stylesheet" />
     <link href="/shuffle/css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
@@ -18,8 +19,8 @@
     <link href="/shuffle/css/owl.theme.css" rel="stylesheet" media="screen" />
     <link href="/shuffle/css/flexslider.css" rel="stylesheet" />
     <link href="/shuffle/css/animate.css" rel="stylesheet" />
-    <link href="/shuffle/css/style.css" rel="stylesheet">
     <link href="/shuffle/color/default.css" rel="stylesheet">
+    <link href="/shuffle/css/style.css" rel="stylesheet">
 
     @yield('topscript')
 </head>
@@ -67,5 +68,21 @@
         </script>
         
         @yield('bottomscript')
+
+        <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              
+              <div class="text-center">
+                <a href="#" class="totop"><i class="fa fa-angle-up fa-3x"></i></a>
+
+                <p>Tweets for Charity,  a Codeup project<br>
+                &copy;Tweets for Charity. <a href="http://www.tweets-for-charity.com">Tweets for Charity</a></p>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </footer>
     </body>
 </html>

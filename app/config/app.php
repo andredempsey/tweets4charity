@@ -121,7 +121,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		// 'Thujohn\Twitter\TwitterServiceProvider',
+		//'Thujohn\Twitter\TwitterServiceProvider',
 		'Abodeo\LaravelStripe\LaravelStripeServiceProvider',
 		'Philo\Twitter\TwitterServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider'
@@ -188,7 +188,7 @@ return array(
 		'SoftDeletingTrait' => 'Illuminate\Database\Eloquent\SoftDeletingTrait',
 		'SSH'             => 'Illuminate\Support\Facades\SSH',
 		'Str'             => 'Illuminate\Support\Str',
-		// 'Twitter' 		  => 'Thujohn\Twitter\TwitterFacade',
+		//'TwitterProper'   => 'Thujohn\Twitter\TwitterFacade',
 		'Twitter'	  => 'Philo\Twitter\Facades\Twitter',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',

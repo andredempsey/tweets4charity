@@ -24,7 +24,7 @@
             <div class="row">
                 @if ($user->donor) 
                     @foreach ($user->donor->charities as $charity)
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-md-4 col-sm-6 well">
                         <img class="img-circle img-responsive" style="height: 100px" src="{{ $charity->user->profile_picture_link }}">
                         <a href="http://www.twitter.com/{{$charity->user->twitter_handle}}">{{$charity->charity_name}}</a></h5>
                         <!-- <p>Charity Description</p> -->
