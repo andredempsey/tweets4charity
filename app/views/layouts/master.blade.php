@@ -8,7 +8,8 @@
     <meta name="author" content="">
 
     <title>Tweets for Charity</title>
-    
+
+    <link rel="shortcut icon" href="/favicon.ico">
     <!-- css -->
     <link href="/shuffle/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="/shuffle/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />

@@ -46,9 +46,9 @@ class UsersController extends BaseController {
 	public function edit($twitter_handle)
 	{
 		
-		//find record in user table using the twitter handle
 
 		$user = Auth::user();
+
 		$activities = Activity::where('donor_id', $user->donor->id)->orderBy('updated_at','ASC')->get();
 
 		$transactions = $user->donor->transactions;
@@ -75,7 +75,17 @@ class UsersController extends BaseController {
 		{
 			$charities = Charity::whereNotIn('id', $alreadySelectedCharities)->orderBy('charity_name', 'ASC')->paginate(6);
 		}
-		// dd($activities);
+
+		if(Input::has('charity_search')) 
+		{
+			$charity_search = Input::get('charity_search');
+			$charities = Charity::where('charity_name', 'LIKE', "%$charity_search%")
+				->orderBy('charity_name', 'ASC')
+				->paginate(6);
+
+		}
+
+		// return View::make('users.edit')->with('charities', $charities);
 
 		//calculate activity deltas
 		$monthlyTweets[] = array('period'=>'','tweet_count'=>'','is_paid'=>'','updated_at'=>'');
@@ -102,6 +112,8 @@ class UsersController extends BaseController {
 		$monthlyTweets[0]['tweet_count'] = 0;
 		$activities = array_reverse($monthlyTweets);
 		$rows = count($activities);
+
+
 		// dd($activities);
 
 		//prepare data for passing to user dashboard view

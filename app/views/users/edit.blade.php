@@ -35,7 +35,7 @@
     	<h4>{{'@' . $user->twitter_handle}}</h4>
 	</div>
 </div>
-<div class="row">
+<div class="well">
 	<table class="font-color table table-hover table-responsive">
 	<tr>
 		<th>{{Form::label('first_name','First Name')}}</th>
@@ -63,7 +63,7 @@
 	<h2 class="font-color">Charities</h2>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
+			<div class="panel panel-default well">
 				<div class="panel-body">	
 					@foreach ($user->donor->charities as $charity)
 					<div class="col-md-12 col-sm-12">
@@ -112,10 +112,10 @@
 	
 	<!-- end Search Charities -->
 	<div class="row">
-		<h5 class="text-center">Pick a Charity</h5>
 			<!-- <div class="col-md-12"></div> -->
-				<div class="col-md-12 text-center">	
-					<div class="panel panel-default">
+				<div class="col-md-12">	
+					<div class="panel panel-default well">
+		<h5 class="text-left">Add a Charity</h5>
 						<div class="panel-body">
 							<div class="row">
 						    @foreach ($charities as $charity)
@@ -131,7 +131,18 @@
 					<div class="row">
 						<div class="col-md-12 text-center">{{ $charities->links() }}</div> <!-- pagination -->
 					</div> <!-- end row -->
-		</div> <!-- end class="col-md-12" -->
+						<div class="well">	
+							<h5 class="text-left">Search for a Charity</h5>
+			                <div class="col-md-6 input-group">
+			                {{ Form::open(array('action'=> array('UsersController@edit', $user->id), 'class' => 'form-inline', 'method' => 'GET')) }}
+			                    {{-- Form::label('search', 'Search', array('class' => 'form-label')) --}}
+			                    {{ Form::text('charity_search', Input::get('charity_search'), array('placeholder' => 'Search Query', 'class' => 'form-control search_bar')) }}
+			                        <button class="btn btn-skin glyphicon glyphicon-search search_bar_btn">
+			                        </button>
+			                    
+			                    {{ Form::close() }} 
+							</div> <!-- end class="col-md-12" -->
+			            </div>
 	<div class="col-md-3"></div>
 
 	</div>	<!-- end Available Charities Section -->
@@ -139,14 +150,15 @@
 	<div class="row">
 		<h2 class="page-header">Twitter Activity</h2>
 	</div>
-	<div class="row">
-		<table class="table table-hover table-striped table-responsive">
+	<div class="well">
+		<table class="table table-hover table table-responsive">
 			<tr>
 				<th class='text-center'>Month</th>
 				<th class='text-center'>Tweet Count</th>
 				<th class='text-center'>Pledged/Tweet</th>
 				<th class='text-center'>Amount Due ($)</th>
 				<th class='text-center'>Date</th>
+				<th class='text-center'>Payment</th>
 				<th></th>
 			</tr>
 				@foreach ($activities as $activity)
@@ -171,7 +183,7 @@
 					@if ($activity['is_paid'])
 						<td>Paid</td>
 					@else
-					<td><script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+					<td><script src="https://checkout.stripe.com/v2/checkout.js" class="button stripe"
 					                data-key="pk_test_4Rd5UZ8YI5GylPQvVuFovbj3"
 					                data-amount="" data-description="Pay my bill"></script></td>
 					@endif
