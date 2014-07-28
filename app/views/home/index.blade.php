@@ -267,7 +267,7 @@
               <div class="text-center">
                 <a href="#" class="totop"><i class="fa fa-angle-up fa-3x"></i></a>
 
-                <p>Tweets for Charity,  a Codeup project<br>
+                <p>Tweets for Charity,  a Codeup project.  tweetsforcharity@gmail.com<br>
                 &copy;Tweets for Charity. <a href="http://www.tweets-for-charity.com">Tweets for Charity</a></p>
               </div>
             </div>
