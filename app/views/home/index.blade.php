@@ -195,11 +195,11 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-3 col-md-offset-1"><a href="#" title="Andre" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Andre2.jpg"><p>Andre</p><img src="Andre2.jpg" class="img-responsive" alt="img"></a></div>
+        <div class="col-md-3 col-md-offset-1"><a href="http://aait-innovations.com" title="Andre" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Andre2.jpg"><p>Andre</p><img src="Andre2.jpg" class="img-responsive" alt="img"></a></div>
 
         <div class="col-md-3"><a href="#" title="Nicole" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Nicole2.jpg"><p>Nicole</p><img src="Nicole2.jpg" class="img-responsive" alt="img"></a></div>
 
-        <div class="col-md-3"><a href="#" title="Andrew" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Andrew1.jpg"><p>Andrew</p><img src="Andrew1.jpg" class="img-responsive" alt="img"></a></div>
+        <div class="col-md-3"><a href="http://www.andrewxsamaniego.com" title="Andrew" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Andrew1.jpg"><p>Andrew</p><img src="Andrew1.jpg" class="img-responsive" alt="img"></a></div>
       </div>
     </div>
 
