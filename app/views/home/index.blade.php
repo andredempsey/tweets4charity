@@ -195,15 +195,11 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-md-12 col-md-12" >
-          <div class="wow bounceInUp" data-wow-delay="0.4s">
-            <div id="owl-works" class="owl-carousel">
-              <div class="item"><a href="http://www.twitter.com" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/1@2x.jpg"><p>Andre</p><img src="img/andre.jpg" class="img-responsive" alt="img"></a></div>
-              <div class="item"><a href="img/works/2.jpg" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/2@2x.jpg"><p>Nicole</p><img src="img/nicole.jpg" class="img-responsive " alt="img"></a></div>
-              <div class="item"><a href="img/works/3.jpg" title="This is an image title" data-lightbox-gallery="gallery1" data-lightbox-hidpi="img/works/3@2x.jpg"><p>Andrew</p><img src="img/andrew.jpg" class="img-responsive " alt="img"></a></div>        
-            </div>
-          </div>
-        </div>
+        <div class="col-md-3 col-md-offset-1"><a href="#" title="Andre" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Andre2.jpg"><p>Andre</p><img src="Andre2.jpg" class="img-responsive" alt="img"></a></div>
+
+        <div class="col-md-3"><a href="#" title="Nicole" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Nicole2.jpg"><p>Nicole</p><img src="Nicole2.jpg" class="img-responsive" alt="img"></a></div>
+
+        <div class="col-md-3"><a href="#" title="Andrew" data-lightbox-gallery="gallery1" data-lightbox-hidpi="Andrew1.jpg"><p>Andrew</p><img src="Andrew1.jpg" class="img-responsive" alt="img"></a></div>
       </div>
     </div>
 
@@ -263,10 +259,8 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6 col-md-offset-3">
-              
               <div class="text-center">
                 <a href="#" class="totop"><i class="fa fa-angle-up fa-3x"></i></a>
-
                 <p>Tweets for Charity,  a Codeup project.  tweetsforcharity@gmail.com<br>
                 &copy;Tweets for Charity. <a href="http://www.tweets-for-charity.com">Tweets for Charity</a></p>
               </div>
