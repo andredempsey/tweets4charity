@@ -405,7 +405,6 @@ $charity_twitter_seed = [
             $charity = new Charity();
             $charity->user_id = $i;
 	        $charity->charity_name = $charity_twitter_seed[$i - 1];
-	        $charity->tax_id = $tax_id_seed[];
             $charity->tax_id = $tax_id_seed[$i - 1];
             $charity->phone = "123-456-7890";
             $charity->street = "Some Street";
