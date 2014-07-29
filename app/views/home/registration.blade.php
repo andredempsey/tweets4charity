@@ -7,121 +7,145 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-5">
-			<div class="basic-login">
-
-				<input type="radio" name="group1" value="3">Donor<br>
-				<input type="radio" name="group1" value="4">Charity<br>
-
-				
-				<div  id="area-3" class="area">
-
-			        <h1>Donor Registration</h1>
-			        {{ Form::open(array('action' => array('HomeController@doRegistration'), 'method' => 'POST')) }}
-
-				    <div>
-				        {{ $user->twitter_handle }}<br>
-				        {{ Form::hidden('role_id', User::ROLE_DONOR) }}
-				    </div>
-				    
-				    <div>
-				        {{ Form::label('first_name', 'First Name') }}
-				        {{ Form::text('first_name', Input::old('first_name')) }}
-				        {{ $errors->first('first_name', '<span class="help-block">:message</span>') }}<br>
-				    </div>
-				    <div>
-				        {{ Form::label('last_name', 'Last Name') }}
-				        {{ Form::text('last_name', Input::old('last_name')) }}
-				        {{ $errors->first('last_name', '<span class="help-block">:message</span>') }}<br>
-				    </div>
-				    <div>
-				        {{ Form::label('email', 'Email') }}
-				        {{ Form::text('email', Input::old('email')) }}
-				        {{ $errors->first('email', '<span class="help-block">:message</span>') }}<br>
-				    </div>
-				    
-				   	{{ Form::Submit('Register', array('class' => 'btn pull-right'))}}
-				   	{{ Form::close() }}
-
-				</div>
-				
-				<div id="area-4"  class="area">
-
-					<h1>Charity Registration</h1>
-					{{Form::open(array('action'=> array('HomeController@doRegistration'), 'files' => true, 'method' => 'POST'))  }}
-
-				    <div>
-				        {{ $user->twitter_handle }}<br>
-				        {{ Form::hidden('role_id', User::ROLE_CHARITY) }}
-				    </div>
-
-					<div class="form-group">
-					    {{ Form::label('charity_name', 'Charity Name') }}
-					    {{ Form::text('charity_name') }}
-					   	{{ $errors->first('charity_name', '<span class="help-block">:message</span>') }}<br>
-					</div>
-					<div class="form-group">
-					    {{ Form::label('first_name', 'Contact person First Name') }}
-					    {{ Form::text('first_name') }}
-					   	<!-- {{ $errors->first('first_name', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('last_name', 'Contact person Last Name') }}
-					    {{ Form::text('last_name') }}
-					   	<!-- {{ $errors->first('last_name', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('email', 'Email Address') }}
-					    {{ Form::text('email') }}
-					   	<!-- {{ $errors->first('email', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('phone', 'Phone Number') }}
-					    {{ Form::text('phone') }}
-					   	<!-- {{ $errors->first('phone', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('street', 'Street Address') }}
-					    {{ Form::text('street') }}
-					   	<!-- {{ $errors->first('street', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('city', 'City') }}
-					    {{ Form::text('city') }}
-					   	<!-- {{ $errors->first('city', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('state', 'State') }}
-					    {{ Form::text('state') }}
-					   	<!-- {{ $errors->first('state', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div class="form-group">
-					    {{ Form::label('zip', 'Zip') }}
-					    {{ Form::text('zip') }}
-					   	<!-- {{ $errors->first('zip', '<span class="help-block">:message</span>') }}<br> -->
-					</div class="form-group">
-					<div class="form-group">
-					    {{ Form::label('tax_id', 'Tax ID #') }}
-					    {{ Form::text('tax_id') }}
-					   	<!-- {{ $errors->first('tax_id', '<span class="help-block">:message</span>') }}<br> -->
-					</div>
-					<div>
-						{{ Form::label ('image', 'Tax ID upload') }}
-    					{{ Form::file('image') }}
-    					<br>
-					</div>
-					<div>
-				 	{{Form::Submit('Register Charity', array('class' => 'btn pull-right')) }}
-					</div>
-					<div class="clearfix">
-						{{ Form::close() }}
-					</div>
-
-				</div>
-			</div>
-		</div>
+	    <button class="register-form-btn" data-value="donor">Donor</button>
+		<button class="register-form-btn" data-value="charity">Charity</button>
 	</div>
-</div>
+
+	<div class="clearfix"></div>
+
+	<!-- Donor form -->
+	<div id="donor-form" class="row register-form">
+
+		{{ Form::open(array('action' => array('HomeController@doRegistration'), 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form')) }}
+		  
+		  <div>
+				{{ Form::hidden('role_id', User::ROLE_DONOR) }}
+		  </div>
+		  <div class="form-group">
+		  	{{ Form::label('first_name', 'First Name', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('first_name', Input::old('first_name'), array('class' => 'form-control', 'placeholder' => 'First Name')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('last_name', 'Last Name', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('last_name', Input::old('last_name'), array('class' => 'form-control', 'placeholder' => 'Last Name')) }}
+			</div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('email', 'Email', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('email', Input::old('email'), array('class' => 'form-control', 'placeholder' => 'Email')) }}
+		    </div>
+		  </div>
+
+		  {{ Form::Submit('Register', array('class' => 'btn col-md-offset-2'))}}
+		  {{ Form::close() }}
+
+	</div>
+
+	<div class="clearfix"></div>
+
+	<!-- Charity form -->
+	<div id="charity-form" class="row register-form">
+
+		
+
+		<h1>Charity Registration</h1>
+		{{Form::open(array('action'=> array('HomeController@doRegistration'), 'files' => true, 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form'))  }}
+
+		<div>
+			{{ Form::hidden('role_id', User::ROLE_DONOR) }}
+		 </div>
+	    <div class="form-group">
+		  	{{ Form::label('charity_name', 'Charity Name', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('charity_name', Input::old('charity_name'), array('class' => 'form-control', 'placeholder' => 'Charity Name')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('charity_name', 'Contact First Name', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('charity_name', Input::old('charity_name'), array('class' => 'form-control', 'placeholder' => 'First Name')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('last_name', 'Contact Last Name', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('last_name', Input::old('last_name'), array('class' => 'form-control', 'placeholder' => 'Last Name')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('email', 'Email Address', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('email', Input::old('email'), array('class' => 'form-control', 'placeholder' => 'Email')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('phone', 'Phone Number', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('phone', Input::old('phone'), array('class' => 'form-control', 'placeholder' => 'Phone Number')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('street', 'Street Address', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('street', Input::old('street'), array('class' => 'form-control', 'placeholder' => 'Street Address')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('city', 'City', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('city', Input::old('city'), array('class' => 'form-control', 'placeholder' => 'City')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('state', 'State', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('state', Input::old('state'), array('class' => 'form-control', 'placeholder' => 'State')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('zip', 'Zip', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('zip', Input::old('zip'), array('class' => 'form-control', 'placeholder' => 'Zip')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('tax_id', 'Tax ID #', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('tatx_id', Input::old('tax_id'), array('class' => 'form-control', 'placeholder' => 'Tax ID #')) }}
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		  	{{ Form::label('zip', 'Zip', array('class' => 'col-sm-2 control-label')) }}
+		    <div class="col-sm-7">
+		    	{{ Form::text('zip', Input::old('zip'), array('class' => 'form-control', 'placeholder' => 'Zip')) }}
+		    </div>
+		  </div>
+			
+		  <div>
+		  	{{Form::Submit('Register Charity', array('class' => 'btn col-md-offset-2')) }}
+		  </div>	
+	<div class="clearfix"></div>	  	
+	{{ Form::close() }}
+	</div>
+
+</div>			
+
 				
 @stop
 
@@ -129,11 +153,12 @@
 
 <script>
 	$(function(){
-	   $("div.area").hide();
-	    $("input[type=radio]").click(function(){        
-	      var val=$(this).val();
-	      $(".area").hide();    
-	      $("#area-"+val).show();        
+	   $(".register-form").hide();
+	    $(".register-form-btn").click(function(){        
+	      var val = $(this).data('value');
+	      console.log(val);
+	      $(".register-form").hide();    
+	      $("#" + val + "-form").fadeIn();      
 	    });      
 	});
 </script>
