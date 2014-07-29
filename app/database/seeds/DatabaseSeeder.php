@@ -2,23 +2,23 @@
 
 class DatabaseSeeder extends Seeder {
 
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		Eloquent::unguard();
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Eloquent::unguard();
 
-		$this->call('UserTableSeeder');
+        $this->call('UserTableSeeder');
         $this->call('DonorTableSeeder');
-		$this->call('CharityTableSeeder');
-		$this->call('CharityDonorTableSeeder');
-		$this->call('TransactionTableSeeder');
-		$this->call('CharityTransactionTableSeeder');
+        $this->call('CharityTableSeeder');
+        $this->call('CharityDonorTableSeeder');
+        $this->call('TransactionTableSeeder');
+        $this->call('CharityTransactionTableSeeder');
         $this->call('ActivityTableSeeder');
-	}
+    }
 }
 
 class UserTableSeeder extends Seeder {
@@ -365,14 +365,14 @@ $charity_twitter_seed = [
         {
             $charity = new Charity();
             $charity->user_id = $i;
-	        $charity->charity_name = $charity_twitter_seed[$i - 1];
-	        $charity->tax_id = $tax_id_seed[$i - 1];
+            $charity->charity_name = $charity_twitter_seed[$i - 1];
+            $charity->tax_id = $tax_id_seed[$i - 1];
             $charity->phone = "123-456-7890";
             $charity->street = "Some Street";
             $charity->city = "Anywhere";
             $charity->state = "TX";
             $charity->zip = "78111";
-	        $charity->save();
+            $charity->save();
         }
     }
 }
