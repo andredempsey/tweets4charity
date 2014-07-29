@@ -151,6 +151,7 @@ class HomeController extends BaseController {
 
 			$charity = new Charity();
 			$charity->user_id = $user->id;
+			$charity->charity_name = Input::get('charity_name');
 			$charity->tax_id = Input::get('tax_id');
 			$charity->phone = Input::get('phone');
 			$charity->street = Input::get('street');
