@@ -5,10 +5,7 @@ class CharitiesController extends BaseController {
 	public function __construct()
 	{
     	// call base controller constructor
-    	parent::__construct();
-
-
-    	
+    	parent::__construct();    	
     	$this->beforeFilter('auth', array('except' => array('index', 'show')));
 
 	}
@@ -20,7 +17,6 @@ class CharitiesController extends BaseController {
 
 	public function index()
 	{
-
 		$charities = Charity::with('user')->orderBy('charity_name','ASC')->paginate(9);
 		$data = array(
 			'charities' => $charities
@@ -32,7 +28,6 @@ class CharitiesController extends BaseController {
 	public function show($twitter_handle)
 
 	{
-
 		$user = Auth::user();
 		$tweets = Twitter::usersLookup($user->user_id);
 		$name = ($tweets[0]['name']);

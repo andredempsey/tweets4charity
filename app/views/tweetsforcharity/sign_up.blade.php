@@ -11,8 +11,8 @@
 		<div class="col-sm-5">
 			<div class="basic-login">
 
-				<input type="radio" name="group1" value="3">Donor<br>
-				<input type="radio" name="group1" value="4">Charity<br>
+				<input type="radio btn-theme" name="group1" value="3">Donor<br>
+				<input type="radio btn-theme" name="group1" value="4">Charity<br>
 
 				
 				<div  id="area-3" class="area">
@@ -40,7 +40,7 @@
 				        {{ $errors->first('email', '<span class="help-block">:message</span>') }}<br>
 				    </div>
 				    
-				   	{{ Form::Submit('Register', array('class' => 'btn pull-right'))}}
+				   	{{ Form::Submit('Register', array('class' => 'btn btn-theme pull-right'))}}
 				   	{{ Form::close() }}
 
 				</div>
@@ -108,7 +108,7 @@
     					<br>
 					</div>
 					<div>
-				 	{{Form::Submit('Register Charity', array('class' => 'btn pull-right')) }}
+				 	{{Form::Submit('Register Charity', array('class' => 'btn btn-theme pull-right')) }}
 					</div>
 					<div class="clearfix">
 						{{ Form::close() }}

@@ -36,7 +36,6 @@ class UsersController extends BaseController {
 		return View::make('users.show')->with($data);
 	}
 
-
 	/**
 	 * Show the User Dashboard form for editing Donor information.
 	 *
@@ -46,7 +45,6 @@ class UsersController extends BaseController {
 	public function edit($twitter_handle)
 	{
 		
-
 		$user = Auth::user();
 
 		$activities = Activity::where('donor_id', $user->donor->id)->orderBy('updated_at','ASC')->get();
@@ -58,7 +56,6 @@ class UsersController extends BaseController {
 		$profile_image = ($tweets[0]['user']['profile_image_url_https']);
 		$alreadySelectedCharities = [];
 
-		
 		//extract charities which belong to Donor
 		foreach ($user->donor->charities as $charity)
 		{
@@ -82,10 +79,7 @@ class UsersController extends BaseController {
 			$charities = Charity::where('charity_name', 'LIKE', "%$charity_search%")
 				->orderBy('charity_name', 'ASC')
 				->paginate(6);
-
-		}
-
-		// return View::make('users.edit')->with('charities', $charities);
+		}		
 
 		//calculate activity deltas
 		$monthlyTweets[] = array('period'=>'','tweet_count'=>'','is_paid'=>'','updated_at'=>'');
@@ -113,9 +107,6 @@ class UsersController extends BaseController {
 		$activities = array_reverse($monthlyTweets);
 		$rows = count($activities);
 
-
-		// dd($activities);
-
 		//prepare data for passing to user dashboard view
 		$data = [
 		'user' => $user,
@@ -130,7 +121,6 @@ class UsersController extends BaseController {
 
 		return View::make('users.edit')->with($data);
 	}
-
 
 	/**
 	 * Trigger when user clicks 'Update' on User Dashboard View
@@ -188,6 +178,5 @@ class UsersController extends BaseController {
 			return Redirect::action('UsersController@edit', $user->twitter_handle);
 		}
 	}
-	
 }
 

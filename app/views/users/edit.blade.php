@@ -27,7 +27,7 @@
 	{{ Form::model($user, array('action' => array('UsersController@update', $user->twitter_handle), 'method' => 'PUT')) }}
 	<div class="row">
 		<div class="col-md-1 col-sm-1">
-		    <a href="https://twitter.com/{{{ $user->twitter_handle }}}"><img class="img-circle" src="{{{ $profile_image }}}" height="100px" width="100px"></a>
+		    <a href="https://twitter.com/{{{ $user->twitter_handle }}}"><img class="img-rounded" src="{{{ $profile_image }}}" height="200px" width="200px"></a>
 		</div>   
 	</div>
 	<div class="row">
@@ -70,7 +70,7 @@
 						<!-- Ajax Form -->
 						<form id="{{'ajax-update' . $charity->id}}">
 							<div class="col-sm-1 col-sm-1">	
-								<a href="http://www.twitter.com/{{$charity->user->twitter_handle}}"><img class="img-circle img-responsive"  src="{{$charity->user->profile_picture_link}}" height="100px" width="100px" alt="{{$charity->charity_name}}"></a>
+								<a href="http://www.twitter.com/{{$charity->user->twitter_handle}}"><img class="img-rounded img-responsive"  src="{{{ str_replace("normal.jpeg", "400x400.jpeg", $charity->user->profile_picture_link) }}}" height="100px" width="100px" alt="{{$charity->charity_name}}"></a>
 							</div>
 							<div class="col-sm-3 col-sm-3">
 								<h4>{{$charity->charity_name}}</h4>
@@ -120,7 +120,7 @@
 					<div class="row">
 				    @foreach ($charities as $charity)
 					    <div class="col-md-1 text-center">
-						    <a href="http://www.twitter.com/{{$charity->user->twitter_handle}}"><img class="img-circle img-responsive"  src="{{$charity->user->profile_picture_link}}" height="100px" width="100px" alt="{{$charity->charity_name}}"></a>
+						    <a href="http://www.twitter.com/{{$charity->user->twitter_handle}}"><img class="img-rounded img-responsive"  src="{{{ str_replace("normal.jpeg", "400x400.jpeg", $charity->user->profile_picture_link) }}}" height="200px" width="200px" alt="{{$charity->charity_name}}"></a>
 						    {{link_to_action('DonorsController@addCharity','Add', array('charity_id' => $charity->id))}}<span> </span>{{$charity->charity_name}}
 					    </div>
 					    <div class="col-md-1"></div>
@@ -148,7 +148,7 @@
 	<div class="row">
 		<div class="col-md-12">		
 			<div class="panel panel-default well">			
-				<table class="table table-hover table table-responsive">
+				<table class="font-color table table-hover table table-responsive">
 					<tr>
 						<th class='text-center'>Month</th>
 						<th class='text-center'>Tweet Count</th>

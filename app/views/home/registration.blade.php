@@ -7,8 +7,8 @@
 
 <div class="container">
 	<div class="row">
-	    <button class="register-form-btn" data-value="donor">Donor</button>
-		<button class="register-form-btn" data-value="charity">Charity</button>
+	    <button class="register-form-btn btn-theme" data-value="donor">Donor</button>
+		<button class="register-form-btn btn-theme" data-value="charity">Charity</button>
 	</div>
 
 	<div class="clearfix"></div>
@@ -42,7 +42,7 @@
 		    </div>
 		  </div>
 
-		  {{ Form::Submit('Register', array('class' => 'btn col-md-offset-2'))}}
+		  {{ Form::Submit('Register', array('class' => 'btn btn-theme col-md-offset-2'))}}
 		  {{ Form::close() }}
 
 	</div>
@@ -134,7 +134,7 @@
 		  </div>
 
 		  <div>
-		  	{{Form::Submit('Register Charity', array('class' => 'btn col-md-offset-2')) }}
+		  	{{Form::Submit('Register Charity', array('class' => 'btn btn-theme col-md-offset-2')) }}
 		  </div>	
 	<div class="clearfix"></div>	  	
 	{{ Form::close() }}
