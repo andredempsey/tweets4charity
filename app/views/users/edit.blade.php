@@ -211,39 +211,26 @@ $.ajaxSetup({
 $('.fade_message').delay(2000).fadeOut(1000);
 $('#ajax-message').delay(2000).fadeOut(1000);
 
-//update amount field with slider value
-
 $('.sliderValue').slider({
 	formater: function(value) {
 		return value + " %";
 	}
-}).on('slideStop', function() {
- 	var slideValue = $(this).slider('getValue');
- 	var charityID = $(this).data('charity');
-	
-	$('.amount').each(function(index, amt) {
-		if (charityID  == $(this).data('charity')) {
-			// console.log('Found match: ' +  $(sld).slider('getValue').val());
-			$(amt).val(slideValue);
-		}
+	}).on('slideStop', function(index) {
+	 	var endingSlideValue = $(this).slider('getValue');
+	 	var charityID = $(this).data('charity');
+	 	var startingSlidValue = 0;
+		$('.amount').each(function(index, amt) {
+
+			if (charityID  == $(this).data('charity')) {
+				// console.log('Found match: ' +  $(sld).slider('getValue').val());
+				startingSliderValue = $(amt).value;
+				$(amt).val(endingSlideValue);
+				adjustSliders(index ,startingSlidValue, endingSlideValue);
+			}
 	});
 	
-	var formValues = $('#ajax-update'+charityID).serialize();  //serialize all form values for ajax
-
-	console.log(formValues);  //verify it works
-
-	//pass data to ajax request to update database
-    $.ajax({
-        url: "/allocation",
-        type: "POST",
-        data: formValues,
-        dataType: "json",
-        success: function (data) {
-        $('#ajax-message').html(data.message);
-        }
-	});
 });
-
+	
 // set the initial values for the slider controls
 $('.amount').each(function(index, amt) {
 	var charityId = $(this).data('charity');
@@ -251,11 +238,72 @@ $('.amount').each(function(index, amt) {
 	var $sliders = $('.sliderValue');
 	$sliders.each(function(index, sld) {
 		if ($(sld).data('charity') == charityId) {
-
 			$(sld).slider('setValue', parseInt(amtValue, 10));
 		}
 	});
 });
+
+//update amount field with slider value
+function adjustSliders (lastMoved ,startingSlidValue, endingSlideValue) {
+//lastMove is charityID of slider that was last moved
+//slideValue is the value of that slider
+var totalPercent = 0;
+var sliderCount = 0;
+var autoMoveAmount = 0;
+var deltaAmount = 0;
+
+//count number of sliders
+$('.amount').each(function() {
+			sliderCount++;
+	});
+
+//calculate amount to move other sliders
+//subtract old value from new value and divide by number of sliders-1
+autoMoveAmount = parseInt((100 - parseInt(endingSlideValue))/parseInt(sliderCount-1));
+
+//determine if there is a remainder to add to the last slider
+totalPercent = (autoMoveAmount * (sliderCount - 1)) + parseInt(endingSlideValue);
+deltaAmount = 100 - totalPercent;
+
+$('.amount').each(function(index, amt) {
+		if (index != lastMoved) {
+			// add delta to all sliders other than the one last moved
+			$(amt).val(parseInt(autoMoveAmount));
+		}
+		else {
+			$(amt).val(parseInt(endingSlideValue) + deltaAmount);
+		}
+		
+		var formValues = $('#ajax-update'+ $(this).data('charity')).serialize();  //serialize all form values for ajax
+
+		console.log(formValues);  //verify it works
+
+		//pass data to ajax request to update database
+	    $.ajax({
+	        url: "/allocation",
+	        type: "POST",
+	        data: formValues,
+	        dataType: "json",
+	        success: function (data) {
+	        $('#ajax-message').html(data.message);
+	        }
+		});			
+	});
+
+$('.amount').each(function(index, amt) {
+	var charityId = $(this).data('charity');
+	var amtValue = $(this).val();
+	var $sliders = $('.sliderValue');
+	$sliders.each(function(index, sld) {
+		if ($(sld).data('charity') == charityId) {
+			$(sld).slider('setValue', parseInt(amtValue, 10));
+		}
+	});
+});
+
+};
+// end adjustSliders method
+
 
 </script>
 
