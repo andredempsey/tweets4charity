@@ -309,7 +309,46 @@ $tax_id_seed = [
     '388192022',
     '625967373',
     '050431234',
-    '808205781'
+    '808205781',
+    '865438391',
+    '218765192',
+    '559856913',
+    '293437424',
+    '435679685',
+    '860544906',
+    '388192027',
+    '625967378',
+    '050431239',
+    '808205782',
+    '965438390',
+    '118765194',
+    '259856916',
+    '393437421',
+    '535679686',
+    '660544909',
+    '788192022',
+    '825967373',
+    '950431234',
+    '818205781',
+    '875438391',
+    '228765192',
+    '569856913',
+    '239437424',
+    '445679685',
+    '870544906',
+    '398192027',
+    '635967378',
+    '060431239',
+    '818205782',
+    '228715192',
+    '569816913',
+    '239417424',
+    '445619685',
+    '870514906',
+    '398112027',
+    '635917378',
+    '060411239',
+    '818215782'
 ];
 
 $charity_twitter_seed = [
@@ -365,14 +404,14 @@ $charity_twitter_seed = [
         {
             $charity = new Charity();
             $charity->user_id = $i;
-            $charity->charity_name = $charity_twitter_seed[$i - 1];
+	        $charity->charity_name = $charity_twitter_seed[$i - 1];
             $charity->tax_id = $tax_id_seed[$i - 1];
             $charity->phone = "123-456-7890";
             $charity->street = "Some Street";
             $charity->city = "Anywhere";
             $charity->state = "TX";
             $charity->zip = "78111";
-            $charity->save();
+	        $charity->save();
         }
     }
 }
@@ -392,17 +431,7 @@ class TransactionTableSeeder extends Seeder {
     {
         DB::table('transactions')->delete();
 
-        for ($d=1;$d<=3;$d++) 
-        {
-            $transaction = new Transaction();
-            $transaction->donor_id = 1;
-            $transaction->token = Hash::make('stripe');
-            $transaction->amount = mt_rand(50,500);
-            $transaction->amount_per_tweet = 0.20;
-            $transaction->save();
-
-        }
-
+        
     }
 }
 
@@ -419,19 +448,19 @@ class ActivityTableSeeder extends Seeder {
     public function run()
     {
         DB::table('activities')->delete();
-        $period = ['April 2014', 'May 2014', 'June 2014', 'July 2014'];
-        $tweet_count = [100, 150, 275, 345];
-        $is_paid = [1,1,1,0];
+        // $period = ['April 2014', 'May 2014', 'June 2014', 'July 2014'];
+        // $tweet_count = [100, 150, 275, 345];
+        // $is_paid = [1,1,1,0];
 
-        for ($a=1;$a<=5;$a++) 
-        {
-            $activity = new Activity();
-            $activity->donor_id = 1;
-            $activity->period = $period[$a];
-            $activity->tweet_count = $tweet_count[$a];
-            $activity->is_paid = $is_paid[$a];
-            $activity->save();
-        }
+        // for ($a=1;$a<=5;$a++) 
+        // {
+        //     $activity = new Activity();
+        //     $activity->donor_id = 1;
+        //     $activity->period = $period[$a];
+        //     $activity->tweet_count = $tweet_count[$a];
+        //     $activity->is_paid = $is_paid[$a];
+        //     $activity->save();
+        // }
 
     }
 
