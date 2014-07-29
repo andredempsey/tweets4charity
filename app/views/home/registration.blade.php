@@ -71,7 +71,7 @@
 		  </div>
 
 		  <div class="form-group">
-		  	{{ Form::label('first_name, 'Contact First Name', array('class' => 'col-sm-2 control-label')) }}
+		  	{{ Form::label('first_name', 'Contact First Name', array('class' => 'col-sm-2 control-label')) }}
 		    <div class="col-sm-7">
 		    	{{ Form::text('first_name', Input::old('first_name'), array('class' => 'form-control', 'placeholder' => 'First Name')) }}
 		    </div>
