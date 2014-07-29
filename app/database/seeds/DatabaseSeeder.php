@@ -268,6 +268,8 @@ $charity_pic_url = [
             
         for ($i=1;$i<=46;$i++)
         {
+        	$first = $first_name_seed[mt_rand(0,40)];
+            $last = $last_name_seed[mt_rand(0,40)];
             $user = new User();
             $user->twitter_handle = $charity_twitter_seed[$i - 1];
             $user->profile_picture_link = $charity_pic_url[$i - 1];
@@ -307,47 +309,7 @@ $tax_id_seed = [
     '388192022',
     '625967373',
     '050431234',
-    '808205781',
-    '322176030',
-    '617100031',
-    '589723130',
-    '766834973',
-    '891358441',
-    '883608227',
-    '968221615',
-    '282338136',
-    '000264164',
-    '712306212',
-    '271100223',
-    '550154749',
-    '828784369',
-    '227949922',
-    '508438282',
-    '927695499',
-    '380906248',
-    '035202746',
-    '357506292',
-    '883230444',
-    '542101237',
-    '256907481',
-    '515927076',
-    '373126618',
-    '460177366',
-    '723617131',
-    '589525855',
-    '972361376',
-    '103107505',
-    '286558311',
-    '189503820',
-    '413522718',
-    '229804503',
-    '605197292',
-    '891255863',
-    '391682646',
-    '448415069',
-    '077901789',
-    '144127610',
-    '340937563'
+    '808205781'
 ];
 
 $charity_twitter_seed = [
@@ -420,6 +382,7 @@ class CharityDonorTableSeeder extends Seeder {
     public function run()
     {
         DB::table('charity_donor')->delete();
+
     }
 }
 
@@ -428,6 +391,18 @@ class TransactionTableSeeder extends Seeder {
     public function run()
     {
         DB::table('transactions')->delete();
+
+        for ($d=1;$d<=3;$d++) 
+        {
+            $transaction = new Transaction();
+            $transaction->donor_id = 1;
+            $transaction->token = Hash::make('stripe');
+            $transaction->amount = mt_rand(50,500);
+            $transaction->amount_per_tweet = 0.20;
+            $transaction->save();
+
+        }
+
     }
 }
 
@@ -444,15 +419,20 @@ class ActivityTableSeeder extends Seeder {
     public function run()
     {
         DB::table('activities')->delete();
-        // for ($a=1;$a<=5;$a++) 
-        // {
-        //     $activity = new Activity();
-        //     $activity->donor_id = mt_rand(1,5);
-        //     $activity->period = 'June';
-        //     $activity->tweet_count = mt_rand(20,500);
-        //     $activity->is_paid = false;
-        //     $activity->save();
-        // }
+        $period = ['April 2014', 'May 2014', 'June 2014', 'July 2014'];
+        $tweet_count = [100, 150, 275, 345];
+        $is_paid = [1,1,1,0];
+
+        for ($a=1;$a<=5;$a++) 
+        {
+            $activity = new Activity();
+            $activity->donor_id = 1;
+            $activity->period = $period[$a];
+            $activity->tweet_count = $tweet_count[$a];
+            $activity->is_paid = $is_paid[$a];
+            $activity->save();
+        }
+
     }
 
 
