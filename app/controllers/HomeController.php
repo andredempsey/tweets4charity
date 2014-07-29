@@ -160,7 +160,7 @@ class HomeController extends BaseController {
 			// $charity->tax_pdf = Input::get('tax_pdf');
 			$charity->save();
 
-			return Redirect::action('UsersController@show', $user->twitter_handle);
+			return Redirect::action('HomeController@showHome', $user->twitter_handle);
 		}
 		else
 		{

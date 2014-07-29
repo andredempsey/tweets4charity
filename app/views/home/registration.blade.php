@@ -14,7 +14,7 @@
 	<div class="clearfix"></div>
 
 	<!-- Donor form -->
-	<div id="donor-form" class="row register-form">
+	<div id="donor-form" class="row register-form"><br>
 
 		{{ Form::open(array('action' => array('HomeController@doRegistration'), 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form')) }}
 		  
@@ -50,7 +50,7 @@
 	<div class="clearfix"></div>
 
 	<!-- Charity form -->
-	<div id="charity-form" class="row register-form">
+	<div id="charity-form" class="row register-form"><br>
 
 		
 
@@ -58,8 +58,11 @@
 		{{Form::open(array('action'=> array('HomeController@doRegistration'), 'files' => true, 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form'))  }}
 
 		<div>
-			{{ Form::hidden('role_id', User::ROLE_DONOR) }}
+			{{ Form::hidden('role_id', User::ROLE_CHARITY) }}
 		 </div>
+		 <div>
+			<h6>When registering as a charity please complete the form below, an admin at Tweets For Charity will verify and approve you as a valid charity.  Once the form is complete you will be redirected back to our home page, approval takes 2-3 business days.  Thank you!</h6> 
+	    </div>
 	    <div class="form-group">
 		  	{{ Form::label('charity_name', 'Charity Name', array('class' => 'col-sm-2 control-label')) }}
 		    <div class="col-sm-7">
@@ -68,9 +71,9 @@
 		  </div>
 
 		  <div class="form-group">
-		  	{{ Form::label('charity_name', 'Contact First Name', array('class' => 'col-sm-2 control-label')) }}
+		  	{{ Form::label('first_name, 'Contact First Name', array('class' => 'col-sm-2 control-label')) }}
 		    <div class="col-sm-7">
-		    	{{ Form::text('charity_name', Input::old('charity_name'), array('class' => 'form-control', 'placeholder' => 'First Name')) }}
+		    	{{ Form::text('first_name', Input::old('first_name'), array('class' => 'form-control', 'placeholder' => 'First Name')) }}
 		    </div>
 		  </div>
 
@@ -126,17 +129,10 @@
 		  <div class="form-group">
 		  	{{ Form::label('tax_id', 'Tax ID #', array('class' => 'col-sm-2 control-label')) }}
 		    <div class="col-sm-7">
-		    	{{ Form::text('tatx_id', Input::old('tax_id'), array('class' => 'form-control', 'placeholder' => 'Tax ID #')) }}
+		    	{{ Form::text('tax_id', Input::old('tax_id'), array('class' => 'form-control', 'placeholder' => 'Tax ID #')) }}
 		    </div>
 		  </div>
 
-		  <div class="form-group">
-		  	{{ Form::label('zip', 'Zip', array('class' => 'col-sm-2 control-label')) }}
-		    <div class="col-sm-7">
-		    	{{ Form::text('zip', Input::old('zip'), array('class' => 'form-control', 'placeholder' => 'Zip')) }}
-		    </div>
-		  </div>
-			
 		  <div>
 		  	{{Form::Submit('Register Charity', array('class' => 'btn col-md-offset-2')) }}
 		  </div>	
